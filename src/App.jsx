@@ -1,74 +1,96 @@
 import React from "react";
-import "./App.css";
-import Particles from "react-particles-js";
+import Particles from "react-tsparticles";
+import "./App.less";
+
+import AnimatedCursor from "react-animated-cursor";
 
 function App() {
   return (
     <div className="App">
+      <AnimatedCursor
+        innerSize={20}
+        outerSize={8}
+        color="193, 11, 111"
+        outerAlpha={0.2}
+        innerScale={0.7}
+        outerScale={5}
+      />
+      <div className="titleContainer">
+        <h1>- Léopold Assogba ; Portfolio -</h1>
+      </div>
       <Particles
         className="particlesContainer"
-        params={{
-          width: "100%",
-          height: "100%",
+        options={{
           background: {
             color: {
               value: "#000000",
             },
+            image: "url(/assets/img/backgroundCropped.jpg)",
+            size: "90% auto",
+            repeat: "no-repeat",
+            position: "bottom",
+          },
+          fpsLimit: 60,
+          interactivity: {
+            detectsOn: "canvas",
+            events: {
+              onClick: {
+                enable: true,
+                mode: "repulse",
+              },
+              onHover: {
+                enable: true,
+                mode: "bubble",
+              },
+              resize: true,
+            },
+            modes: {
+              bubble: {
+                distance: 150,
+                duration: 2,
+                opacity: 0.8,
+                size: 4,
+              },
+              repulse: {
+                distance: 150,
+                duration: 0.4,
+              },
+            },
           },
           particles: {
             color: {
-              value: "#edd72e",
+              value: "#ffcc00",
             },
-            number: {
-              value: 400,
-              density: {
-                enable: false,
-              },
-            },
-            size: {
-              value: 1.5,
-              random: true,
-              anim: {
-                speed: 3,
-                size_min: 0.3,
-              },
-            },
-            line_linked: {
-              enable: false,
+            collisions: {
+              enable: true,
             },
             move: {
               direction: "top",
               enable: true,
               outMode: "out",
-              random: true,
-              speed: 3.5,
+              random: false,
+              speed: 4,
               straight: false,
             },
-          },
-          interactivity: {
-            events: {
-              onhover: {
+            number: {
+              density: {
                 enable: true,
-                mode: "bubble",
+                value_area: 1000,
               },
-              onclick: {
-                enable: true,
-                mode: "",
-              },
+              value: 400,
             },
-            modes: {
-              bubble: {
-                distance: 250,
-                duration: 2,
-                size: 0,
-                opacity: 0,
-              },
-              repulse: {
-                distance: 400,
-                duration: 4,
-              },
+            opacity: {
+              value: 0.5,
+            },
+            shape: {
+              type: "circle",
+            },
+            size: {
+              random: true,
+              value: 2,
             },
           },
+          detectRetina: true,
         }}
       />
     </div>
