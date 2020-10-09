@@ -1,0 +1,29 @@
+.titleContainer {
+  position: absolute;
+  color: #c67d30;
+  height: auto;
+  z-index: 1;
+  font-size: 2em;
+  top: 40%;
+  text-align: center;
+
+  @media all and (max-width: 360px) {
+    font-size: 1.5em;
+  }
+
+   span {
+    padding-right: 0.2em;
+
+    &:nth-child(4) {
+      padding: 0;
+    }
+
+    div {
+      display: inline;
+      span {
+        padding: 0;
+      }
+    }
+  }
+
+}

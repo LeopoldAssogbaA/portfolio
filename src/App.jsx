@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import classnames from "classnames";
 
-import ParticlesComponent from "./particles";
+import ParticlesComponent from "./components/particles";
+import TitleContainer from "./components/homeTitle/";
 
 import "./App.less";
 
 function App() {
   const [fireState, setFireState] = useState("fire");
-  const changeText = (target) => {
-    console.log("change", target);
-  };
 
   return (
     <div className="App">
@@ -34,26 +32,8 @@ function App() {
           <div className="main-fire"></div>
         </div>
       </div>
-      <div className="titleContainer">
-        <h1>
-          <span id="about" onMouseEnter={() => changeText("about")}>
-            Léopold{" "}
-          </span>
-          <span id="contact" onMouseEnter={() => changeText("contact")}>
-            Assogba
-          </span>
-          <span id="git" onMouseEnter={() => changeText("git")}>
-            {" "}
-            ;{" "}
-          </span>
-          <span id="dev" onMouseEnter={() => changeText("dev")}>
-            Port
-          </span>
-          <span id="music" onMouseEnter={() => changeText("music")}>
-            folio
-          </span>
-        </h1>
-      </div>
+
+      <TitleContainer />
       <ParticlesComponent />
     </div>
   );
