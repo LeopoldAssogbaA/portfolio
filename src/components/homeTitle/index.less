@@ -2,17 +2,26 @@
   position: absolute;
   color: #c67d30;
   height: auto;
+  width: auto;
   z-index: 1;
   font-size: 2em;
   top: 40%;
   text-align: center;
+  
 
   @media all and (max-width: 360px) {
     font-size: 1.5em;
   }
 
+  .wordContainer {
+    width: auto;
+  }
+
    span {
-    padding-right: 0.2em;
+    padding-right: 0.1em;
+    &:hover {
+      cursor: pointer;
+    }
 
     &:nth-child(4) {
       padding: 0;

@@ -1,125 +1,115 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { CSSRulePlugin } from "gsap/CSSRulePlugin";
-import { TimelineLite, Power2 } from "gsap";
+import React, { useRef, useState } from "react";
 import { Wave } from "react-animated-text";
+import gsap from "gsap";
 
 import "./index.less";
 
-const TitleContainer = () => {
+const TitleContainer = ({ goToPortfolio }) => {
   const [paused, setPaused] = useState(true);
-  const fadeOut = "verticalFadeOut";
-  const fadeIn = "verticalFadeIn";
+  let menuRef = useRef(null);
 
-  // TODO: find how to replace letters with onMouseLeave
+  const removeMenu = () => {
+    gsap.to(menuRef, {
+      duration: 1,
+      ease: "power3",
+      opacity: 0,
+      y: "-50%",
+    });
+  };
+
   return (
     <>
       <div className="titleContainer">
-        <p className="wordContainer">
-          <span
-            onMouseEnter={() => setPaused(!paused)}
-            onMouseLeave={() => setPaused(!paused)}
-          >
+        <div className="wordContainer">
+          <span>
             <Wave
-              text="- Léopold"
-              effect={paused ? fadeOut : fadeIn}
+              text="- Léopold Assogba ; Portfolio -"
+              effect="verticalFadeOut"
               effectChange={2.5}
               effectDirection="up"
               iterations={1}
               paused={paused}
-              speed={10}
-            />
-            <Wave
-              text=" Assogba"
-              effect="verticalFadeOut"
-              effectChange={2.5}
-              effectDirection="up"
-              iterations={2}
-              paused={true}
-              speed={10}
-            />
-            <Wave
-              text=" ; "
-              effect="verticalFadeOut"
-              effectChange={2.5}
-              effectDirection="up"
-              iterations={1}
-              paused={true}
-              speed={10}
-            />
-            <Wave
-              text="Port"
-              effect="verticalFadeOut"
-              effectChange={2.5}
-              effectDirection="up"
-              iterations={1}
-              paused={true}
-              speed={10}
-            />
-            <Wave
-              text="folio -"
-              effect="verticalFadeOut"
-              effectChange={2.5}
-              effectDirection="up"
-              iterations={1}
-              paused={true}
-              speed={10}
+              speed={50}
             />
           </span>
-        </p>
+        </div>
       </div>
-      <div className="titleContainer revealed">
-        <p className="wordContainer">
+      <div className="titleContainer revealed" ref={(el) => (menuRef = el)}>
+        <div className="wordContainer">
           <span
-            onMouseEnter={() => setPaused(!paused)}
-            onMouseLeave={() => setPaused(!paused)}
+            onMouseEnter={() => setPaused(false)}
+            onClick={() => {
+              goToPortfolio("about");
+              removeMenu();
+            }}
           >
             <Wave
               text="  About"
-              effect={paused ? fadeIn : fadeOut}
+              effect="verticalFadeIn"
               effectChange={2.5}
               effectDirection="down"
               iterations={1}
               paused={paused}
-              speed={10}
+              speed={40}
             />
+          </span>
+          <span
+            onMouseEnter={() => setPaused(false)}
+            onClick={() => goToPortfolio("contact")}
+          >
             <Wave
-              text=" Contact"
+              text=" Contact "
               effect="verticalFadeIn"
               effectChange={2.5}
               effectDirection="down"
-              iterations={2}
-              paused={true}
-              speed={10}
+              iterations={1}
+              paused={paused}
+              speed={30}
             />
+          </span>
+          <span
+            onMouseEnter={() => setPaused(false)}
+            onClick={() => goToPortfolio("git")}
+          >
             <Wave
               text="Git"
               effect="verticalFadeIn"
               effectChange={2.5}
               effectDirection="down"
               iterations={1}
-              paused={true}
-              speed={10}
-            />
-            <Wave
-              text="Dev "
-              effect="verticalFadeIn"
-              effectChange={2.5}
-              effectDirection="down"
-              iterations={1}
-              paused={true}
-              speed={10}
-            />
-            <Wave
-              text="Music  "
-              effect="verticalFadeIn"
-              effectChange={2.5}
-              effectDirection="down"
-              iterations={1}
-              paused={true}
+              paused={paused}
               speed={10}
             />
           </span>
-        </p>
+          <span
+            onMouseEnter={() => setPaused(false)}
+            onClick={() => goToPortfolio("dev")}
+          >
+            <Wave
+              text=" Dev"
+              effect="verticalFadeIn"
+              effectChange={2.5}
+              effectDirection="down"
+              iterations={1}
+              paused={paused}
+              speed={7.5}
+            />
+          </span>
+          <span
+            onMouseEnter={() => setPaused(false)}
+            onClick={() => goToPortfolio("music")}
+          >
+            <Wave
+              text=" Music "
+              effect="verticalFadeIn"
+              effectChange={2.5}
+              effectDirection="down"
+              iterations={1}
+              paused={paused}
+              speed={5}
+            />
+          </span>
+        </div>
       </div>
     </>
   );
