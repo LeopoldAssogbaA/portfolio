@@ -1,21 +1,25 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Wave } from "react-animated-text";
 import gsap from "gsap";
 
 import "./index.less";
 
-const TitleContainer = ({ goToPortfolio }) => {
+const HomeContainer = ({ goToPortfolio }) => {
   const [paused, setPaused] = useState(true);
   let menuRef = useRef(null);
 
   const removeMenu = () => {
     gsap.to(menuRef, {
-      duration: 1,
+      duration: 1.5,
       ease: "power3",
       opacity: 0,
       y: "-50%",
     });
   };
+
+  useEffect(() => {
+    gsap.from("titleContainer", { visibility: "hidden", duration: 0 });
+  }, []);
 
   return (
     <>
@@ -39,7 +43,7 @@ const TitleContainer = ({ goToPortfolio }) => {
           <span
             onMouseEnter={() => setPaused(false)}
             onClick={() => {
-              goToPortfolio("about");
+              goToPortfolio("/about");
               removeMenu();
             }}
           >
@@ -47,7 +51,7 @@ const TitleContainer = ({ goToPortfolio }) => {
               text="  About"
               effect="verticalFadeIn"
               effectChange={2.5}
-              effectDirection="down"
+              effectDirection="/down"
               iterations={1}
               paused={paused}
               speed={40}
@@ -55,7 +59,10 @@ const TitleContainer = ({ goToPortfolio }) => {
           </span>
           <span
             onMouseEnter={() => setPaused(false)}
-            onClick={() => goToPortfolio("contact")}
+            onClick={() => {
+              goToPortfolio("/contact");
+              removeMenu();
+            }}
           >
             <Wave
               text=" Contact "
@@ -69,7 +76,10 @@ const TitleContainer = ({ goToPortfolio }) => {
           </span>
           <span
             onMouseEnter={() => setPaused(false)}
-            onClick={() => goToPortfolio("git")}
+            onClick={() => {
+              goToPortfolio("/git");
+              removeMenu();
+            }}
           >
             <Wave
               text="Git"
@@ -83,7 +93,10 @@ const TitleContainer = ({ goToPortfolio }) => {
           </span>
           <span
             onMouseEnter={() => setPaused(false)}
-            onClick={() => goToPortfolio("dev")}
+            onClick={() => {
+              goToPortfolio("/dev");
+              removeMenu();
+            }}
           >
             <Wave
               text=" Dev"
@@ -97,7 +110,10 @@ const TitleContainer = ({ goToPortfolio }) => {
           </span>
           <span
             onMouseEnter={() => setPaused(false)}
-            onClick={() => goToPortfolio("music")}
+            onClick={() => {
+              goToPortfolio("/music");
+              removeMenu();
+            }}
           >
             <Wave
               text=" Music "
@@ -115,4 +131,4 @@ const TitleContainer = ({ goToPortfolio }) => {
   );
 };
 
-export default TitleContainer;
+export default HomeContainer;

@@ -5,7 +5,7 @@ import "./index.less";
 
 const ParticlesComponent = () => {
   return (
-    <>
+    <div className="particlesComponent">
       <Particles
         className="particlesContainer"
         options={{
@@ -147,7 +147,7 @@ const ParticlesComponent = () => {
           detectRetina: true,
         }}
       />
-    </>
+    </div>
   );
 };
 
