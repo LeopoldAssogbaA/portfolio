@@ -7,6 +7,7 @@ import "./index.less";
 const HomeContainer = ({ goToPortfolio }) => {
   const [paused, setPaused] = useState(true);
   let menuRef = useRef(null);
+  let c = useRef(null);
 
   const removeMenu = () => {
     gsap.to(menuRef, {
@@ -18,12 +19,20 @@ const HomeContainer = ({ goToPortfolio }) => {
   };
 
   useEffect(() => {
-    gsap.from("titleContainer", { visibility: "hidden", duration: 0 });
+    gsap.from(c, {
+      visibility: "hidden",
+      duration: 0,
+    });
+    gsap.from(c, {
+      opacity: 0,
+      duration: 2,
+      delay: 2,
+    });
   }, []);
 
   return (
     <>
-      <div className="titleContainer">
+      <div className="titleContainer" ref={(el) => (c = el)}>
         <div className="wordContainer">
           <span>
             <Wave

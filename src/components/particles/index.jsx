@@ -1,11 +1,25 @@
-import React from "react";
+import gsap from "gsap/gsap-core";
+import React, { useEffect, useRef } from "react";
 import Particles from "react-tsparticles";
 
 import "./index.less";
 
 const ParticlesComponent = () => {
+  let c = useRef(null);
+
+  useEffect(() => {
+    gsap.from(c, {
+      visibility: "hidden",
+      duration: 0,
+    });
+    gsap.from(c, {
+      opacity: 0,
+      duration: 2,
+    });
+  }, []);
+
   return (
-    <div className="particlesComponent">
+    <div className="particlesComponent" ref={(el) => (c = el)}>
       <Particles
         className="particlesContainer"
         options={{
@@ -82,7 +96,7 @@ const ParticlesComponent = () => {
         }}
       />
       <Particles
-        className="littleParticlesContainer"
+        className="litleParticlesContainer"
         options={{
           fpsLimit: 60,
           interactivity: {

@@ -23,18 +23,14 @@ function App() {
     }, 1000);
   };
 
-  useEffect(() => {
-    gsap.from(particlesRef, { visibility: "hidden", duration: 0 });
-  }, []);
-
   return (
     <div className="App" ref={(el) => (appRef = el)}>
       <Switch>
         <Route exact path={"/"}>
-          <HomeContainer goToPortfolio={(page) => redirectFromMenu(page)} />
           <div className="homeContainer" ref={(el) => (particlesRef = el)}>
             <ParticlesComponent />
           </div>
+          <HomeContainer goToPortfolio={(page) => redirectFromMenu(page)} />
         </Route>
         <Route exact path={"/about"}>
           <Header />
