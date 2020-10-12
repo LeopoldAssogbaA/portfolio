@@ -1,13 +1,14 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { Route, Switch } from "react-router";
 import gsap from "gsap";
 
 import ParticlesComponent from "./components/particles";
 import HomeContainer from "./components/home/";
-import history from "./constants/history";
-
-import "./App.less";
 import Header from "./components/header";
+import About from "./components/about";
+
+import history from "./constants/history";
+import "./App.less";
 
 function App() {
   let particlesRef = useRef(null);
@@ -34,7 +35,7 @@ function App() {
         </Route>
         <Route exact path={"/about"}>
           <Header />
-          <div>About</div>
+          <About />
         </Route>
         <Route exact path={"/contact"}>
           <Header />

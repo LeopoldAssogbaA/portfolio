@@ -1,0 +1,43 @@
+.aboutContainer {
+  margin-top: 5em;
+  width: 100%;
+
+    .light {
+    width: 100%;
+    height: 12vw;
+    background-image: url(/assets/img/light1.jpg);
+    background-repeat: no-repeat;
+    background-size: 11%;
+    background-position: 0 0;
+  }
+
+  .abstract {
+    padding-bottom: 3em;
+    font-size: 1.5em;
+
+    p {
+      margin: 0;
+
+      &:last-of-type {
+        text-align: end;
+      }
+    }
+  }
+
+  .laptop {
+    div {
+      position: absolute;
+      width: 100%;
+      height: 50vh;
+      background-color: black;
+      top: 0;
+      right: 0;
+      z-index: 1;
+    }
+
+    img {
+      width: 100%;
+      position: absolute;
+    }
+  }
+}
