@@ -1,19 +1,13 @@
 import { Button, Col, Row } from "antd";
 import React, { useEffect, useRef, useState } from "react";
-import gsap, { TimelineLite, Power2, Power1, Bounce } from "gsap";
+import gsap, { Power2, Power1, Bounce, Linear } from "gsap";
 import CSSRulePlugin from "gsap/CSSRulePlugin";
-
 import { RightCircleOutlined } from "@ant-design/icons";
 
 import "./index.less";
-import { Linear } from "gsap/gsap-core";
-import { Power0 } from "gsap/gsap-core";
-
-// TODO: transition when page quit
 
 const About = () => {
   gsap.registerPlugin(CSSRulePlugin);
-  let laptopContainerRef = useRef(null);
   let laptopRevealRef = useRef(null);
   let laptopImgRef = useRef(null);
   let lightRef = useRef(null);
@@ -169,7 +163,7 @@ const About = () => {
           </Row>
           <Row>
             <Col span={24}>
-              <div className="laptop" ref={(el) => (laptopContainerRef = el)}>
+              <div className="laptop">
                 <div ref={(el) => (laptopRevealRef = el)}></div>
                 <img
                   src="assets/img/laptop.jpg"
