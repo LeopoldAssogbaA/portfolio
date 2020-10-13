@@ -12,10 +12,10 @@
     "classnames": "^2.2.6",
     "craco-less": "^1.17.0",
     "gsap": "^3.5.1",
+    "matter-js": "^0.14.2",
     "react": "^16.13.1",
     "react-animated-text": "^0.1.4",
     "react-dom": "^16.13.1",
-    "react-matter-js": "^1.0.5",
     "react-router": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-tsparticles": "^1.18.1"
