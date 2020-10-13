@@ -6,6 +6,8 @@ import CSSRulePlugin from "gsap/CSSRulePlugin";
 import { RightCircleOutlined } from "@ant-design/icons";
 
 import "./index.less";
+import { Linear } from "gsap/gsap-core";
+import { Power0 } from "gsap/gsap-core";
 
 // TODO: transition when page quit
 
@@ -17,6 +19,9 @@ const About = () => {
   let lightRef = useRef(null);
   let devTextContainer = useRef(null);
   let laptop2ImgRef = useRef(null);
+  let moonRef = useRef(null);
+  let pianoRef = useRef(null);
+  let musicTextRef = useRef(null);
 
   const [section, setSection] = useState(0);
   const sections = ["abstract", "dev", "music"];
@@ -41,27 +46,44 @@ const About = () => {
         ease: Power2.easeInOut,
         delay: 1.2,
       });
-    }
-  }, []);
-
-  useEffect(() => {
-    if (section === 1) {
+    } else if (section === 1) {
       gsap.to(lightRef, {
-        duration: 1,
+        duration: 1.3,
         opacity: 1,
         ease: Bounce.easeInOut,
       });
       gsap.to(devTextContainer, {
-        duration: 1,
+        duration: 1.3,
         opacity: 1,
         ease: Bounce.easeInOut,
       });
       gsap.to(laptop2ImgRef, {
-        duration: 1,
+        duration: 1.3,
         opacity: 1,
         left: 0,
         ease: Power1.easeIn,
-        delay: 1,
+        delay: 0.3,
+      });
+    } else if (section === 2) {
+      gsap.to(moonRef, {
+        duration: 1.3,
+        scale: 1,
+        opacity: 1,
+        top: 0,
+        left: 0,
+        ease: Linear.easeIn,
+      });
+      gsap.to(pianoRef, {
+        duration: 1.3,
+        opacity: 1,
+        left: 0,
+        ease: Linear.easeIn,
+      });
+      gsap.to(musicTextRef, {
+        duration: 1.3,
+        opacity: 1,
+        ease: Linear.easeIn,
+        delay: 0.9,
       });
     }
   }, [section]);
@@ -69,26 +91,20 @@ const About = () => {
   const goToNextContent = () => {
     if (section === 0) {
       gsap.to(".light", {
-        duration: 1,
+        duration: 0.7,
         opacity: 0,
         ease: Power2.easeInOut,
       });
       gsap.to(".abstract", {
-        duration: 1,
+        duration: 0.7,
         opacity: 0,
         ease: Power2.easeOut,
       });
       gsap.to(laptopImgRef, {
-        duration: 1,
+        duration: 0.7,
         left: "-20%",
         opacity: 0,
-        delay: 1,
-        ease: Power2.easeOut,
-      });
-      gsap.to(laptopImgRef, {
-        duration: 0,
-        visibility: "hidden",
-        delay: 2,
+        delay: 0.5,
         ease: Power2.easeOut,
       });
       setTimeout(() => {
@@ -96,21 +112,21 @@ const About = () => {
       }, 2000);
     } else if (section === 1) {
       gsap.to(lightRef, {
-        duration: 1,
+        duration: 0.7,
         opacity: 0,
-        ease: Bounce.easeInOut,
+        ease: Linear.easeOut,
       });
       gsap.to(devTextContainer, {
-        duration: 1,
+        duration: 0.7,
         opacity: 0,
-        ease: Bounce.easeInOut,
+        ease: Linear.easeOut,
       });
       gsap.to(laptop2ImgRef, {
-        duration: 1,
+        duration: 0.7,
         opacity: 0,
         left: "-20%",
         ease: Power2.easeOut,
-        delay: 1,
+        delay: 0.7,
       });
 
       setTimeout(() => {
@@ -218,12 +234,41 @@ const About = () => {
         </div>
       )}
       {sections[section] === "music" && (
-        <div className="aboutDevContainer">
-          <img src="assets/img/piano.jpg" alt="piano" />
-          {/* TODO: position: absolute;
-    width: 51%;
-    bottom: 0;
-    right: 0; */}
+        <div className="aboutMusicContainer">
+          <img
+            src="assets/img/moon.jpg"
+            alt="moon"
+            ref={(el) => (moonRef = el)}
+          />
+          <Row>
+            <Col span={16} offset={4}>
+              <div className="pianoContainer">
+                <img
+                  src="assets/img/piano.jpg"
+                  alt="piano"
+                  ref={(el) => (pianoRef = el)}
+                />
+              </div>
+              <div
+                className="musicTextContainer"
+                ref={(el) => (musicTextRef = el)}
+              >
+                <div>
+                  <h2>About Music</h2>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit
+                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                    occaecat cupidatat non proident, sunt in culpa qui officia
+                    deserunt mollit anim id est laborum.
+                  </p>
+                </div>
+              </div>
+            </Col>
+          </Row>
         </div>
       )}
     </div>
