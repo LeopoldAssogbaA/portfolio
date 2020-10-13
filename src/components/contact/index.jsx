@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Matter from "matter-js";
 
 import "./index.less";
@@ -6,6 +6,7 @@ import "./index.less";
 export const Contact = () => {
   const boxRef = useRef(null);
   const canvasRef = useRef(null);
+  const [section, setSection] = useState(null);
 
   useEffect(() => {
     let Body = Matter.Body;
@@ -67,8 +68,9 @@ export const Contact = () => {
     });
     Body.rotate(step2, Math.PI / 5);
 
-    const ball = Bodies.rectangle(50, 0, 40, 40, {
+    const email = Bodies.rectangle(50, 0, 40, 40, {
       restitution: 0.9,
+      label: "email",
       render: {
         sprite: {
           texture: "assets/icons/email-y.png",
@@ -77,8 +79,9 @@ export const Contact = () => {
         },
       },
     });
-    const ball2 = Bodies.rectangle(250, 0, 40, 40, {
+    const git = Bodies.rectangle(250, 0, 40, 40, {
       restitution: 0.9,
+      label: "github",
       render: {
         sprite: {
           texture: "assets/icons/github-y.png",
@@ -87,8 +90,9 @@ export const Contact = () => {
         },
       },
     });
-    const ball3 = Bodies.rectangle(50, 0, 40, 40, {
+    const linkedin = Bodies.rectangle(50, 0, 40, 40, {
       restitution: 0.9,
+      label: "linkedin",
       render: {
         sprite: {
           texture: "assets/icons/linkedin-y.png",
@@ -97,8 +101,9 @@ export const Contact = () => {
         },
       },
     });
-    const ball4 = Bodies.rectangle(50, 0, 40, 40, {
+    const phone = Bodies.rectangle(50, 0, 40, 40, {
       restitution: 0.9,
+      label: "phone",
       render: {
         sprite: {
           texture: "assets/icons/phone-y.png",
@@ -107,32 +112,41 @@ export const Contact = () => {
         },
       },
     });
-    const ball5 = Bodies.rectangle(250, 0, 50, 50, {
+    const cv = Bodies.rectangle(250, 0, 50, 50, {
       restitution: 0.9,
+      label: "resume",
       render: {
         sprite: {
-          texture: "assets/icons/pdf-y.png",
+          texture: "assets/icons/resume-y.png",
           xScale: 0.1,
           yScale: 0.1,
         },
       },
     });
 
-    World.add(engine.world, [floor, wallRight, wallLeft, step, step2, ball, 5]);
+    World.add(engine.world, [
+      floor,
+      wallRight,
+      wallLeft,
+      step,
+      step2,
+      email,
+      5,
+    ]);
     Engine.run(engine);
     Render.run(render);
 
     setTimeout(() => {
-      World.add(engine.world, [ball2]);
+      World.add(engine.world, [git]);
     }, 200);
     setTimeout(() => {
-      World.add(engine.world, [ball3]);
+      World.add(engine.world, [linkedin]);
     }, 400);
     setTimeout(() => {
-      World.add(engine.world, [ball4]);
+      World.add(engine.world, [phone]);
     }, 600);
     setTimeout(() => {
-      World.add(engine.world, [ball5]);
+      World.add(engine.world, [cv]);
     }, 800);
 
     // add mouse control
@@ -149,16 +163,39 @@ export const Contact = () => {
 
     World.add(engine.world, mouseConstraint);
 
-    Events.on(ball, "mousedown", function (event) {
+    Events.on(email, "mousedown", function (event) {
       console.log("added to world:", event.object);
     });
-    Matter.Events.on(mouseConstraint, "mousedown", function (event) {
-      console.log("clicked");
+
+    Events.on(mouseConstraint, "startdrag", function (event) {
+      console.log("startdrag", event);
+      switch (event.body.label) {
+        case "phone":
+          console.log("phone triggered");
+          setSection("phone");
+          break;
+        case "email":
+          console.log("email triggered");
+          break;
+        case "linkedin":
+          console.log("linkedin triggered");
+          break;
+        case "github":
+          console.log("github triggered");
+          break;
+        case "resume":
+          console.log("resume triggered");
+          break;
+        default:
+          return null;
+      }
     });
   }, []);
+  console.log(section);
   return (
     <div ref={boxRef} className="contactContainer">
       <canvas ref={canvasRef} />
+      {section === "phone" && <div className="phone">Phone</div>}
     </div>
   );
 };
