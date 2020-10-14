@@ -10,6 +10,7 @@ import About from "./components/about";
 import history from "./constants/history";
 import "./App.less";
 import Contact from "./components/contact";
+import GitComponent from "./components/git";
 
 function App() {
   let particlesRef = useRef(null);
@@ -44,7 +45,7 @@ function App() {
         </Route>
         <Route exact path={"/git"}>
           <Header />
-          <div>Git</div>
+          <GitComponent />
         </Route>
         <Route exact path={"/dev"}>
           <Header />

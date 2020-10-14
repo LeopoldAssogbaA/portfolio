@@ -1,7 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
+import {
+  ArrowDownOutlined,
+  DownloadOutlined,
+  GithubOutlined,
+  LinkedinOutlined,
+  MailOutlined,
+  PhoneOutlined,
+} from "@ant-design/icons";
 import Matter from "matter-js";
 
 import "./index.less";
+import { Button } from "antd";
 
 export const Contact = () => {
   const boxRef = useRef(null);
@@ -37,6 +46,13 @@ export const Contact = () => {
       },
     });
 
+    const top = Bodies.rectangle(150, 0, 300, 10, {
+      isStatic: true,
+      render: {
+        fillStyle: "black",
+      },
+    });
+
     const wallRight = Bodies.rectangle(0, 300, 600, 10, {
       isStatic: true,
       render: {
@@ -53,14 +69,14 @@ export const Contact = () => {
     });
     Body.rotate(wallLeft, Math.PI / 2);
 
-    const step = Bodies.rectangle(300, 60, 200, 5, {
+    const step = Bodies.rectangle(300, 60, 100, 5, {
       isStatic: true,
       render: {
         fillStyle: "black",
       },
     });
     Body.rotate(step, -Math.PI / 5);
-    const step2 = Bodies.rectangle(0, 60, 200, 5, {
+    const step2 = Bodies.rectangle(0, 60, 100, 5, {
       isStatic: true,
       render: {
         fillStyle: "black",
@@ -126,6 +142,7 @@ export const Contact = () => {
 
     World.add(engine.world, [
       floor,
+      top,
       wallRight,
       wallLeft,
       step,
@@ -171,31 +188,124 @@ export const Contact = () => {
       console.log("startdrag", event);
       switch (event.body.label) {
         case "phone":
-          console.log("phone triggered");
           setSection("phone");
           break;
         case "email":
-          console.log("email triggered");
+          setSection("email");
           break;
         case "linkedin":
-          console.log("linkedin triggered");
+          setSection("linkedin");
           break;
         case "github":
-          console.log("github triggered");
+          setSection("github");
           break;
         case "resume":
-          console.log("resume triggered");
+          setSection("resume");
           break;
         default:
           return null;
       }
     });
   }, []);
-  console.log(section);
+
   return (
     <div ref={boxRef} className="contactContainer">
       <canvas ref={canvasRef} />
-      {section === "phone" && <div className="phone">Phone</div>}
+      {(() => {
+        switch (section) {
+          case "phone":
+            return (
+              <div>
+                <a href="tel:06-72-58-45-63">
+                  <Button
+                    icon={<PhoneOutlined />}
+                    shape="round"
+                    size="large"
+                    type="primary"
+                  >
+                    06-72-58-45-63
+                  </Button>
+                </a>
+              </div>
+            );
+          case "email":
+            return (
+              <div>
+                <a href="mailto:leopoldassogba21@gmail.com">
+                  <Button
+                    icon={<MailOutlined />}
+                    shape="round"
+                    size="large"
+                    type="primary"
+                  >
+                    leopoldassogba21@gmail.com
+                  </Button>
+                </a>
+              </div>
+            );
+          case "linkedin":
+            return (
+              <div>
+                <a
+                  href="https://www.linkedin.com/in/l%C3%A9opold-assogba/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button
+                    icon={<LinkedinOutlined />}
+                    shape="round"
+                    size="large"
+                    type="primary"
+                  >
+                    Léopold Assogba
+                  </Button>
+                </a>
+              </div>
+            );
+          case "github":
+            return (
+              <div>
+                <a
+                  href="https://github.com/LeopoldAssogbaA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button
+                    icon={<GithubOutlined />}
+                    shape="round"
+                    size="large"
+                    type="primary"
+                  >
+                    LeopoldAssogbaA
+                  </Button>
+                </a>
+              </div>
+            );
+          case "resume":
+            return (
+              <div>
+                <a href="assets/pdf/Leopold-Assogba-Resume.pdf" download>
+                  <Button
+                    icon={<DownloadOutlined />}
+                    shape="round"
+                    size="large"
+                    type="primary"
+                  >
+                    Download Resume
+                  </Button>
+                </a>
+              </div>
+            );
+          default:
+            return (
+              <div>
+                <ArrowDownOutlined />
+                {" Select an element "}
+                <ArrowDownOutlined />
+              </div>
+            );
+        }
+      })()}
     </div>
   );
 };
