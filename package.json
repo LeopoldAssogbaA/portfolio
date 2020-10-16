@@ -16,6 +16,7 @@
     "matter-js": "^0.14.2",
     "react": "^16.13.1",
     "react-animated-text": "^0.1.4",
+    "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.13.1",
     "react-router": "^5.2.0",
     "react-scripts": "3.4.3",

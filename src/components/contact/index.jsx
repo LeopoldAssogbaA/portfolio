@@ -12,6 +12,8 @@ import Matter from "matter-js";
 import "./index.less";
 import { Button } from "antd";
 
+// TODO: enhance page animation
+
 export const Contact = () => {
   const boxRef = useRef(null);
   const canvasRef = useRef(null);
