@@ -12,6 +12,8 @@ import "./App.less";
 import Contact from "./components/contact";
 import GitComponent from "./components/git";
 
+//TODO: use .env for token
+
 function App() {
   let particlesRef = useRef(null);
   let appRef = useRef(null);

@@ -27,7 +27,7 @@ const Repo = ({ showRepo, repo }) => {
               <CopyToClipboard
                 text={repo.clone_url}
                 onCopy={() => {
-                  message.warning("Link coppied");
+                  message.warning("The link has been copied!");
                 }}
               >
                 <Button type="link" icon={<CopyOutlined />}>
@@ -45,16 +45,17 @@ const Repo = ({ showRepo, repo }) => {
           <span>{repo.size} Mo</span>
 
           <br />
-          <section
-            style={{ background: "darkgray", padding: "2em" }}
-            dangerouslySetInnerHTML={{ __html: rmImgUpdated }}
-          />
+          <section dangerouslySetInnerHTML={{ __html: rmImgUpdated }} />
           <br />
         </div>
       </div>
     );
   } else {
-    return <LoadingOutlined />;
+    return (
+      <div className="loadingContainer">
+        <LoadingOutlined />
+      </div>
+    );
   }
 };
 export default Repo;

@@ -1,17 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@600&display=swap");
+
 .repoContainer {
   overflow: auto;
   height: 100%;
+  font-family: "Source Code Pro", monospace;
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    // box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #c67d30;
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c67d30;
+  }
 
   .repoTitle {
     display: flex;
     justify-content: space-between;
+
+    .arrows {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      height: 2em;
+      z-index: 1;
+
+      button {
+        display: flex;
+      }
+    }
+
     h2 {
-      padding-top: 1em;
       font-size: 2em;
     }
     .repoLink {
       display: flex;
       flex-direction: column;
     }
+  }
+
+  section {
+    overflow: auto;
+    height: 50vh;
+    margin-top: 2em;
+    padding-right: 0.3em;
+
+    a {
+      img {
+        padding: 10%;
+      }
+    }
+
+    .anchor {
+      margin-right: 1em;
+      margin-bottom: 1em;
+      svg {
+        fill: #c67d30;
+      }
+    }
+  }
+}
+
+.loadingContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    font-size: 5em;
   }
 }

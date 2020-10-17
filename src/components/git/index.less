@@ -3,16 +3,73 @@
   height: 100%;
   width: 100%;
 
-  .imgContainer {
-    background-image: url("/assets/img/lightletters.jpeg");
+  > .ant-row {
+    height: 100%;
+
+    .arrowRight {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .arrowLeft {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .lightLetters {
+      position: absolute;
+      z-index: 0;
+      width: 100%;
+    }
+  }
+
+  .reposContainer {
     height: 100%;
     width: 100%;
-    background-position: 0 0;
-    background-size: 50%;
-    background-repeat: no-repeat;
+    margin: 4em 0 0 2em;
 
-    > .ant-row {
-      height: 100%;
+    .repoRevealPrev {
+      width: 100%;
+      height: 0;
+      background-color: black;
+      position: absolute;
+      z-index: 1;
+
+      .octocat {
+        width: 20%;
+        padding-left: 1em;
+      }
+
+      .prevTitle {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 2em;
+        opacity: 0;
+      }
+    }
+
+    .repoRevealNext {
+      width: 100%;
+      height: 0;
+      background-color: black;
+      position: absolute;
+      z-index: 1;
+
+      .octocat {
+        width: 20%;
+        padding-left: 1em;
+      }
+
+      .nextTitle {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 2em;
+        opacity: 0;
+      }
     }
   }
 }
