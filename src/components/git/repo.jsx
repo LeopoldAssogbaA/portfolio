@@ -9,6 +9,8 @@ import CopyToClipboard from "react-copy-to-clipboard";
 
 import "./repo.less";
 
+//TODO: z-index buttons on top
+
 const Repo = ({ showRepo, repo }) => {
   const regex = /src="/gi;
   const rmImgUpdated =
@@ -44,7 +46,7 @@ const Repo = ({ showRepo, repo }) => {
           <p className="description">{repo.description}</p>
           <span>{repo.size} Mo</span>
 
-          <br />
+          <h2>Readme.MD</h2>
           <section dangerouslySetInnerHTML={{ __html: rmImgUpdated }} />
           <br />
         </div>

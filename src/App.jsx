@@ -11,8 +11,12 @@ import history from "./constants/history";
 import "./App.less";
 import Contact from "./components/contact";
 import GitComponent from "./components/git";
+import DevComponent from "./components/dev";
 
 //TODO: use .env for token
+//TODO: refactor with route object
+//TODO: Add responsive rules
+//TODO: remove fs package
 
 function App() {
   let particlesRef = useRef(null);
@@ -51,7 +55,7 @@ function App() {
         </Route>
         <Route exact path={"/dev"}>
           <Header />
-          <div>Dev</div>
+          <DevComponent />
         </Route>
         <Route exact path={"/music"}>
           <Header />

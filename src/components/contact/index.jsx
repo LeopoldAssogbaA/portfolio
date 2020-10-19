@@ -7,10 +7,10 @@ import {
   MailOutlined,
   PhoneOutlined,
 } from "@ant-design/icons";
+import { Button } from "antd";
 import Matter from "matter-js";
 
 import "./index.less";
-import { Button } from "antd";
 
 // TODO: enhance page animation
 
@@ -97,6 +97,7 @@ export const Contact = () => {
         },
       },
     });
+
     const git = Bodies.rectangle(250, 0, 40, 40, {
       restitution: 0.9,
       label: "github",
@@ -181,10 +182,6 @@ export const Contact = () => {
       });
 
     World.add(engine.world, mouseConstraint);
-
-    Events.on(email, "mousedown", function (event) {
-      console.log("added to world:", event.object);
-    });
 
     Events.on(mouseConstraint, "startdrag", function (event) {
       console.log("startdrag", event);

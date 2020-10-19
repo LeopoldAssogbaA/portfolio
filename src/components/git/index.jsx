@@ -1,13 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Octokit } from "@octokit/core";
-import {
-  ArrowLeftOutlined,
-  ArrowRightOutlined,
-  GithubOutlined,
-  LeftOutlined,
-  RightCircleOutlined,
-  RightOutlined,
-} from "@ant-design/icons";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 
 import "./index.less";
 import { Button, Col, Row } from "antd";
