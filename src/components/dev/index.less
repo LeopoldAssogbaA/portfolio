@@ -1,9 +1,35 @@
 .devContainer {
   width: 100%;
   height: 100%;
+  &:before {
+    content: "";
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    z-index: -1;
+    background-image: url(/assets/img/leaf.jpg);
+    background-size: 50%;
+    background-repeat: no-repeat;
+    transform: scaleX(-1);
+    background-position: 100% 0;
+  }
 
-  .ant-row {
+  .window {
+    position: absolute;
+    top: 10em;
+    right: 2em;
+    z-index: -1;
+  }
+
+  > .ant-row {
     margin-top: 3em;
     height: 100%;
+
+    .mockupContainer {
+      .mockup {
+        width: 10%;
+        height: auto;
+      }
+    }
   }
 }
