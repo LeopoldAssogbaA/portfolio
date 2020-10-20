@@ -1,6 +1,5 @@
-// fire animation  
+// fire animation
 @keyframes scaleUpDown {
-
   0%,
   100% {
     transform: scaleY(1) scaleX(1);
@@ -21,7 +20,6 @@
 }
 
 @keyframes shake {
-
   0%,
   100% {
     transform: skewX(0) scale(1);
@@ -53,7 +51,6 @@
 }
 
 @keyframes glow {
-
   0%,
   100% {
     background-color: #ef5a00;
@@ -73,6 +70,7 @@
   width: 100%;
   height: 8%;
   margin-bottom: 2em;
+  z-index: 2;
 
   .menuContainer {
     position: absolute;
@@ -113,9 +111,11 @@
         position: absolute;
         width: 100%;
         height: 100%;
-        background-image: radial-gradient(farthest-corner at 10px 0,
-            #d43300 0%,
-            #ef5a00 95%);
+        background-image: radial-gradient(
+          farthest-corner at 10px 0,
+          #d43300 0%,
+          #ef5a00 95%
+        );
         transform: scaleX(0.8) rotate(45deg);
         border-radius: 0 40% 60% 40%;
         filter: drop-shadow(0 0 10px #d43322);
