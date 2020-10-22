@@ -12,6 +12,7 @@ import "./App.less";
 import Contact from "./components/contact";
 import GitComponent from "./components/git";
 import DevComponent from "./components/dev";
+import Music from "./components/music";
 
 //TODO: use .env for token
 //TODO: refactor with route object
@@ -59,7 +60,7 @@ function App() {
         </Route>
         <Route exact path={"/music"}>
           <Header />
-          <div>Music</div>
+          <Music />
         </Route>
       </Switch>
     </div>
