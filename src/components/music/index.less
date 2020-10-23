@@ -1,18 +1,80 @@
 .musicContainer {
   height: 100%;
   width: 100%;
+  overflow: hidden;
+
+  // .spotlight {
+  //   position: absolute;
+  //   width: 150px;
+  //   height: 500px;
+  //   border-radius: 50%;
+  //   background: radial-gradient(closest-side, #ff5f00, transparent);
+  //   z-index: -1;
+  //   transform: rotate(135deg);
+  //   right: 0;
+  // }
+
+  > .ant-row {
+    height: 100%;
+
+    .bandContainer {
+      width: 100%;
+
+      .pictureContainer {
+        display: flex;
+        justify-content: center;
+        img {
+          width: 50%;
+          -webkit-mask-image: -webkit-radial-gradient(
+            closest-side,
+            rgba(0, 0, 0, 1),
+            rgba(0, 0, 0, 0)
+          );
+          mask-image: radial-gradient(
+            closest-side,
+            rgba(0, 0, 0, 1),
+            rgba(0, 0, 0, 0)
+          );
+        }
+      }
+
+      .infosContainer {
+        display: flex;
+        flex-direction: column;
+
+        h2,
+        h3 {
+          text-align: center;
+        }
+        p {
+          padding: 2em 0;
+        }
+      }
+
+      .tracksContainer {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
 }
+
 .container {
-  position: absolute;
-  width: 900px;
+  // position: absolute;
+  width: 100%;
+  // margin-top: 5em;
+  height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .vinylSVG {
-  position: absolute;
-  top: 0;
+  // position: absolute;
+  // top: 10%;
   left: 0;
   width: 100%;
   visibility: hidden;
+  background: "radial-gradient(closest-side, #ff5f00, black)";
 }
 
 .searchSVG {
@@ -27,17 +89,18 @@ text {
   letter-spacing: 1.25px;
   text-rendering: optimizeSpeed;
 }
+
 #image-container {
-  top: 100px;
-  left: 0;
-  position: absolute;
-  width: 180px;
-  position: absolute;
-  background-color: white;
+  // position: absolute;
+  // width: 180px;
+  // background-color: white;
+  z-index: 2;
+  margin-bottom: 2em;
 }
 #image-container img {
   border-radius: 50%;
 }
+
 #preview-container {
   position: absolute;
   top: 0px;
@@ -49,6 +112,7 @@ text {
   visibility: hidden;
   z-index: 100;
 }
+
 #preview-container img {
   position: absolute;
   right: 0;
@@ -56,6 +120,7 @@ text {
   height: 96px;
   padding: 2px;
 }
+
 #preview-container p {
   position: absolute;
   text-align: right;
@@ -71,67 +136,14 @@ text {
 }
 
 .thumb {
+  // border: 1px solid #c67d30;
   padding: 10px;
-  opacity: 0.6;
+  opacity: 0.8;
 }
+
 .thumb:hover {
   opacity: 1;
 }
 #dragger {
   cursor: move;
-}
-
-#search-box {
-  position: absolute;
-  width: 500px;
-  height: 300px;
-  background-color: #ff5f00;
-  border-radius: 18px;
-}
-#search-box input {
-  position: absolute;
-  width: 300px;
-  height: 60px;
-  top: 50%;
-  left: 50%;
-  background-color: #fff;
-  border-radius: 4px;
-  -ms-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  font-size: 24px;
-  padding: 14px;
-  color: #3d3d3d;
-}
-
-#search-box #go,
-#search-box #show {
-  position: absolute;
-  left: 470px;
-  top: 116px;
-  font-size: 42px;
-  color: #fff;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-#search-box p {
-  position: absolute;
-  left: 99px;
-  top: 195px;
-  color: #fff;
-  font-size: 20px;
-  letter-spacing: 0.5px;
-
-  margin: 0;
-  padding: 0;
-}
-input,
-input:focus {
-  outline: 0;
-  border: 0;
-}
-
-*:focus {
-  outline: 0;
 }

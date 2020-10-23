@@ -13,6 +13,8 @@ import { Draggable } from "gsap/Draggable";
 import React, { useEffect, useRef, useState } from "react";
 import SC from "soundcloud";
 import "./index.less";
+import { Col, Row } from "antd";
+import Equalizer from "./equalizer";
 
 // TODO: enhance page animation
 
@@ -47,42 +49,20 @@ export const Music = () => {
       );
 
     //center the container cos it's pretty an' that
-    gsap.to(container, {
-      position: "absolute",
-      top: "0%",
-      left: "50%",
-      xPercent: -50,
-      yPercent: 0,
-    });
+    // gsap.to(container, {
+    //   position: "absolute",
+    //   top: "0%",
+    //   left: "50%",
+    //   xPercent: -50,
+    //   yPercent: 0,
+    // });
     gsap.to("svg", {
       visibility: "visible",
     });
-    gsap.to(vinylSVG, {
-      y: -110,
-      x: 80,
-    });
-
-    gsap.to(searchSVG, {
-      //top: '50%',
-      x: 190,
-      y: 120,
-      //yPercent: -50,
-      scale: 1.3,
-    });
-
-    gsap.to("#searchIcon circle", {
-      stroke: "#FFF",
-    });
-
-    gsap.to("#searchIcon path", {
-      fill: "#FFF",
-    });
-
-    gsap.to("#scLogo", {
-      x: 23,
-      y: 23,
-      scale: 1,
-    });
+    // gsap.to(vinylSVG, {
+    //   y: -110,
+    //   x: 80,
+    // });
 
     // ----SOUNDCLOUD TEST API---- //
     SC.initialize({
@@ -118,25 +98,6 @@ export const Music = () => {
       });
 
       tl.play(0);
-
-      gsap.to(searchSVG, 1, {
-        x: -400,
-        y: -10,
-        scale: 1,
-        transformOrigin: "50% 50%",
-        ease: Power3.easeInOut,
-      });
-
-      gsap.to("#searchIcon circle", 1, {
-        stroke: "#FF5F00",
-      });
-      gsap.to("#searchIcon path", 1, {
-        fill: "#FF5F00",
-      });
-
-      gsap.to(".scLogo", {
-        autoAlpha: 0,
-      });
     }
 
     gsap.to(["#vinylShine1", "#vinylShine2", "#vinylShine3"], {
@@ -219,7 +180,7 @@ export const Music = () => {
           alpha: 0,
           //rotation:-45,
           transformOrigin: "50% 50%", //,
-          //ease:Elastic.easeOut.config(1, 0.82)
+          ease: Elastic.easeOut.config(1, 0.82),
         },
         "-=2.6"
       );
@@ -421,7 +382,7 @@ export const Music = () => {
 
     function streamTrack(e, trackInfo) {
       SC.stream("/tracks/" + trackInfo.id).then(function (player) {
-        //player.play();
+        player.play();
         if (player.options.protocols[0] === "rtmp") {
           player.options.protocols.splice(0, 1);
         }
@@ -449,7 +410,7 @@ export const Music = () => {
           console.log(state);
 
           if (state === "idle") {
-            //needle_down.play()
+            needle_down.play();
           }
         });
       });
@@ -465,9 +426,9 @@ export const Music = () => {
       }
       //console.log(e.target.className === 'thumb')
       if (t.className === "thumb") {
-        //stylusDragger();
+        stylusDragger();
         scPlayer.pause();
-        //setSylusHold();
+        setSylusHold();
         stopVinyl();
         endTrack();
 
@@ -540,19 +501,19 @@ export const Music = () => {
   }*/
     });
 
-    // function createDragger() {
-    //   stylusDragger = null;
+    function createDragger() {
+      stylusDragger = null;
 
-    //   stylusDragger = new Draggable.create(circleDraggerRef, {
-    //     type: "rotation",
-    //     trigger: draggerRef,
-    //     cursor: "pointer",
-    //     bounds: { min: 0, max: vinylStartRotation },
-    //     onDrag: onDrag,
-    //     onRelease: onRelease,
-    //     onPress: onPress,
-    //   });
-    // }
+      stylusDragger = Draggable.create(circleDraggerRef, {
+        type: "rotation",
+        trigger: draggerRef,
+        cursor: "pointer",
+        bounds: { min: 0, max: vinylStartRotation },
+        onDrag: onDrag,
+        onRelease: onRelease,
+        onPress: onPress,
+      });
+    }
 
     document.body.onkeypress = function (e) {
       if (e.charCode === 13) {
@@ -566,142 +527,196 @@ export const Music = () => {
     getTracks("groove hill better world");
   }, []);
 
-  // /groove-hill/tracks
-
   return (
     <div className="musicContainer">
-      <div>
-        <div className="container">
-          <div id="preview-container">
-            <a href="#" title="" alt="" target="_blank">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/35984/blank.png" />
-            </a>
-            <p />
+      {/* <Equalizer /> */}
+      <Row>
+        <Col span={10} offset={1}>
+          <div className="bandContainer">
+            <div className="pictureContainer">
+              <img src="assets/img/ghdrum.jpg" alt="groove hill" />
+            </div>
+            <div className="infosContainer">
+              <h2>Groove Hill</h2>
+              <h3>Hip hop - Soul - Funk</h3>
+              <p>
+                An eclectic mix of musical genres, Groove Hill draws much
+                inspiration from African-American music. Having grown up during
+                the same times, the five musicians have channelled different
+                inspirations into a modern fusion of soul, jazz, funk and hip
+                hop. Their desire to create a unique and original sound drew
+                them together. Social and ethical themes dominate their lyrics,
+                sung in English, and delivered by a passionate singer. The soft
+                tones of the trombone and catchy groove rhythms form the band's
+                signature sound, with samples featuring at times.
+              </p>
+            </div>
+            <div className="tracksContainer">
+              <div id="image-container" />
+            </div>
           </div>
-          <svg
-            className="vinylSVG"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-            xmlna="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-            viewBox="0 0 600 600"
-            enableBackground="new 0 0 600 900"
-            xmlSpace="preserve"
-          >
-            <defs>
-              <path
-                id="titlePath"
-                fill="none"
-                stroke="#FF0049"
-                strokeMiterlimit={10}
-                d="M284,346.5c-14.6,0-26.5-11.9-26.5-26.5
+        </Col>
+        <Col span={10} offset={1}>
+          <Row justify="center" direction="column" style={{ height: "100%" }}>
+            <div className="container">
+              <svg
+                className="vinylSVG"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+                xmlna="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+                viewBox="0 0 600 600"
+                enableBackground="new 0 0 600 900"
+                xmlSpace="preserve"
+                style={{
+                  background: "radial-gradient(closest-side, #C67D30, black)",
+                }}
+              >
+                <defs>
+                  <path
+                    id="titlePath"
+                    fill="none"
+                    stroke="#FF0049"
+                    strokeMiterlimit={10}
+                    d="M284,346.5c-14.6,0-26.5-11.9-26.5-26.5
 		c0-14.6,11.9-26.5,26.5-26.5s26.5,11.9,26.5,26.5C310.5,334.6,298.6,346.5,284,346.5z"
-              />
-            </defs>
-            <g id="vinylGroup">
-              <circle id="vinylMain" fill="#2A2525" cx={284} cy={320} r={121} />
-              <circle
-                id="vinylStart"
-                fill="#262121"
-                cx={284}
-                cy={320}
-                r={117}
-              />
-              <circle id="vinylEnd" fill="#2A2525" cx={284} cy={320} r={50} />
-              <circle
-                id="vinylLabel"
-                fill="#FF5F00"
-                cx={284}
-                cy={320}
-                r="40.8"
-              />
-              <circle id="vinylInner" fill="#FF914F" cx={284} cy={320} r={17} />
-              <circle id="vinylHole" fill="#eff2e1" cx={284} cy={320} r="2.5" />
-            </g>
-            <g
-              id="vinylShineGroup"
-              stroke="#403737"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <circle
-                id="vinylShine1"
-                opacity="0.3"
-                fill="none"
-                cx={284}
-                cy={320}
-                r={103}
-              />
-              <circle
-                id="vinylShine2"
-                opacity="0.3"
-                fill="none"
-                cx={284}
-                cy={320}
-                r={91}
-              />
-              <circle
-                id="vinylShine3"
-                opacity="0.3"
-                fill="none"
-                cx={284}
-                cy={320}
-                r={60}
-              />
-              <g id="titleGroup" stroke="none" opacity={1}>
-                <text>
-                  <textPath id="vinylTitle" xlinkHref="#titlePath">
-                    -
-                  </textPath>
-                </text>
-              </g>
-            </g>
-            <g id="armGroup" ref={(el) => (armGroupRef = el)}>
-              <path
-                id="arm"
-                fill="none"
-                stroke="#9F978D"
-                strokeWidth={5}
-                strokeLinecap="round"
-                strokeMiterlimit={10}
-                d="M398.5,159v29c0,0-5.7,11.2-6.4,15.2
+                  />
+                </defs>
+                <g id="vinylGroup">
+                  <circle
+                    id="vinylMain"
+                    fill="#2A2525"
+                    cx={284}
+                    cy={320}
+                    r={121}
+                  />
+                  <circle
+                    id="vinylStart"
+                    fill="#262121"
+                    cx={284}
+                    cy={320}
+                    r={117}
+                  />
+                  <circle
+                    id="vinylEnd"
+                    fill="#2A2525"
+                    cx={284}
+                    cy={320}
+                    r={50}
+                  />
+                  <circle
+                    id="vinylLabel"
+                    fill="#FF5F00"
+                    cx={284}
+                    cy={320}
+                    r="40.8"
+                  />
+                  <circle
+                    id="vinylInner"
+                    fill="#FF914F"
+                    cx={284}
+                    cy={320}
+                    r={17}
+                  />
+                  <circle
+                    id="vinylHole"
+                    fill="#eff2e1"
+                    cx={284}
+                    cy={320}
+                    r="2.5"
+                  />
+                </g>
+                <g
+                  id="vinylShineGroup"
+                  stroke="#403737"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle
+                    id="vinylShine1"
+                    opacity="0.3"
+                    fill="none"
+                    cx={284}
+                    cy={320}
+                    r={103}
+                  />
+                  <circle
+                    id="vinylShine2"
+                    opacity="0.3"
+                    fill="none"
+                    cx={284}
+                    cy={320}
+                    r={91}
+                  />
+                  <circle
+                    id="vinylShine3"
+                    opacity="0.3"
+                    fill="none"
+                    cx={284}
+                    cy={320}
+                    r={60}
+                  />
+                  <g id="titleGroup" stroke="none" opacity={1}>
+                    <text>
+                      <textPath id="vinylTitle" xlinkHref="#titlePath">
+                        -
+                      </textPath>
+                    </text>
+                  </g>
+                </g>
+                <g id="armGroup" ref={(el) => (armGroupRef = el)}>
+                  <path
+                    id="arm"
+                    fill="none"
+                    stroke="#9F978D"
+                    strokeWidth={5}
+                    strokeLinecap="round"
+                    strokeMiterlimit={10}
+                    d="M398.5,159v29c0,0-5.7,11.2-6.4,15.2
 		s-4.3,16.2,7.6,30.1s81.7,93.9,85.5,99.4c3.7,5.5,5.1,8.7,3.4,20.2"
-              />
-              <circle id="balance" fill="#CCCBCB" cx="396.5" cy={188} r={19} />
-              <path
-                id="stylus"
-                fill="#18110E"
-                d="M489.9,367.5l-11.5-1.1c-2.2-0.2-3.8-2.2-3.6-4.4l1.5-15.9c0.2-2.2,2.2-3.8,4.4-3.6
+                  />
+                  <circle
+                    id="balance"
+                    fill="#CCCBCB"
+                    cx="396.5"
+                    cy={188}
+                    r={19}
+                  />
+                  <path
+                    id="stylus"
+                    fill="#18110E"
+                    d="M489.9,367.5l-11.5-1.1c-2.2-0.2-3.8-2.2-3.6-4.4l1.5-15.9c0.2-2.2,2.2-3.8,4.4-3.6
 		l11.5,1.1c2.2,0.2,3.8,2.2,3.6,4.4l-1.5,15.9C494,366.1,492.1,367.7,489.9,367.5z"
-              />
-            </g>
-            <g
-              id="circleDragger"
-              opacity={0}
-              ref={(el) => (circleDraggerRef = el)}
-            >
-              <circle
-                cx="396.5"
-                cy={188}
-                r={190}
-                fill="rgba(89,89,89,0.2)"
-                stroke="red"
-              />
-              <rect
-                id="dragger"
-                x={472}
-                y={338}
-                fill="#EF2572"
-                width={26}
-                height={36}
-                opacity={1}
-                ref={(el) => (draggerRef = el)}
-              />
-            </g>
-          </svg>
-          <div id="image-container" />
-        </div>
-      </div>
+                  />
+                </g>
+                <g
+                  id="circleDragger"
+                  opacity={0}
+                  ref={(el) => (circleDraggerRef = el)}
+                >
+                  <circle
+                    cx="396.5"
+                    cy={188}
+                    r={190}
+                    fill="rgba(89,89,89,0.2)"
+                    stroke="red"
+                  />
+                  <rect
+                    id="dragger"
+                    x={472}
+                    y={338}
+                    fill="#EF2572"
+                    width={26}
+                    height={36}
+                    opacity={1}
+                    ref={(el) => (draggerRef = el)}
+                  />
+                </g>
+              </svg>
+            </div>
+          </Row>
+        </Col>
+      </Row>
     </div>
   );
 };
