@@ -62,6 +62,7 @@
 }
 
 .header {
+  font-family: "Permanent Marker", cursive;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -80,6 +81,17 @@
     width: 50%;
     margin-left: 45%;
     font-size: 1.5em;
+
+    .link {
+      &:hover {
+        background: radial-gradient(closest-side, #820000, black);
+      }
+    }
+
+    .active {
+      background: radial-gradient(closest-side, #823800, black);
+      background-size: 120%;
+    }
   }
 
   .fireContainer {
@@ -97,6 +109,10 @@
       margin-left: auto;
       margin-right: auto;
       opacity: 1;
+
+      &:hover {
+        cursor: pointer;
+      }
 
       .fire-main {
         position: absolute;

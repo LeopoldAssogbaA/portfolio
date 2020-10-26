@@ -4,10 +4,10 @@
   height: 100%;
   display: flex;
   justify-content: center;
-  background-image: url(/assets/img/phone.jpg);
-  background-size: 41%;
-  background-repeat: no-repeat;
-  background-position: 100% 100%;
+  // background-image: url(/assets/img/phone.jpg);
+  // background-size: 41%;
+  // background-repeat: no-repeat;
+  // background-position: 100% 100%;
 
   canvas {
     position: absolute;
@@ -21,4 +21,24 @@
       color: black;
     }
   }
+}
+
+.linkButton {
+  position: absolute;
+  left: 120%;
+  opacity: 0;
+
+  button {
+    z-index: 3;
+  }
+}
+
+.illustration {
+  position: absolute;
+  width: auto;
+  height: 50%;
+  bottom: 0;
+  right: 0;
+  // -webkit-mask-image: radial-gradient(closest-side, #000000, rgba(0, 0, 0, 0));
+  mask-image: radial-gradient(closest-side, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
 }

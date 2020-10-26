@@ -53,6 +53,7 @@ const HomeContainer = ({ goToPortfolio }) => {
       <div className="titleContainer revealed" ref={(el) => (menuRef = el)}>
         <div className="wordContainer">
           <span
+            className="link"
             onMouseEnter={() => setPaused(false)}
             onClick={() => {
               goToPortfolio("/about");
@@ -70,6 +71,7 @@ const HomeContainer = ({ goToPortfolio }) => {
             />
           </span>
           <span
+            className="link"
             onMouseEnter={() => setPaused(false)}
             onClick={() => {
               goToPortfolio("/contact");
@@ -87,6 +89,7 @@ const HomeContainer = ({ goToPortfolio }) => {
             />
           </span>
           <span
+            className="link"
             onMouseEnter={() => setPaused(false)}
             onClick={() => {
               goToPortfolio("/git");
@@ -104,6 +107,7 @@ const HomeContainer = ({ goToPortfolio }) => {
             />
           </span>
           <span
+            className="link"
             onMouseEnter={() => setPaused(false)}
             onClick={() => {
               goToPortfolio("/dev");
@@ -121,6 +125,7 @@ const HomeContainer = ({ goToPortfolio }) => {
             />
           </span>
           <span
+            className="link"
             onMouseEnter={() => setPaused(false)}
             onClick={() => {
               goToPortfolio("/music");

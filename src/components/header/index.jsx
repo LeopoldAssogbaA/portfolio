@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { NavLink } from "react-router-dom";
 import gsap from "gsap";
 
 import "./index.less";
@@ -46,21 +47,21 @@ const Header = () => {
         </div>
       </div>
       <div className="menuContainer" ref={(el) => (menuRef = el)}>
-        <div className="about" onClick={() => navigate("about")}>
+        <NavLink to="/about" activeClassName="active" className="link">
           About
-        </div>
-        <div className="contact" onClick={() => navigate("contact")}>
+        </NavLink>
+        <NavLink to="/contact" activeClassName="active" className="link">
           Contact
-        </div>
-        <div className="git" onClick={() => navigate("git")}>
+        </NavLink>
+        <NavLink to="/git" activeClassName="active" className="link">
           Git
-        </div>
-        <div className="dev" onClick={() => navigate("dev")}>
+        </NavLink>
+        <NavLink to="/dev" activeClassName="active" className="link">
           Dev
-        </div>
-        <div className="music" onClick={() => navigate("music")}>
+        </NavLink>
+        <NavLink to="/music" activeClassName="active" className="link">
           Music
-        </div>
+        </NavLink>
       </div>
     </div>
   );
