@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import classnames from "classnames";
 import gsap from "gsap";
+import { CSSRulePlugin } from "gsap/CSSRulePlugin.js";
 
 import SC from "soundcloud";
 import { Col, Row } from "antd";
@@ -14,18 +16,30 @@ import "./index.less";
 // adjust Equalizer
 
 export const Music = () => {
-  const needle_down = new Audio(
-    "https://s3-us-west-2.amazonaws.com/s.cdpn.io/35984/vinyl_needle_down_edit.mp3"
-  );
-  const needle_up = new Audio("assets/sounds/needle-up.mp3");
-
   const [bands, setBands] = useState([]);
   const [bandsLoaded, setBandsLoaded] = useState(false);
   const [tracksLoaded, setTracksLoaded] = useState(false);
   const [tracksCreated, setTracksCreated] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0);
-  const [play, setPlay] = useState(false);
+  const [vinylPlaying, setVinylPlaying] = useState(false);
   const [player, setPlayer] = useState(null);
+  const [needleD, setNeedleD] = useState(
+    new Audio(
+      "https://s3-us-west-2.amazonaws.com/s.cdpn.io/35984/vinyl_needle_down_edit.mp3"
+    )
+  );
+  const needle_up = new Audio("assets/sounds/needle-up.mp3");
+
+  // ANIMATIONS --------------------------------------------
+
+  useEffect(() => {
+    tracksLoaded &&
+      gsap.to(".disco", {
+        duration: 1,
+        opacity: 1,
+        top: "50%",
+      });
+  });
 
   // DATAS ----------------------------------------------
 
@@ -77,20 +91,21 @@ export const Music = () => {
   }, [bands, bandsLoaded, tracksCreated]);
 
   const stream = (trackId) => {
-    if (play) {
-      if (
-        bands[0].tracks.findIndex((track) => track.id === trackId) ===
-        currentTrack
-      ) {
+    const trackIndex = bands[0].tracks.findIndex(
+      (track) => track.id === trackId
+    );
+
+    if (vinylPlaying) {
+      if (trackIndex === currentTrack) {
+        needleD.pause();
         needle_up.play();
-        needle_down.pause();
         player.pause();
-        setPlay(false);
+        setVinylPlaying(false);
       } else {
         needle_up.play();
-        needle_down.pause();
+        needleD.pause();
         player.pause();
-        setPlay(false);
+        setVinylPlaying(false);
         setTimeout(() => {
           gsap.to(".disco", { duration: 1, opacity: 0, top: 0 });
         }, 200);
@@ -100,35 +115,45 @@ export const Music = () => {
             gsap.to(".disco", { duration: 1, opacity: 1, top: "50%" });
           }, 2000);
           setTimeout(() => {
-            needle_down.play();
+            needleD.play();
             p.play();
-            const trackIndex = bands[0].tracks.findIndex(
-              (track) => track.id === trackId
-            );
             setPlayer(p);
-            setPlay(true);
+            setVinylPlaying(true);
             setCurrentTrack(trackIndex);
           }, 4000);
         });
       }
     } else {
-      SC.stream("/tracks/" + trackId).then((p) => {
-        needle_down.play();
-        p.play();
-        const trackIndex = bands[0].tracks.findIndex(
-          (track) => track.id === trackId
-        );
-        setPlayer(p);
-        setPlay(true);
-        setCurrentTrack(trackIndex);
-      });
+      if (trackIndex === currentTrack) {
+        SC.stream("/tracks/" + trackId).then((p) => {
+          needleD.play();
+          p.play();
+          setPlayer(p);
+          setVinylPlaying(true);
+          setCurrentTrack(trackIndex);
+        });
+      } else {
+        setTimeout(() => {
+          gsap.to(".disco", { duration: 1, opacity: 0, top: 0 });
+        }, 200);
+        SC.stream("/tracks/" + trackId).then((p) => {
+          setTimeout(() => {
+            gsap.to(".disco", { duration: 0, opacity: 0, top: "100%" });
+            gsap.to(".disco", { duration: 1, opacity: 1, top: "50%" });
+          }, 2000);
+          setTimeout(() => {
+            needleD.play();
+            p.play();
+            setPlayer(p);
+            setVinylPlaying(true);
+            setCurrentTrack(trackIndex);
+          }, 4000);
+        });
+      }
     }
   };
 
-  useEffect(() => {
-    gsap.to(".disco", { duration: 1, opacity: 1, top: "50%" });
-    gsap.to(".discoPlay", { duration: 1, opacity: 1, top: "50%" });
-  });
+  console.log("bands", bands);
 
   return (
     <div className="musicContainer">
@@ -177,7 +202,7 @@ export const Music = () => {
                         height={currentTrack === i ? "100" : "70"}
                       />
                       {currentTrack === i ? (
-                        play ? (
+                        vinylPlaying ? (
                           <Equalizer />
                         ) : // <CaretRightOutlined
                         //   style={{
@@ -204,7 +229,12 @@ export const Music = () => {
               background: "radial-gradient(closest-side, #C67D30, black)",
             }}
           >
-            <div className={play ? "discoPlay" : "disco"}></div>
+            <div
+              className={classnames(
+                vinylPlaying ? "discoPlay" : "disco",
+                bandsLoaded && bands[0].permalink
+              )}
+            ></div>
           </Row>
         </Col>
       </Row>
