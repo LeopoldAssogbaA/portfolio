@@ -1,11 +1,12 @@
+import React, { useEffect, useState } from "react";
 import gsap from "gsap";
 
-import React, { useEffect, useState } from "react";
 import SC from "soundcloud";
-import "./index.less";
 import { Col, Row } from "antd";
+import { CaretRightOutlined } from "@ant-design/icons";
 import Equalizer from "./equalizer";
 
+import "./index.less";
 // TODO: enhance page animation4
 // TODO: Clean and ajust vinyl size
 // Fade out onChange
@@ -13,10 +14,18 @@ import Equalizer from "./equalizer";
 // adjust Equalizer
 
 export const Music = () => {
+  const needle_down = new Audio(
+    "https://s3-us-west-2.amazonaws.com/s.cdpn.io/35984/vinyl_needle_down_edit.mp3"
+  );
+  const needle_up = new Audio("assets/sounds/needle-up.mp3");
+
   const [bands, setBands] = useState([]);
   const [bandsLoaded, setBandsLoaded] = useState(false);
   const [tracksLoaded, setTracksLoaded] = useState(false);
   const [tracksCreated, setTracksCreated] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState(0);
+  const [play, setPlay] = useState(false);
+  const [player, setPlayer] = useState(null);
 
   // DATAS ----------------------------------------------
 
@@ -67,21 +76,62 @@ export const Music = () => {
     !bandsLoaded && getBands();
   }, [bands, bandsLoaded, tracksCreated]);
 
-  const stream = (track) => {
-    SC.stream("/tracks/" + track.id).then((player) => {
-      player.play();
-    });
+  const stream = (trackId) => {
+    if (play) {
+      if (
+        bands[0].tracks.findIndex((track) => track.id === trackId) ===
+        currentTrack
+      ) {
+        needle_up.play();
+        needle_down.pause();
+        player.pause();
+        setPlay(false);
+      } else {
+        needle_up.play();
+        needle_down.pause();
+        player.pause();
+        setPlay(false);
+        setTimeout(() => {
+          gsap.to(".disco", { duration: 1, opacity: 0, top: 0 });
+        }, 200);
+        SC.stream("/tracks/" + trackId).then((p) => {
+          setTimeout(() => {
+            gsap.to(".disco", { duration: 0, opacity: 0, top: "100%" });
+            gsap.to(".disco", { duration: 1, opacity: 1, top: "50%" });
+          }, 2000);
+          setTimeout(() => {
+            needle_down.play();
+            p.play();
+            const trackIndex = bands[0].tracks.findIndex(
+              (track) => track.id === trackId
+            );
+            setPlayer(p);
+            setPlay(true);
+            setCurrentTrack(trackIndex);
+          }, 4000);
+        });
+      }
+    } else {
+      SC.stream("/tracks/" + trackId).then((p) => {
+        needle_down.play();
+        p.play();
+        const trackIndex = bands[0].tracks.findIndex(
+          (track) => track.id === trackId
+        );
+        setPlayer(p);
+        setPlay(true);
+        setCurrentTrack(trackIndex);
+      });
+    }
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      gsap.to(".disco", { duration: 1, opacity: 0, top: "20em" });
-    }, 1000);
+    gsap.to(".disco", { duration: 1, opacity: 1, top: "50%" });
+    gsap.to(".discoPlay", { duration: 1, opacity: 1, top: "50%" });
   });
 
   return (
     <div className="musicContainer">
-      {/* <Equalizer /> */}
       <Row>
         <Col span={10} offset={1}>
           <div className="bandContainer">
@@ -106,8 +156,14 @@ export const Music = () => {
             <div className="tracksContainer">
               <div id="image-container">
                 {tracksLoaded &&
-                  bands[0].tracks.map((track) => (
-                    <a href="#" onClick={() => stream(track)} key={track.id}>
+                  bands[0].tracks.map((track, i) => (
+                    <a
+                      href="javascript:void(0)"
+                      role="button"
+                      className="imgLink"
+                      onClick={() => stream(track.id)}
+                      key={track.id}
+                    >
                       <img
                         className="thumb"
                         src={
@@ -115,11 +171,24 @@ export const Music = () => {
                             ? track.artwork_url
                             : track.user.avatar_url
                         }
+                        title={track.title}
                         alt={track.title}
-                        width="70"
-                        height="70"
+                        width={currentTrack === i ? "100" : "70"}
+                        height={currentTrack === i ? "100" : "70"}
                       />
-                      <Equalizer />
+                      {currentTrack === i ? (
+                        play ? (
+                          <Equalizer />
+                        ) : // <CaretRightOutlined
+                        //   style={{
+                        //     fontSize: "2em",
+                        //     position: "absolute",
+                        //     top: 0,
+                        //     left: "0.8em",
+                        //   }}
+                        // />
+                        null
+                      ) : null}
                     </a>
                   ))}
               </div>
@@ -135,7 +204,7 @@ export const Music = () => {
               background: "radial-gradient(closest-side, #C67D30, black)",
             }}
           >
-            <div className="disco"></div>
+            <div className={play ? "discoPlay" : "disco"}></div>
           </Row>
         </Col>
       </Row>

@@ -2,7 +2,7 @@ import React from "react";
 import "./equalizer.less";
 
 const Equalizer = () => (
-  <div class="audio">
+  <div className="audio">
     <span></span>
     <span></span>
     <span></span>
