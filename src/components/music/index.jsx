@@ -20,6 +20,7 @@ import { TimelineLite } from "gsap/gsap-core";
 export const Music = () => {
   const [bands, setBands] = useState([]);
   const [bandsLoaded, setBandsLoaded] = useState(false);
+  const [bandRequeted, setBandRequeted] = useState(false);
   const [tracksLoaded, setTracksLoaded] = useState(false);
   const [tracksCreated, setTracksCreated] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0);
@@ -91,12 +92,14 @@ export const Music = () => {
     });
 
     const getBands = () => {
+      setBandRequeted(true);
+      console.log("bandsLOaded", bandsLoaded);
       const bandsIds = ["179508571", "284443809"];
       const bandsUpdated = [];
       const bandsWithTracks = [];
-
       for (let i = 0; i < bandsIds.length; i++) {
         SC.get(`/users/${bandsIds[i]}`).then((band) => {
+          console.log("loadBand");
           bandsUpdated.push(band);
           // if all bands loaded load tracks
           if (bandsUpdated.length === bandsIds.length) {
@@ -109,17 +112,26 @@ export const Music = () => {
                 bandsWithTracks.push(bandUpdated);
                 // set bands
                 if (bandsWithTracks.length === bandsIds.length) {
-                  // reorder band for GH at start
-                  const bandsWithTracksSorted = bandsWithTracks.sort((a, b) => {
-                    if (a.id === "179508571") {
-                      return b - a;
-                    } else {
-                      return a - b;
-                    }
-                  });
-                  setBands(bandsWithTracksSorted);
-                  setBandsLoaded(true);
-                  setTracksLoaded(true);
+                  const GHIndex = bandsWithTracks.findIndex(
+                    (band) => band.id === 179508571
+                  );
+                  // reorder bands
+                  if (GHIndex !== 0) {
+                    const bandsReordered = [];
+                    bandsReordered.push(
+                      bandsWithTracks[GHIndex],
+                      bandsWithTracks[0]
+                    );
+                    console.log("index GH", GHIndex);
+                    console.log("bandsReordered", bandsReordered);
+                    setBands(bandsReordered);
+                    setBandsLoaded(true);
+                    setTracksLoaded(true);
+                  } else {
+                    setBands(bandsWithTracks);
+                    setBandsLoaded(true);
+                    setTracksLoaded(true);
+                  }
                 }
               });
             }
@@ -128,8 +140,8 @@ export const Music = () => {
       }
     };
 
-    !bandsLoaded && getBands();
-  }, [bands, bandsLoaded, tracksCreated]);
+    !bandsLoaded && !bandRequeted && getBands();
+  }, [bands, bandsLoaded]);
 
   const stream = (trackId) => {
     const trackIndex = bands[0].tracks.findIndex(
