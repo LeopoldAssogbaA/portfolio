@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Octokit } from "@octokit/core";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import {
+  LeftOutlined,
+  RightOutlined,
+  LoadingOutlined,
+} from "@ant-design/icons";
 
 import "./index.less";
 import { Button, Col, Row } from "antd";
@@ -17,6 +21,7 @@ const GitComponent = () => {
   const [readmesLoaded, setReadmesLoaded] = useState(false);
   const [repoIndex, setRepoIndex] = useState(0);
   const [repoVisible, setRepoVisible] = useState(true);
+  const [loadReavealed, setLoadReavealed] = useState(false);
 
   let reposRef = useRef(null);
   let lightLettersRef = useRef(null);
@@ -217,6 +222,39 @@ const GitComponent = () => {
     }
   };
 
+  useEffect(() => {
+    gsap.to(lightLettersRef, {
+      duration: 1.6,
+      opacity: 1,
+      ease: Bounce.easeInOut,
+      delay: 0.8,
+    });
+
+    setRepoVisible(false);
+    reposLoaded &&
+      gsap.to(repoRevealNextRef, {
+        duration: 0,
+        height: "100%",
+        onComplete: () => {
+          gsap.to(repoRevealNextRef, {
+            delay: 0.8,
+            height: "0",
+            duration: 1,
+          });
+          gsap.to(".loadingReaveal", {
+            top: "-2em",
+            opacity: 0,
+            duration: 1,
+            delay: 0.2,
+            onComplete: () => {
+              setLoadReavealed(true);
+              setRepoVisible(true);
+            },
+          });
+        },
+      });
+  }, [reposLoaded]);
+
   return (
     <div className="gitContainer">
       <Row>
@@ -236,9 +274,20 @@ const GitComponent = () => {
             size="large"
           />
         </Col>
-
         <Col span={13}>
           <div className="reposContainer" ref={(el) => (reposRef = el)}>
+            {!loadReavealed && (
+              <LoadingOutlined
+                className="loadingReaveal"
+                style={{
+                  position: "absolute",
+                  fontSize: "5em",
+                  zIndex: 2,
+                  top: "2em",
+                  left: "50%",
+                }}
+              />
+            )}
             <div
               className="repoRevealPrev"
               ref={(el) => (repoRevealPrevRef = el)}

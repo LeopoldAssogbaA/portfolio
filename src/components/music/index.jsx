@@ -9,6 +9,8 @@ import { CaretRightOutlined } from "@ant-design/icons";
 import Equalizer from "./equalizer";
 
 import "./index.less";
+import { Power2 } from "gsap/gsap-core";
+import { TimelineLite } from "gsap/gsap-core";
 // TODO: enhance page animation4
 // TODO: Clean and ajust vinyl size
 // Fade out onChange
@@ -33,12 +35,51 @@ export const Music = () => {
   // ANIMATIONS --------------------------------------------
 
   useEffect(() => {
-    tracksLoaded &&
+    if (tracksLoaded) {
       gsap.to(".disco", {
         duration: 1,
         opacity: 1,
         top: "50%",
       });
+      gsap.to(".bandImg", {
+        duration: 0.5,
+        delay: 1,
+        maskImage:
+          "radial-gradient(closest-side,rgba(0, 0, 0, 1),rgba(0, 0, 0, 0))",
+      });
+      gsap.to(".bandNameReveal", {
+        duration: 0.8,
+        width: 0,
+        delay: 1.2,
+        ease: Power2.easeOut,
+      });
+      gsap.to(".genreReveal", {
+        duration: 0.8,
+        width: 0,
+        delay: 1.4,
+        ease: Power2.easeOut,
+      });
+      gsap.to(".descriptionReveal", {
+        duration: 0.8,
+        width: 0,
+        delay: 1.6,
+        ease: Power2.easeOut,
+      });
+
+      const tl = new TimelineLite();
+
+      tl.staggerTo(
+        "#image-container img",
+        0.5,
+        {
+          scale: 1,
+          delay: 1.8,
+          borderRadius: "50%",
+          transformOrigin: "50% 50%",
+        },
+        0.1
+      );
+    }
   });
 
   // DATAS ----------------------------------------------
@@ -161,22 +202,36 @@ export const Music = () => {
         <Col span={10} offset={1}>
           <div className="bandContainer">
             <div className="pictureContainer">
-              <img src="assets/img/ghdrum.jpg" alt="groove hill" />
+              <img
+                src="assets/img/ghdrum.jpg"
+                alt="groove hill"
+                className="bandImg"
+              />
             </div>
             <div className="infosContainer">
-              <h2>Groove Hill</h2>
-              <h3>Hip hop - Soul - Funk</h3>
-              <p>
-                An eclectic mix of musical genres, Groove Hill draws much
-                inspiration from African-American music. Having grown up during
-                the same times, the five musicians have channelled different
-                inspirations into a modern fusion of soul, jazz, funk and hip
-                hop. Their desire to create a unique and original sound drew
-                them together. Social and ethical themes dominate their lyrics,
-                sung in English, and delivered by a passionate singer. The soft
-                tones of the trombone and catchy groove rhythms form the band's
-                signature sound, with samples featuring at times.
-              </p>
+              <div>
+                <h2 className="bandName">Groove Hill</h2>
+                <div className="bandNameReveal" />
+              </div>
+              <div>
+                <h3 className="genre">Hip hop - Soul - Funk</h3>
+                <div className="genreReveal" />
+              </div>
+              <div>
+                <p className="description">
+                  An eclectic mix of musical genres, Groove Hill draws much
+                  inspiration from African-American music. Having grown up
+                  during the same times, the five musicians have channelled
+                  different inspirations into a modern fusion of soul, jazz,
+                  funk and hip hop. Their desire to create a unique and original
+                  sound drew them together. Social and ethical themes dominate
+                  their lyrics, sung in English, and delivered by a passionate
+                  singer. The soft tones of the trombone and catchy groove
+                  rhythms form the band's signature sound, with samples
+                  featuring at times.
+                </p>
+                <div className="descriptionReveal" />
+              </div>
             </div>
             <div className="tracksContainer">
               <div id="image-container">
@@ -190,7 +245,7 @@ export const Music = () => {
                       key={track.id}
                     >
                       <img
-                        className="thumb"
+                        className="thumb tracksImg"
                         src={
                           track.artwork_url
                             ? track.artwork_url

@@ -3,17 +3,6 @@
   width: 100%;
   overflow: hidden;
 
-  // .spotlight {
-  //   position: absolute;
-  //   width: 150px;
-  //   height: 500px;
-  //   border-radius: 50%;
-  //   background: radial-gradient(closest-side, #ff5f00, transparent);
-  //   z-index: -1;
-  //   transform: rotate(135deg);
-  //   right: 0;
-  // }
-
   > .ant-row {
     height: 100%;
 
@@ -23,16 +12,12 @@
       .pictureContainer {
         display: flex;
         justify-content: center;
-        img {
+
+        .bandImg {
           width: 50%;
-          -webkit-mask-image: -webkit-radial-gradient(
-            closest-side,
-            rgba(0, 0, 0, 1),
-            rgba(0, 0, 0, 0)
-          );
           mask-image: radial-gradient(
             closest-side,
-            rgba(0, 0, 0, 1),
+            rgba(0, 0, 0, 0),
             rgba(0, 0, 0, 0)
           );
         }
@@ -42,6 +27,10 @@
         display: flex;
         flex-direction: column;
 
+        > div {
+          position: relative;
+        }
+
         h2,
         h3 {
           text-align: center;
@@ -49,6 +38,36 @@
         p {
           padding: 2em 0;
         }
+      }
+      .bandNameReveal {
+        top: 0;
+        opacity: 1;
+        background: black;
+        width: 100%;
+        height: 2em;
+        position: absolute;
+        z-index: 2;
+      }
+      .genreReveal {
+        opacity: 1;
+        top: 0;
+        opacity: 1;
+        background: black;
+        width: 100%;
+        height: 2em;
+        position: absolute;
+        z-index: 2;
+      }
+      .descriptionReveal {
+        padding-top: 2em;
+        opacity: 1;
+        top: 0;
+        opacity: 1;
+        background: black;
+        width: 100%;
+        height: 16em;
+        position: absolute;
+        z-index: 2;
       }
 
       .tracksContainer {
@@ -98,8 +117,10 @@ text {
     position: relative;
   }
 }
+
 #image-container img {
   border-radius: 50%;
+  transform: scale(0);
 }
 
 .thumb {

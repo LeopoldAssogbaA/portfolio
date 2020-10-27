@@ -1,8 +1,4 @@
-import {
-  CopyOutlined,
-  GithubOutlined,
-  LoadingOutlined,
-} from "@ant-design/icons";
+import { CopyOutlined, GithubOutlined } from "@ant-design/icons";
 import { Button, message } from "antd";
 import React from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
@@ -53,11 +49,7 @@ const Repo = ({ showRepo, repo }) => {
       </div>
     );
   } else {
-    return (
-      <div className="loadingContainer">
-        <LoadingOutlined />
-      </div>
-    );
+    return null;
   }
 };
 export default Repo;
