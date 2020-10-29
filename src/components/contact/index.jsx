@@ -11,9 +11,8 @@ import { Button } from "antd";
 import Matter from "matter-js";
 
 import "./index.less";
-import gsap, { Elastic, Power3 } from "gsap/gsap-core";
+import gsap from "gsap/gsap-core";
 import { Bounce } from "gsap/gsap-core";
-import { Linear } from "gsap/gsap-core";
 import { Back } from "gsap/gsap-core";
 
 // TODO: enhance page animation
@@ -21,7 +20,7 @@ import { Back } from "gsap/gsap-core";
 export const Contact = () => {
   const boxRef = useRef(null);
   const canvasRef = useRef(null);
-  const [section, setSection] = useState(null);
+  const [animationDone, setAnimationDone] = useState(true);
 
   useEffect(() => {
     let Body = Matter.Body;
@@ -90,7 +89,7 @@ export const Contact = () => {
     });
     Body.rotate(step2, Math.PI / 5);
 
-    const email = Bodies.rectangle(50, 0, 40, 40, {
+    let email = Bodies.rectangle(50, 0, 40, 40, {
       restitution: 0.9,
       label: "email",
       render: {
@@ -102,7 +101,7 @@ export const Contact = () => {
       },
     });
 
-    const git = Bodies.rectangle(250, 0, 40, 40, {
+    let git = Bodies.rectangle(250, 0, 40, 40, {
       restitution: 0.9,
       label: "github",
       render: {
@@ -113,7 +112,8 @@ export const Contact = () => {
         },
       },
     });
-    const linkedin = Bodies.rectangle(50, 0, 40, 40, {
+
+    let linkedin = Bodies.rectangle(50, 0, 40, 40, {
       restitution: 0.9,
       label: "linkedin",
       render: {
@@ -124,7 +124,8 @@ export const Contact = () => {
         },
       },
     });
-    const phone = Bodies.rectangle(50, 0, 40, 40, {
+
+    let phone = Bodies.rectangle(50, 0, 40, 40, {
       restitution: 0.9,
       label: "phone",
       render: {
@@ -135,7 +136,8 @@ export const Contact = () => {
         },
       },
     });
-    const cv = Bodies.rectangle(250, 0, 50, 50, {
+
+    let resume = Bodies.rectangle(250, 0, 50, 50, {
       restitution: 0.9,
       label: "resume",
       render: {
@@ -170,7 +172,7 @@ export const Contact = () => {
       World.add(engine.world, [phone]);
     }, 600);
     setTimeout(() => {
-      World.add(engine.world, [cv]);
+      World.add(engine.world, [resume]);
     }, 800);
 
     // add mouse control
@@ -190,7 +192,7 @@ export const Contact = () => {
     Matter.Events.on(mouseConstraint, "mousemove", function (event) {
       //For Matter.Query.point pass "array of bodies" and "mouse position"
       var foundPhysics = Matter.Query.point(
-        [email, phone, git, linkedin, cv],
+        [email, phone, git, linkedin, resume],
         event.mouse.position
       );
       if (foundPhysics.length !== 0) {
@@ -203,6 +205,7 @@ export const Contact = () => {
     Events.on(mouseConstraint, "startdrag", function (event) {
       console.log("startdrag", event);
 
+      setAnimationDone(false);
       gsap.to(".illustration", {
         duration: 0.6,
         maskImage:
@@ -228,7 +231,19 @@ export const Contact = () => {
 
       switch (event.body.label) {
         case "phone":
-          setSection("phone");
+          World.remove(engine.world, [phone]);
+          phone = Bodies.rectangle(50, 0, 40, 40, {
+            restitution: 0.9,
+            label: "phone",
+            render: {
+              sprite: {
+                texture: "assets/icons/phone-y.png",
+                xScale: 0.1,
+                yScale: 0.1,
+              },
+            },
+          });
+
           gsap.to(".phone", {
             duration: 0.5,
             maskImage: "radial-gradient(closest-side,#000000,rgba(0, 0, 0, 0))",
@@ -240,10 +255,25 @@ export const Contact = () => {
             opacity: 1,
             delay: 0.6,
             ease: Bounce.easeOut,
+            onComplete: () => {
+              setAnimationDone(true);
+              World.add(engine.world, [phone]);
+            },
           });
           break;
         case "email":
-          setSection("email");
+          World.remove(engine.world, [email]);
+          email = Bodies.rectangle(50, 0, 40, 40, {
+            restitution: 0.9,
+            label: "email",
+            render: {
+              sprite: {
+                texture: "assets/icons/email-y.png",
+                xScale: 0.1,
+                yScale: 0.1,
+              },
+            },
+          });
           gsap.to(".email", {
             duration: 0.5,
             maskImage: "radial-gradient(closest-side,#000000,rgba(0, 0, 0, 0))",
@@ -255,10 +285,25 @@ export const Contact = () => {
             opacity: 1,
             delay: 0.6,
             ease: Bounce.easeOut,
+            onComplete: () => {
+              setAnimationDone(true);
+              World.add(engine.world, [email]);
+            },
           });
           break;
         case "linkedin":
-          setSection("linkedin");
+          World.remove(engine.world, [linkedin]);
+          linkedin = Bodies.rectangle(50, 0, 40, 40, {
+            restitution: 0.9,
+            label: "linkedin",
+            render: {
+              sprite: {
+                texture: "assets/icons/linkedin-y.png",
+                xScale: 0.1,
+                yScale: 0.1,
+              },
+            },
+          });
           gsap.to(".linkedin", {
             duration: 0.5,
             maskImage: "radial-gradient(closest-side,#000000,rgba(0, 0, 0, 0))",
@@ -270,10 +315,25 @@ export const Contact = () => {
             opacity: 1,
             delay: 0.6,
             ease: Bounce.easeOut,
+            onComplete: () => {
+              setAnimationDone(true);
+              World.add(engine.world, [linkedin]);
+            },
           });
           break;
         case "github":
-          setSection("github");
+          World.remove(engine.world, [git]);
+          git = Bodies.rectangle(250, 0, 40, 40, {
+            restitution: 0.9,
+            label: "github",
+            render: {
+              sprite: {
+                texture: "assets/icons/github-y.png",
+                xScale: 0.1,
+                yScale: 0.1,
+              },
+            },
+          });
           gsap.to(".git", {
             duration: 0.5,
             maskImage: "radial-gradient(closest-side,#000000,rgba(0, 0, 0, 0))",
@@ -285,10 +345,25 @@ export const Contact = () => {
             opacity: 1,
             delay: 0.6,
             ease: Bounce.easeOut,
+            onComplete: () => {
+              setAnimationDone(true);
+              World.add(engine.world, [git]);
+            },
           });
           break;
         case "resume":
-          setSection("resume");
+          World.remove(engine.world, [resume]);
+          resume = Bodies.rectangle(250, 0, 50, 50, {
+            restitution: 0.9,
+            label: "resume",
+            render: {
+              sprite: {
+                texture: "assets/icons/resume-y.png",
+                xScale: 0.1,
+                yScale: 0.1,
+              },
+            },
+          });
           gsap.to(".resume", {
             duration: 0.5,
             maskImage: "radial-gradient(closest-side,#000000,rgba(0, 0, 0, 0))",
@@ -300,6 +375,10 @@ export const Contact = () => {
             opacity: 1,
             delay: 0.6,
             ease: Bounce.easeOut,
+            onComplete: () => {
+              setAnimationDone(true);
+              World.add(engine.world, [resume]);
+            },
           });
           break;
         default:
@@ -335,7 +414,11 @@ export const Contact = () => {
         alt="test"
         className="illustration resume"
       />
-      <canvas ref={canvasRef} id="canvas" />
+      <canvas
+        ref={canvasRef}
+        id="canvas"
+        style={animationDone ? { zIndex: 0 } : { zIndex: -1 }}
+      />
       <div className="linkButton phoneButton">
         <a href="tel:06-72-58-45-63">
           <Button
@@ -404,96 +487,6 @@ export const Contact = () => {
           </Button>
         </a>
       </div>
-
-      {/* {(() => {
-        switch (section) {
-          case "phone":
-            return (
-              <div>
-                <a href="tel:06-72-58-45-63">
-                  <Button
-                    icon={<PhoneOutlined />}
-                    shape="round"
-                    size="large"
-                    type="primary"
-                  >
-                    06-72-58-45-63
-                  </Button>
-                </a>
-              </div>
-            );
-          case "email":
-            return (
-              <div>
-                <a href="mailto:leopoldassogba21@gmail.com">
-                  <Button
-                    icon={<MailOutlined />}
-                    shape="round"
-                    size="large"
-                    type="primary"
-                  >
-                    leopoldassogba21@gmail.com
-                  </Button>
-                </a>
-              </div>
-            );
-          case "linkedin":
-            return (
-              <div>
-                <a
-                  href="https://www.linkedin.com/in/l%C3%A9opold-assogba/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button
-                    icon={<LinkedinOutlined />}
-                    shape="round"
-                    size="large"
-                    type="primary"
-                  >
-                    Léopold Assogba
-                  </Button>
-                </a>
-              </div>
-            );
-          case "github":
-            return (
-              <div>
-                <a
-                  href="https://github.com/LeopoldAssogbaA"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button
-                    icon={<GithubOutlined />}
-                    shape="round"
-                    size="large"
-                    type="primary"
-                  >
-                    LeopoldAssogbaA
-                  </Button>
-                </a>
-              </div>
-            );
-          case "resume":
-            return (
-              <div>
-                <a href="assets/pdf/Leopold-Assogba-Resume.pdf" download>
-                  <Button
-                    icon={<DownloadOutlined />}
-                    shape="round"
-                    size="large"
-                    type="primary"
-                  >
-                    Download Resume
-                  </Button>
-                </a>
-              </div>
-            );
-          default:
-            return null;
-        }
-      })()} */}
     </div>
   );
 };

@@ -51,15 +51,16 @@
 
     .infosContainer {
       padding-top: 20vh;
+      padding-bottom: 2em;
 
       .titleReveal {
-        opacity: 0;
+        opacity: 1;
         background-color: black;
         width: 60%;
         height: 5em;
         position: absolute;
         z-index: 1;
-        left: 0;
+        left: -2em;
       }
 
       .companyReveal {
@@ -128,6 +129,12 @@
         font-size: 1.2em;
         // padding-top: 2em;
       }
+    }
+
+    .arrowsContainer {
+      display: flex;
+      justify-content: space-evenly;
+      font-size: 0em;
     }
   }
 }

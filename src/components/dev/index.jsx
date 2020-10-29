@@ -1,20 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
 import Matter from "matter-js";
-import { Col, Row } from "antd";
+import gsap from "gsap";
+import { Button, Col, Row } from "antd";
+import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
+import { Power2 } from "gsap/gsap-core";
 
-import codeIcons from "./codeIcons";
+import codeIcons from "../../constants/codeIcons";
+import devProjects from "../../constants/devProjects";
 
 import "./index.less";
-import gsap from "gsap";
-import { Power2 } from "gsap/gsap-core";
+import { withRouter } from "react-router-dom";
 
 // TODO: handle lifecycle bug on page
 
-const DevComponent = () => {
+const DevComponent = ({ history }) => {
   // MatterJS
   const canvasRef = useRef(null);
   const boxRef = useRef(null);
   const [launched, setLauchend] = useState(false);
+  const [projectIndex, setProjectIndex] = useState(0);
+  // const [projectVisible, setProjectVisible] = useState(true);
+
   useEffect(() => {
     if (!launched) {
       var Engine = Matter.Engine,
@@ -102,7 +108,6 @@ const DevComponent = () => {
         });
 
       World.add(world, mouseConstraint);
-      console.log("lauched");
 
       // keep the mouse in sync with rendering
       render.mouse = mouse;
@@ -114,8 +119,17 @@ const DevComponent = () => {
       });
 
       setLauchend(true);
+      // clear matterJS if not on page
+      history.listen((location, action) => {
+        console.log(action, location.pathname);
+        if (location.pathname !== "/dev") {
+          setLauchend(false);
+          World.clear(world);
+          Engine.clear(engine);
+        }
+      });
     }
-  }, [launched]);
+  }, [launched, history]);
 
   // GSAP
   let titleRevealRef = useRef();
@@ -123,13 +137,9 @@ const DevComponent = () => {
   let dateRevealRef = useRef();
   let stackRevealRef = useRef();
   let descriptionRevealRef = useRef();
+
   useEffect(() => {
     // title
-    gsap.to(titleRevealRef, {
-      duration: 0.5,
-      left: 0,
-      opacity: 1,
-    });
     gsap.to(".title", {
       duration: 0,
       delay: 0.5,
@@ -142,12 +152,6 @@ const DevComponent = () => {
       ease: Power2.easeOut,
     });
     // company name
-    gsap.to(companyRevealRef, {
-      duration: 0.5,
-      left: 0,
-      opacity: 1,
-      delay: 0.2,
-    });
     gsap.to(".companyName", {
       duration: 0,
       delay: 0.7,
@@ -160,12 +164,6 @@ const DevComponent = () => {
       ease: Power2.easeOut,
     });
     // company name
-    gsap.to(dateRevealRef, {
-      duration: 0.5,
-      left: 0,
-      opacity: 1,
-      delay: 0.4,
-    });
     gsap.to(".date", {
       duration: 0.5,
       delay: 0.9,
@@ -178,12 +176,6 @@ const DevComponent = () => {
       ease: Power2.easeOut,
     });
     // stack
-    gsap.to(stackRevealRef, {
-      duration: 0.5,
-      left: 0,
-      opacity: 1,
-      delay: 0.6,
-    });
     gsap.to(".stack", {
       duration: 0,
       delay: 1.1,
@@ -196,12 +188,6 @@ const DevComponent = () => {
       ease: Power2.easeOut,
     });
     // description
-    gsap.to(descriptionRevealRef, {
-      duration: 0.5,
-      left: 0,
-      opacity: 1,
-      delay: 0.8,
-    });
     gsap.to(".description", {
       duration: 0,
       delay: 1.3,
@@ -225,6 +211,159 @@ const DevComponent = () => {
     });
   });
 
+  const prevProject = () => {
+    // setProjectVisible(false);
+    gsap.to(titleRevealRef, {
+      duration: 0.5,
+      width: "100%",
+      ease: Power2.easeIn,
+    });
+    gsap.to(".title", {
+      duration: 0,
+      delay: 0.5,
+      opacity: 0,
+    });
+    //  // company name
+    gsap.to(companyRevealRef, {
+      duration: 0.5,
+      width: "100%",
+      delay: 0.2,
+      ease: Power2.easeIn,
+    });
+    gsap.to(".companyName", {
+      duration: 0,
+      delay: 0.7,
+      opacity: 1,
+    });
+    //  // company name
+    gsap.to(dateRevealRef, {
+      duration: 0.5,
+      width: "60%",
+      delay: 0.4,
+      ease: Power2.easeIn,
+    });
+    gsap.to(".date", {
+      duration: 0.5,
+      delay: 0.9,
+      opacity: 0,
+    });
+    //  // stack
+    gsap.to(stackRevealRef, {
+      duration: 0.5,
+      width: "60%",
+      delay: 0.6,
+      ease: Power2.easeIn,
+    });
+    gsap.to(".stack", {
+      duration: 0,
+      delay: 1.1,
+      opacity: 0,
+    });
+    //  // description
+    gsap.to(descriptionRevealRef, {
+      duration: 0.5,
+      width: "100%",
+      delay: 0.8,
+      ease: Power2.easeIn,
+    });
+    gsap.to(".description", {
+      duration: 0,
+      delay: 1.3,
+      opacity: 0,
+    });
+
+    gsap.to(".mockupContainer", {
+      duration: 0.5,
+      opacity: 0,
+      delay: 1,
+    });
+    if (projectIndex === 0) {
+      setTimeout(() => {
+        setProjectIndex(devProjects.length - 1);
+      }, 1800);
+    } else {
+      setTimeout(() => {
+        setProjectIndex((state) => (state -= 1));
+      }, 1800);
+    }
+  };
+
+  const nextProject = () => {
+    gsap.to(titleRevealRef, {
+      duration: 0.5,
+      width: "100%",
+      ease: Power2.easeIn,
+    });
+    gsap.to(".title", {
+      duration: 0,
+      delay: 0.5,
+      opacity: 0,
+    });
+    //  // company name
+    gsap.to(companyRevealRef, {
+      duration: 0.5,
+      width: "100%",
+      delay: 0.2,
+      ease: Power2.easeIn,
+    });
+    gsap.to(".companyName", {
+      duration: 0,
+      delay: 0.7,
+      opacity: 1,
+    });
+    //  // company name
+    gsap.to(dateRevealRef, {
+      duration: 0.5,
+      width: "60%",
+      delay: 0.4,
+      ease: Power2.easeIn,
+    });
+    gsap.to(".date", {
+      duration: 0.5,
+      delay: 0.9,
+      opacity: 0,
+    });
+    //  // stack
+    gsap.to(stackRevealRef, {
+      duration: 0.5,
+      width: "60%",
+      delay: 0.6,
+      ease: Power2.easeIn,
+    });
+    gsap.to(".stack", {
+      duration: 0,
+      delay: 1.1,
+      opacity: 0,
+    });
+    //  // description
+    gsap.to(descriptionRevealRef, {
+      duration: 0.5,
+      width: "100%",
+      delay: 0.8,
+      ease: Power2.easeIn,
+    });
+    gsap.to(".description", {
+      duration: 0,
+      delay: 1.3,
+      opacity: 0,
+    });
+
+    gsap.to(".mockupContainer", {
+      duration: 0.5,
+      opacity: 0,
+      delay: 1,
+    });
+    if (projectIndex === devProjects.length - 1) {
+      setTimeout(() => {
+        setProjectIndex(0);
+      }, 1800);
+    } else {
+      setTimeout(() => {
+        setProjectIndex((state) => (state += 1));
+      }, 1800);
+    }
+  };
+
   return (
     <div className="devContainer">
       <img src="assets/img/window.jpg" alt="window" className="window" />
@@ -232,12 +371,25 @@ const DevComponent = () => {
         <Col span={8} offset={2}>
           <div className="mockupContainer">
             <img
-              src="assets/mockups/webinar.png"
+              src={devProjects[projectIndex].mockup}
               alt="current mockup"
               className="mockup"
+              style={
+                devProjects[projectIndex].type === "mobile"
+                  ? { paddingRight: "5vh", paddingLeft: "5vh" }
+                  : {}
+              }
             />
             <div className="mockupReveal"></div>
-            <div className="box" ref={boxRef}>
+            <div
+              className="box"
+              ref={boxRef}
+              style={
+                devProjects[projectIndex].type === "mobile"
+                  ? { paddingRight: "5vh", paddingLeft: "5vh" }
+                  : {}
+              }
+            >
               <canvas ref={canvasRef} />
             </div>
           </div>
@@ -250,21 +402,23 @@ const DevComponent = () => {
                   className="titleReveal"
                   ref={(el) => (titleRevealRef = el)}
                 ></div>
-                <h2 className="title">Project Name</h2>
+                <h2 className="title">{devProjects[projectIndex].name}</h2>
               </div>
               <div>
                 <div
                   className="companyReveal"
                   ref={(el) => (companyRevealRef = el)}
                 ></div>
-                <h3 className="companyName">Company Name</h3>
+                <h3 className="companyName">
+                  {devProjects[projectIndex].company}
+                </h3>
               </div>
               <div>
                 <div
                   className="dateReveal"
                   ref={(el) => (dateRevealRef = el)}
                 ></div>
-                <h3 className="date">20/2020</h3>
+                <h3 className="date">{devProjects[projectIndex].date}</h3>
               </div>
               <div>
                 <div
@@ -272,8 +426,7 @@ const DevComponent = () => {
                   ref={(el) => (stackRevealRef = el)}
                 ></div>
                 <span className="stack">
-                  <b>Stack</b> Lorem ipsum dolor sit amet, consectetur
-                  adipiscing elit, sed do
+                  <b>Stack</b> {devProjects[projectIndex].stack}
                 </span>
               </div>
               <div>
@@ -282,17 +435,22 @@ const DevComponent = () => {
                   ref={(el) => (descriptionRevealRef = el)}
                 ></div>
                 <p className="description">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum."
+                  {devProjects[projectIndex].description}
                 </p>
               </div>
             </div>
+          </div>
+          <div className="arrowsContainer">
+            <Button
+              type="link"
+              icon={<LeftCircleOutlined style={{ fontSize: "2em" }} />}
+              onClick={() => prevProject()}
+            ></Button>
+            <Button
+              type="link"
+              icon={<RightCircleOutlined style={{ fontSize: "2em" }} />}
+              onClick={() => nextProject()}
+            ></Button>
           </div>
         </Col>
       </Row>
@@ -300,4 +458,4 @@ const DevComponent = () => {
   );
 };
 
-export default DevComponent;
+export default withRouter(DevComponent);

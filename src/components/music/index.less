@@ -76,6 +76,17 @@
       }
     }
   }
+
+  .arrowsContainer {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 0em;
+
+    svg {
+      transform: scale(0);
+      opacity: 0;
+    }
+  }
 }
 
 .container {
@@ -111,7 +122,7 @@ text {
 
 #image-container {
   z-index: 2;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 
   a {
     position: relative;

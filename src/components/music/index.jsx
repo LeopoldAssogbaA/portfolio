@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import classnames from "classnames";
 import gsap from "gsap";
-import { CSSRulePlugin } from "gsap/CSSRulePlugin.js";
 
 import SC from "soundcloud";
-import { Col, Row } from "antd";
-import { CaretRightOutlined } from "@ant-design/icons";
+import { Button, Col, Row } from "antd";
 import Equalizer from "./equalizer";
 
-import "./index.less";
 import { Power2 } from "gsap/gsap-core";
 import { TimelineLite } from "gsap/gsap-core";
-// TODO: enhance page animation4
+
+import musicProjects from "../../constants/musicProjects";
+
+import "./index.less";
+import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
+// TODO: enhance page animation
 // TODO: Clean and ajust vinyl size
 // Fade out onChange
 // add needle Sound
@@ -22,8 +24,8 @@ export const Music = () => {
   const [bandsLoaded, setBandsLoaded] = useState(false);
   const [bandRequeted, setBandRequeted] = useState(false);
   const [tracksLoaded, setTracksLoaded] = useState(false);
-  const [tracksCreated, setTracksCreated] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState(0);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [bandIndex, setBandIndex] = useState(0);
   const [vinylPlaying, setVinylPlaying] = useState(false);
   const [player, setPlayer] = useState(null);
   const [needleD, setNeedleD] = useState(
@@ -80,6 +82,17 @@ export const Music = () => {
         },
         0.1
       );
+      tl.staggerTo(
+        ".arrowsContainer svg",
+        0.5,
+        {
+          opacity: 1,
+          scale: 1,
+          borderRadius: "50%",
+          transformOrigin: "50% 50%",
+        },
+        0.1
+      );
     }
   });
 
@@ -93,7 +106,6 @@ export const Music = () => {
 
     const getBands = () => {
       setBandRequeted(true);
-      console.log("bandsLOaded", bandsLoaded);
       const bandsIds = ["179508571", "284443809"];
       const bandsUpdated = [];
       const bandsWithTracks = [];
@@ -141,15 +153,15 @@ export const Music = () => {
     };
 
     !bandsLoaded && !bandRequeted && getBands();
-  }, [bands, bandsLoaded]);
+  }, [bandRequeted, bands, bandsLoaded]);
 
   const stream = (trackId) => {
-    const trackIndex = bands[0].tracks.findIndex(
+    const trackIndex = bands[bandIndex].tracks.findIndex(
       (track) => track.id === trackId
     );
 
     if (vinylPlaying) {
-      if (trackIndex === currentTrack) {
+      if (trackIndex === currentTrackIndex) {
         needleD.pause();
         needle_up.play();
         player.pause();
@@ -172,18 +184,18 @@ export const Music = () => {
             p.play();
             setPlayer(p);
             setVinylPlaying(true);
-            setCurrentTrack(trackIndex);
+            setCurrentTrackIndex(trackIndex);
           }, 4000);
         });
       }
     } else {
-      if (trackIndex === currentTrack) {
+      if (trackIndex === currentTrackIndex) {
         SC.stream("/tracks/" + trackId).then((p) => {
           needleD.play();
           p.play();
           setPlayer(p);
           setVinylPlaying(true);
-          setCurrentTrack(trackIndex);
+          setCurrentTrackIndex(trackIndex);
         });
       } else {
         setTimeout(() => {
@@ -199,7 +211,7 @@ export const Music = () => {
             p.play();
             setPlayer(p);
             setVinylPlaying(true);
-            setCurrentTrack(trackIndex);
+            setCurrentTrackIndex(trackIndex);
           }, 4000);
         });
       }
@@ -208,6 +220,165 @@ export const Music = () => {
 
   console.log("bands", bands);
 
+  const prevProject = () => {
+    if (vinylPlaying) {
+      setVinylPlaying(false);
+      needle_up.play();
+      player.pause();
+    }
+    gsap.to(".disco", {
+      duration: 1,
+      opacity: 0,
+      left: "-50%",
+      onComplete: () => {
+        gsap.to(".disco", {
+          opacity: 0,
+          left: "50%",
+          top: "100%",
+        });
+      },
+    });
+    gsap.to(".bandImg", {
+      duration: 0.5,
+      delay: 0.5,
+      maskImage:
+        "radial-gradient(closest-side,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0))",
+    });
+    gsap.to(".bandNameReveal", {
+      duration: 0.8,
+      width: "100%",
+      delay: 0.2,
+      ease: Power2.easeIn,
+    });
+    gsap.to(".genreReveal", {
+      duration: 0.8,
+      width: "100%",
+      delay: 0.4,
+      ease: Power2.easeIn,
+    });
+    gsap.to(".descriptionReveal", {
+      duration: 0.8,
+      width: "100%",
+      delay: 0.6,
+      ease: Power2.easeIn,
+    });
+
+    const tl = new TimelineLite();
+
+    tl.staggerTo(
+      "#image-container img",
+      0.5,
+      {
+        scale: 0,
+        delay: 0.8,
+        borderRadius: "50%",
+        transformOrigin: "50% 50%",
+      },
+      0.1
+    );
+
+    tl.staggerTo(
+      ".arrowsContainer svg",
+      0.3,
+      {
+        opacity: 1,
+        scale: 0,
+        borderRadius: "50%",
+        transformOrigin: "50% 50%",
+      },
+      0.1
+    );
+
+    if (bandIndex === 0) {
+      setTimeout(() => {
+        setBandIndex(musicProjects.length - 1);
+        setCurrentTrackIndex(0);
+      }, 2100);
+    } else {
+      setTimeout(() => {
+        setBandIndex((state) => (state -= 1));
+        setCurrentTrackIndex(0);
+      }, 2100);
+    }
+  };
+
+  const nextProject = () => {
+    gsap.to(".disco", {
+      duration: 1,
+      opacity: 0,
+      left: "100%",
+      onComplete: () => {
+        gsap.to(".disco", {
+          opacity: 0,
+          left: "50%",
+          top: "100%",
+        });
+      },
+    });
+    gsap.to(".bandImg", {
+      duration: 0.5,
+      delay: 0.5,
+      maskImage:
+        "radial-gradient(closest-side,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0))",
+    });
+    gsap.to(".bandNameReveal", {
+      duration: 0.8,
+      width: "100%",
+      delay: 0.2,
+      ease: Power2.easeIn,
+    });
+    gsap.to(".genreReveal", {
+      duration: 0.8,
+      width: "100%",
+      delay: 0.4,
+      ease: Power2.easeIn,
+    });
+    gsap.to(".descriptionReveal", {
+      duration: 0.8,
+      width: "100%",
+      delay: 0.6,
+      ease: Power2.easeIn,
+    });
+
+    const tl = new TimelineLite();
+
+    tl.staggerTo(
+      "#image-container img",
+      0.5,
+      {
+        scale: 0,
+        delay: 0.8,
+        borderRadius: "50%",
+        transformOrigin: "50% 50%",
+      },
+      0.1
+    );
+
+    tl.staggerTo(
+      ".arrowsContainer svg",
+      0.3,
+      {
+        opacity: 1,
+        scale: 0,
+        borderRadius: "50%",
+        transformOrigin: "50% 50%",
+      },
+      0.1
+    );
+
+    if (bandIndex === musicProjects.length - 1) {
+      setTimeout(() => {
+        setBandIndex(0);
+        setCurrentTrackIndex(0);
+      }, 2100);
+    } else {
+      setTimeout(() => {
+        setBandIndex((state) => (state += 1));
+        setCurrentTrackIndex(0);
+      }, 2100);
+    }
+  };
+
   return (
     <div className="musicContainer">
       <Row>
@@ -215,32 +386,23 @@ export const Music = () => {
           <div className="bandContainer">
             <div className="pictureContainer">
               <img
-                src="assets/img/ghdrum.jpg"
-                alt="groove hill"
+                src={musicProjects[bandIndex].img}
+                alt={musicProjects[bandIndex].name}
                 className="bandImg"
               />
             </div>
             <div className="infosContainer">
               <div>
-                <h2 className="bandName">Groove Hill</h2>
+                <h2 className="bandName">{musicProjects[bandIndex].name}</h2>
                 <div className="bandNameReveal" />
               </div>
               <div>
-                <h3 className="genre">Hip hop - Soul - Funk</h3>
+                <h3 className="genre">{musicProjects[bandIndex].genre}</h3>
                 <div className="genreReveal" />
               </div>
               <div>
                 <p className="description">
-                  An eclectic mix of musical genres, Groove Hill draws much
-                  inspiration from African-American music. Having grown up
-                  during the same times, the five musicians have channelled
-                  different inspirations into a modern fusion of soul, jazz,
-                  funk and hip hop. Their desire to create a unique and original
-                  sound drew them together. Social and ethical themes dominate
-                  their lyrics, sung in English, and delivered by a passionate
-                  singer. The soft tones of the trombone and catchy groove
-                  rhythms form the band's signature sound, with samples
-                  featuring at times.
+                  {musicProjects[bandIndex].description}
                 </p>
                 <div className="descriptionReveal" />
               </div>
@@ -248,42 +410,58 @@ export const Music = () => {
             <div className="tracksContainer">
               <div id="image-container">
                 {tracksLoaded &&
-                  bands[0].tracks.map((track, i) => (
-                    <a
-                      href="javascript:void(0)"
-                      role="button"
-                      className="imgLink"
-                      onClick={() => stream(track.id)}
-                      key={track.id}
-                    >
-                      <img
-                        className="thumb tracksImg"
-                        src={
-                          track.artwork_url
-                            ? track.artwork_url
-                            : track.user.avatar_url
-                        }
-                        title={track.title}
-                        alt={track.title}
-                        width={currentTrack === i ? "100" : "70"}
-                        height={currentTrack === i ? "100" : "70"}
-                      />
-                      {currentTrack === i ? (
-                        vinylPlaying ? (
-                          <Equalizer />
-                        ) : // <CaretRightOutlined
-                        //   style={{
-                        //     fontSize: "2em",
-                        //     position: "absolute",
-                        //     top: 0,
-                        //     left: "0.8em",
-                        //   }}
-                        // />
-                        null
-                      ) : null}
-                    </a>
-                  ))}
+                  bands[bandIndex].tracks.map((track, i) => {
+                    console.log("trackIndex", currentTrackIndex);
+                    console.log("i", i);
+                    return (
+                      <a
+                        href="javascript:void(0)"
+                        role="button"
+                        className="imgLink"
+                        onClick={() => stream(track.id)}
+                        key={track.id}
+                      >
+                        <img
+                          className="thumb tracksImg"
+                          src={
+                            track.artwork_url
+                              ? track.artwork_url
+                              : track.user.avatar_url
+                          }
+                          title={track.title}
+                          alt={track.title}
+                          width={currentTrackIndex === i ? "100" : "70"}
+                          height={currentTrackIndex === i ? "100" : "70"}
+                        />
+                        {currentTrackIndex === i ? (
+                          vinylPlaying ? (
+                            <Equalizer />
+                          ) : // <CaretRightOutlined
+                          //   style={{
+                          //     fontSize: "2em",
+                          //     position: "absolute",
+                          //     top: 0,
+                          //     left: "0.8em",
+                          //   }}
+                          // />
+                          null
+                        ) : null}
+                      </a>
+                    );
+                  })}
               </div>
+            </div>
+            <div className="arrowsContainer">
+              <Button
+                type="link"
+                icon={<LeftCircleOutlined style={{ fontSize: "2em" }} />}
+                onClick={() => prevProject()}
+              ></Button>
+              <Button
+                type="link"
+                icon={<RightCircleOutlined style={{ fontSize: "2em" }} />}
+                onClick={() => nextProject()}
+              ></Button>
             </div>
           </div>
         </Col>
@@ -299,7 +477,7 @@ export const Music = () => {
             <div
               className={classnames(
                 vinylPlaying ? "discoPlay" : "disco",
-                bandsLoaded && bands[0].permalink
+                bandsLoaded && bands[bandIndex].permalink
               )}
             ></div>
           </Row>
