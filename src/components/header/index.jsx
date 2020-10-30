@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import gsap from "gsap";
 
-import "./index.less";
 import history from "../../constants/history";
+import "./index.less";
 
 const Header = () => {
   let headerRef = useRef(null);

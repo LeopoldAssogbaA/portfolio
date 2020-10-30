@@ -23,7 +23,6 @@ const GitComponent = () => {
   const [repoVisible, setRepoVisible] = useState(true);
   const [loadReavealed, setLoadReavealed] = useState(false);
 
-  let reposRef = useRef(null);
   let lightLettersRef = useRef(null);
   let repoRevealPrevRef = useRef(null);
   let prevTitleRef = useRef(null);
@@ -276,7 +275,7 @@ const GitComponent = () => {
           />
         </Col>
         <Col span={13}>
-          <div className="reposContainer" ref={(el) => (reposRef = el)}>
+          <div className="reposContainer">
             {!loadReavealed && (
               <LoadingOutlined
                 className="loadingReaveal"

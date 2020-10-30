@@ -1,30 +1,20 @@
 import React, { useEffect, useState } from "react";
+import gsap, { Power2, TimelineLite } from "gsap/gsap-core";
 import classnames from "classnames";
-import gsap from "gsap";
-
-import SC from "soundcloud";
 import { Button, Col, Row, Tooltip } from "antd";
-import Equalizer from "./equalizer";
+import {
+  LeftCircleOutlined,
+  PauseCircleOutlined,
+  PlayCircleOutlined,
+  RightCircleOutlined,
+} from "@ant-design/icons";
+import SC from "soundcloud";
 
-import { Power2 } from "gsap/gsap-core";
-import { TimelineLite } from "gsap/gsap-core";
+import Equalizer from "./equalizer";
 
 import musicProjects from "../../constants/musicProjects";
 
 import "./index.less";
-import {
-  CaretRightOutlined,
-  LeftCircleOutlined,
-  PauseCircleOutlined,
-  PauseOutlined,
-  PlayCircleOutlined,
-  RightCircleOutlined,
-} from "@ant-design/icons";
-// TODO: enhance page animation
-// TODO: Clean and ajust vinyl size
-// Fade out onChange
-// add needle Sound
-// adjust Equalizer
 
 export const Music = () => {
   const [bands, setBands] = useState([]);

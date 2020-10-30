@@ -6,13 +6,13 @@ import ParticlesComponent from "./components/particles";
 import HomeContainer from "./components/home/";
 import Header from "./components/header";
 import About from "./components/about";
-
-import history from "./constants/history";
-import "./App.less";
 import Contact from "./components/contact";
 import GitComponent from "./components/git";
 import DevComponent from "./components/dev";
 import Music from "./components/music";
+
+import history from "./constants/history";
+import "./App.less";
 
 //TODO: use .env for token
 //TODO: refactor with route object

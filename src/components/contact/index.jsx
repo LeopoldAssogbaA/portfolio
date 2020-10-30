@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+import gsap, { Bounce, Back } from "gsap/gsap-core";
+import Matter from "matter-js";
 import {
-  ArrowDownOutlined,
   DownloadOutlined,
   GithubOutlined,
   LinkedinOutlined,
@@ -8,20 +9,13 @@ import {
   PhoneOutlined,
 } from "@ant-design/icons";
 import { Button } from "antd";
-import Matter from "matter-js";
 
 import "./index.less";
-import gsap from "gsap/gsap-core";
-import { Bounce } from "gsap/gsap-core";
-import { Back } from "gsap/gsap-core";
-
-// TODO: enhance page animation
 
 export const Contact = () => {
   const boxRef = useRef(null);
   const canvasRef = useRef(null);
   const [animationDone, setAnimationDone] = useState(true);
-  const [section, setSection] = useState(null);
 
   useEffect(() => {
     let Body = Matter.Body;
@@ -386,7 +380,7 @@ export const Contact = () => {
           return null;
       }
     });
-  }, [section]);
+  }, []);
   console.log("state render");
   return (
     <div ref={boxRef} className="contactContainer">
