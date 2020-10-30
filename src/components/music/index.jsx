@@ -3,7 +3,7 @@ import classnames from "classnames";
 import gsap from "gsap";
 
 import SC from "soundcloud";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, Tooltip } from "antd";
 import Equalizer from "./equalizer";
 
 import { Power2 } from "gsap/gsap-core";
@@ -12,7 +12,14 @@ import { TimelineLite } from "gsap/gsap-core";
 import musicProjects from "../../constants/musicProjects";
 
 import "./index.less";
-import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
+import {
+  CaretRightOutlined,
+  LeftCircleOutlined,
+  PauseCircleOutlined,
+  PauseOutlined,
+  PlayCircleOutlined,
+  RightCircleOutlined,
+} from "@ant-design/icons";
 // TODO: enhance page animation
 // TODO: Clean and ajust vinyl size
 // Fade out onChange
@@ -28,6 +35,8 @@ export const Music = () => {
   const [bandIndex, setBandIndex] = useState(0);
   const [vinylPlaying, setVinylPlaying] = useState(false);
   const [player, setPlayer] = useState(null);
+  const [displayPlay, setDisplayPlay] = useState(null);
+  const [animationDone, setAnimationDone] = useState(false);
   const [needleD, setNeedleD] = useState(
     new Audio(
       "https://s3-us-west-2.amazonaws.com/s.cdpn.io/35984/vinyl_needle_down_edit.mp3"
@@ -38,7 +47,8 @@ export const Music = () => {
   // ANIMATIONS --------------------------------------------
 
   useEffect(() => {
-    if (tracksLoaded) {
+    if (tracksLoaded && !animationDone) {
+      console.log("animationStart");
       gsap.to(".disco", {
         duration: 1,
         opacity: 1,
@@ -69,7 +79,12 @@ export const Music = () => {
         ease: Power2.easeOut,
       });
 
-      const tl = new TimelineLite();
+      const tl = new TimelineLite({
+        onComplete: () => {
+          setAnimationDone(true);
+          console.log("animationDone");
+        },
+      });
 
       tl.staggerTo(
         "#image-container img",
@@ -134,8 +149,6 @@ export const Music = () => {
                       bandsWithTracks[GHIndex],
                       bandsWithTracks[0]
                     );
-                    console.log("index GH", GHIndex);
-                    console.log("bandsReordered", bandsReordered);
                     setBands(bandsReordered);
                     setBandsLoaded(true);
                     setTracksLoaded(true);
@@ -218,18 +231,17 @@ export const Music = () => {
     }
   };
 
-  console.log("bands", bands);
-
-  const prevProject = () => {
+  const prevProject = async () => {
     if (vinylPlaying) {
-      setVinylPlaying(false);
-      needle_up.play();
       player.pause();
+      needle_up.play();
+      needleD.pause();
+      await setVinylPlaying(false);
     }
     gsap.to(".disco", {
       duration: 1,
       opacity: 0,
-      left: "-50%",
+      left: "100%",
       onComplete: () => {
         gsap.to(".disco", {
           opacity: 0,
@@ -293,16 +305,125 @@ export const Music = () => {
       setTimeout(() => {
         setBandIndex(musicProjects.length - 1);
         setCurrentTrackIndex(0);
+
+        gsap.to(".disco", {
+          duration: 1,
+          opacity: 1,
+          top: "50%",
+        });
+        gsap.to(".bandImg", {
+          duration: 0.5,
+          delay: 1,
+          maskImage:
+            "radial-gradient(closest-side,rgba(0, 0, 0, 1),rgba(0, 0, 0, 0))",
+        });
+        gsap.to(".bandNameReveal", {
+          duration: 0.8,
+          width: 0,
+          delay: 1.2,
+          ease: Power2.easeOut,
+        });
+        gsap.to(".genreReveal", {
+          duration: 0.8,
+          width: 0,
+          delay: 1.4,
+          ease: Power2.easeOut,
+        });
+        gsap.to(".descriptionReveal", {
+          duration: 0.8,
+          width: 0,
+          delay: 1.6,
+          ease: Power2.easeOut,
+        });
+        tl.staggerTo(
+          "#image-container img",
+          0.5,
+          {
+            scale: 1,
+            delay: 1.8,
+            borderRadius: "50%",
+            transformOrigin: "50% 50%",
+          },
+          0.1
+        );
+        tl.staggerTo(
+          ".arrowsContainer svg",
+          0.5,
+          {
+            opacity: 1,
+            scale: 1,
+            borderRadius: "50%",
+            transformOrigin: "50% 50%",
+          },
+          0.1
+        );
       }, 2100);
     } else {
       setTimeout(() => {
         setBandIndex((state) => (state -= 1));
         setCurrentTrackIndex(0);
+        gsap.to(".disco", {
+          duration: 1,
+          opacity: 1,
+          top: "50%",
+        });
+        gsap.to(".bandImg", {
+          duration: 0.5,
+          delay: 1,
+          maskImage:
+            "radial-gradient(closest-side,rgba(0, 0, 0, 1),rgba(0, 0, 0, 0))",
+        });
+        gsap.to(".bandNameReveal", {
+          duration: 0.8,
+          width: 0,
+          delay: 1.2,
+          ease: Power2.easeOut,
+        });
+        gsap.to(".genreReveal", {
+          duration: 0.8,
+          width: 0,
+          delay: 1.4,
+          ease: Power2.easeOut,
+        });
+        gsap.to(".descriptionReveal", {
+          duration: 0.8,
+          width: 0,
+          delay: 1.6,
+          ease: Power2.easeOut,
+        });
+        tl.staggerTo(
+          "#image-container img",
+          0.5,
+          {
+            scale: 1,
+            delay: 1.8,
+            borderRadius: "50%",
+            transformOrigin: "50% 50%",
+          },
+          0.1
+        );
+        tl.staggerTo(
+          ".arrowsContainer svg",
+          0.5,
+          {
+            opacity: 1,
+            scale: 1,
+            borderRadius: "50%",
+            transformOrigin: "50% 50%",
+          },
+          0.1
+        );
       }, 2100);
     }
   };
 
-  const nextProject = () => {
+  const nextProject = async () => {
+    if (vinylPlaying) {
+      player.pause();
+      needle_up.play();
+      needleD.pause();
+      await setVinylPlaying(false);
+    }
     gsap.to(".disco", {
       duration: 1,
       opacity: 0,
@@ -370,15 +491,118 @@ export const Music = () => {
       setTimeout(() => {
         setBandIndex(0);
         setCurrentTrackIndex(0);
+        gsap.to(".disco", {
+          duration: 1,
+          opacity: 1,
+          top: "50%",
+        });
+        gsap.to(".bandImg", {
+          duration: 0.5,
+          delay: 1,
+          maskImage:
+            "radial-gradient(closest-side,rgba(0, 0, 0, 1),rgba(0, 0, 0, 0))",
+        });
+        gsap.to(".bandNameReveal", {
+          duration: 0.8,
+          width: 0,
+          delay: 1.2,
+          ease: Power2.easeOut,
+        });
+        gsap.to(".genreReveal", {
+          duration: 0.8,
+          width: 0,
+          delay: 1.4,
+          ease: Power2.easeOut,
+        });
+        gsap.to(".descriptionReveal", {
+          duration: 0.8,
+          width: 0,
+          delay: 1.6,
+          ease: Power2.easeOut,
+        });
+        tl.staggerTo(
+          "#image-container img",
+          0.5,
+          {
+            scale: 1,
+            delay: 1.8,
+            borderRadius: "50%",
+            transformOrigin: "50% 50%",
+          },
+          0.1
+        );
+        tl.staggerTo(
+          ".arrowsContainer svg",
+          0.5,
+          {
+            opacity: 1,
+            scale: 1,
+            borderRadius: "50%",
+            transformOrigin: "50% 50%",
+          },
+          0.1
+        );
       }, 2100);
     } else {
       setTimeout(() => {
         setBandIndex((state) => (state += 1));
         setCurrentTrackIndex(0);
+        gsap.to(".disco", {
+          duration: 1,
+          opacity: 1,
+          top: "50%",
+        });
+        gsap.to(".bandImg", {
+          duration: 0.5,
+          delay: 1,
+          maskImage:
+            "radial-gradient(closest-side,rgba(0, 0, 0, 1),rgba(0, 0, 0, 0))",
+        });
+        gsap.to(".bandNameReveal", {
+          duration: 0.8,
+          width: 0,
+          delay: 1.2,
+          ease: Power2.easeOut,
+        });
+        gsap.to(".genreReveal", {
+          duration: 0.8,
+          width: 0,
+          delay: 1.4,
+          ease: Power2.easeOut,
+        });
+        gsap.to(".descriptionReveal", {
+          duration: 0.8,
+          width: 0,
+          delay: 1.6,
+          ease: Power2.easeOut,
+        });
+        tl.staggerTo(
+          "#image-container img",
+          0.5,
+          {
+            scale: 1,
+            delay: 1.8,
+            borderRadius: "50%",
+            transformOrigin: "50% 50%",
+          },
+          0.1
+        );
+        tl.staggerTo(
+          ".arrowsContainer svg",
+          0.5,
+          {
+            opacity: 1,
+            scale: 1,
+            borderRadius: "50%",
+            transformOrigin: "50% 50%",
+          },
+          0.1
+        );
       }, 2100);
     }
   };
 
+  // console.log("displayPlay", displayPlay);
   return (
     <div className="musicContainer">
       <Row>
@@ -411,42 +635,59 @@ export const Music = () => {
               <div id="image-container">
                 {tracksLoaded &&
                   bands[bandIndex].tracks.map((track, i) => {
-                    console.log("trackIndex", currentTrackIndex);
-                    console.log("i", i);
                     return (
-                      <a
-                        href="javascript:void(0)"
-                        role="button"
-                        className="imgLink"
-                        onClick={() => stream(track.id)}
-                        key={track.id}
-                      >
-                        <img
-                          className="thumb tracksImg"
-                          src={
-                            track.artwork_url
-                              ? track.artwork_url
-                              : track.user.avatar_url
-                          }
-                          title={track.title}
-                          alt={track.title}
-                          width={currentTrackIndex === i ? "100" : "70"}
-                          height={currentTrackIndex === i ? "100" : "70"}
-                        />
-                        {currentTrackIndex === i ? (
-                          vinylPlaying ? (
-                            <Equalizer />
-                          ) : // <CaretRightOutlined
-                          //   style={{
-                          //     fontSize: "2em",
-                          //     position: "absolute",
-                          //     top: 0,
-                          //     left: "0.8em",
-                          //   }}
-                          // />
-                          null
-                        ) : null}
-                      </a>
+                      <Tooltip title={track.title} color="black">
+                        <a
+                          href="javascript:void(0)"
+                          role="button"
+                          className="imgLink"
+                          onClick={() => stream(track.id)}
+                          onMouseEnter={() => setDisplayPlay(i)}
+                          onMouseLeave={() => setDisplayPlay(null)}
+                          key={track.id}
+                        >
+                          <img
+                            className="thumb tracksImg"
+                            src={
+                              track.artwork_url
+                                ? track.artwork_url
+                                : track.user.avatar_url
+                            }
+                            title={track.title}
+                            alt={track.title}
+                            width={currentTrackIndex === i ? "100" : "70"}
+                            height={currentTrackIndex === i ? "100" : "70"}
+                          />
+                          {currentTrackIndex === i && vinylPlaying ? (
+                            displayPlay === i ? null : (
+                              <Equalizer />
+                            )
+                          ) : null}
+                          {i === displayPlay ? (
+                            vinylPlaying && currentTrackIndex === i ? (
+                              <PauseCircleOutlined
+                                style={{
+                                  fontSize: "2em",
+                                  position: "absolute",
+                                  top: 0,
+                                  left:
+                                    currentTrackIndex === i ? "1.2em" : "0.8em",
+                                }}
+                              />
+                            ) : (
+                              <PlayCircleOutlined
+                                style={{
+                                  fontSize: "2em",
+                                  position: "absolute",
+                                  top: 0,
+                                  left:
+                                    currentTrackIndex === i ? "1.2em" : "0.8em",
+                                }}
+                              />
+                            )
+                          ) : null}
+                        </a>
+                      </Tooltip>
                     );
                   })}
               </div>

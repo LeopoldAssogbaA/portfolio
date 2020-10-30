@@ -120,12 +120,34 @@ text {
   text-rendering: optimizeSpeed;
 }
 
+.ant-tooltip-inner {
+  color: #ebc934;
+}
+
 #image-container {
   z-index: 2;
   margin-bottom: 1em;
 
   a {
     position: relative;
+
+    &:hover {
+      color: #ebc934;
+    }
+    .trackTitle {
+      position: absolute;
+      display: inline-block;
+      text-align: center;
+      top: -4em;
+      left: 0;
+    }
+    .currentTrackTitle {
+      position: absolute;
+      display: inline-block;
+      text-align: center;
+      top: -4em;
+      left: 0.7em;
+    }
   }
 }
 

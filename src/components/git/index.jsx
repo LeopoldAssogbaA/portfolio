@@ -185,6 +185,7 @@ const GitComponent = () => {
         duration: 0.6,
         opacity: 0,
         top: 0,
+        height: 0,
         delay: 2,
       });
       setTimeout(() => {

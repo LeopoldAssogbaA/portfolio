@@ -21,6 +21,7 @@ export const Contact = () => {
   const boxRef = useRef(null);
   const canvasRef = useRef(null);
   const [animationDone, setAnimationDone] = useState(true);
+  const [section, setSection] = useState(null);
 
   useEffect(() => {
     let Body = Matter.Body;
@@ -385,8 +386,8 @@ export const Contact = () => {
           return null;
       }
     });
-  }, []);
-
+  }, [section]);
+  console.log("state render");
   return (
     <div ref={boxRef} className="contactContainer">
       <img
