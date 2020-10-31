@@ -442,11 +442,13 @@ const DevComponent = ({ history }) => {
           </div>
           <div className="arrowsContainer">
             <Button
+              className="link"
               type="link"
               icon={<LeftCircleOutlined style={{ fontSize: "2em" }} />}
               onClick={() => prevProject()}
             ></Button>
             <Button
+              className="link"
               type="link"
               icon={<RightCircleOutlined style={{ fontSize: "2em" }} />}
               onClick={() => nextProject()}

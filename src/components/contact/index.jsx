@@ -12,7 +12,7 @@ import { Button } from "antd";
 
 import "./index.less";
 
-export const Contact = () => {
+export const Contact = ({ setCursorState }) => {
   const boxRef = useRef(null);
   const canvasRef = useRef(null);
   const [animationDone, setAnimationDone] = useState(true);
@@ -191,9 +191,9 @@ export const Contact = () => {
         event.mouse.position
       );
       if (foundPhysics.length !== 0) {
-        document.getElementById("canvas").style.cursor = "pointer";
+        setCursorState("hover");
       } else {
-        document.getElementById("canvas").style.cursor = "default";
+        setCursorState("notHover");
       }
     });
 
@@ -415,24 +415,26 @@ export const Contact = () => {
         style={animationDone ? { zIndex: 0 } : { zIndex: -1 }}
       />
       <div className="linkButton phoneButton">
-        <a href="tel:06-72-58-45-63">
+        <a className="link" href="tel:06-72-58-45-63">
           <Button
             icon={<PhoneOutlined />}
             shape="round"
             size="large"
             type="primary"
+            style={{ color: "black" }}
           >
             06-72-58-45-63
           </Button>
         </a>
       </div>
       <div className="linkButton emailButton">
-        <a href="mailto:leopoldassogba21@gmail.com">
+        <a className="link" href="mailto:leopoldassogba21@gmail.com">
           <Button
             icon={<MailOutlined />}
             shape="round"
             size="large"
             type="primary"
+            style={{ color: "black" }}
           >
             leopoldassogba21@gmail.com
           </Button>
@@ -440,6 +442,7 @@ export const Contact = () => {
       </div>
       <div className="linkButton linkedinButton">
         <a
+          className="link"
           href="https://www.linkedin.com/in/l%C3%A9opold-assogba/"
           target="_blank"
           rel="noopener noreferrer"
@@ -449,6 +452,7 @@ export const Contact = () => {
             shape="round"
             size="large"
             type="primary"
+            style={{ color: "black" }}
           >
             Léopold Assogba
           </Button>
@@ -456,6 +460,7 @@ export const Contact = () => {
       </div>
       <div className="linkButton gitButton">
         <a
+          className="link"
           href="https://github.com/LeopoldAssogbaA"
           target="_blank"
           rel="noopener noreferrer"
@@ -465,18 +470,24 @@ export const Contact = () => {
             shape="round"
             size="large"
             type="primary"
+            style={{ color: "black" }}
           >
             LeopoldAssogbaA
           </Button>
         </a>
       </div>
       <div className="linkButton resumeButton">
-        <a href="assets/pdf/Leopold-Assogba-Resume.pdf" download>
+        <a
+          href="assets/pdf/Leopold-Assogba-Resume.pdf"
+          download
+          className="link"
+        >
           <Button
             icon={<DownloadOutlined />}
             shape="round"
             size="large"
             type="primary"
+            style={{ color: "black" }}
           >
             Download Resume
           </Button>

@@ -13,6 +13,8 @@ import Music from "./components/music";
 
 import history from "./constants/history";
 import "./App.less";
+import Cursor from "./components/cutomCursor";
+import { useState } from "react";
 
 //TODO: use .env for token
 //TODO: refactor with route object
@@ -21,7 +23,7 @@ import "./App.less";
 
 function App() {
   let particlesRef = useRef(null);
-  let appRef = useRef(null);
+  const [cursorState, setCursorState] = useState(null);
 
   const tl = gsap.timeline({ duration: 1.5, ease: "power3" });
 
@@ -34,7 +36,8 @@ function App() {
   };
 
   return (
-    <div className="App" ref={(el) => (appRef = el)}>
+    <div className="App">
+      <Cursor cursorStateEvent={cursorState} />
       <Switch>
         <Route exact path={"/"}>
           <div className="homeContainer" ref={(el) => (particlesRef = el)}>
@@ -44,11 +47,15 @@ function App() {
         </Route>
         <Route exact path={"/about"}>
           <Header />
-          <About />
+          <About
+            setCursorState={(cursorState) => setCursorState(cursorState)}
+          />
         </Route>
         <Route exact path={"/contact"}>
           <Header />
-          <Contact />
+          <Contact
+            setCursorState={(cursorState) => setCursorState(cursorState)}
+          />
         </Route>
         <Route exact path={"/git"}>
           <Header />
@@ -60,7 +67,9 @@ function App() {
         </Route>
         <Route exact path={"/music"}>
           <Header />
-          <Music />
+          <Music
+            setCursorState={(cursorState) => setCursorState(cursorState)}
+          />
         </Route>
       </Switch>
     </div>

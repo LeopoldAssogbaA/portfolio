@@ -27,7 +27,7 @@ const Header = () => {
 
   return (
     <div className="header" ref={(el) => (headerRef = el)}>
-      <div className="fireContainer" ref={(el) => (fireRef = el)}>
+      <div className="fireContainer link" ref={(el) => (fireRef = el)}>
         <div className="fireHover" onClick={() => navigate("/")}>
           <div className="fire-left">
             <div className="main-fire"></div>

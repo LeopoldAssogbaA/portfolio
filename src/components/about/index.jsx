@@ -6,7 +6,7 @@ import { RightCircleOutlined } from "@ant-design/icons";
 
 import "./index.less";
 
-const About = () => {
+const About = ({ setCursorState }) => {
   gsap.registerPlugin(CSSRulePlugin);
   let laptopRevealRef = useRef(null);
   let laptopImgRef = useRef(null);
@@ -150,6 +150,7 @@ const About = () => {
                 </p>
                 <p>
                   <Button
+                    className="link"
                     type="link"
                     shape="round"
                     onClick={() => goToNextContent()}
@@ -213,6 +214,9 @@ const About = () => {
                       officia deserunt mollit anim id est laborum.
                     </p>
                     <Button
+                      onMouseEnter={() => setCursorState("hover")}
+                      onMouseLeave={() => setCursorState("notHover")}
+                      className="link"
                       type="link"
                       shape="round"
                       onClick={() => goToNextContent()}

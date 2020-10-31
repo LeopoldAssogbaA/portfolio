@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import gsap, { Power2, TimelineLite } from "gsap/gsap-core";
 import classnames from "classnames";
@@ -16,7 +17,7 @@ import musicProjects from "../../constants/musicProjects";
 
 import "./index.less";
 
-export const Music = () => {
+export const Music = ({ setCursorState }) => {
   const [bands, setBands] = useState([]);
   const [bandsLoaded, setBandsLoaded] = useState(false);
   const [bandRequeted, setBandRequeted] = useState(false);
@@ -592,7 +593,6 @@ export const Music = () => {
     }
   };
 
-  // console.log("displayPlay", displayPlay);
   return (
     <div className="musicContainer">
       <Row>
@@ -630,10 +630,16 @@ export const Music = () => {
                         <a
                           href="javascript:void(0)"
                           role="button"
-                          className="imgLink"
+                          className="imgLink link"
                           onClick={() => stream(track.id)}
-                          onMouseEnter={() => setDisplayPlay(i)}
-                          onMouseLeave={() => setDisplayPlay(null)}
+                          onMouseEnter={() => {
+                            setDisplayPlay(i);
+                            setCursorState("hover");
+                          }}
+                          onMouseLeave={() => {
+                            setDisplayPlay(null);
+                            setCursorState("notHover");
+                          }}
                           key={track.id}
                         >
                           <img
@@ -647,6 +653,19 @@ export const Music = () => {
                             alt={track.title}
                             width={currentTrackIndex === i ? "100" : "70"}
                             height={currentTrackIndex === i ? "100" : "70"}
+                            style={
+                              displayPlay === i
+                                ? {
+                                    opacity: "0",
+                                    transition: "all 150ms ease",
+                                    transitionProperty: "opacity",
+                                  }
+                                : {
+                                    opacity: "1",
+                                    transition: "all 800ms ease",
+                                    transitionProperty: "opacity",
+                                  }
+                            }
                           />
                           {currentTrackIndex === i && vinylPlaying ? (
                             displayPlay === i ? null : (
@@ -684,11 +703,13 @@ export const Music = () => {
             </div>
             <div className="arrowsContainer">
               <Button
+                className="link"
                 type="link"
                 icon={<LeftCircleOutlined style={{ fontSize: "2em" }} />}
                 onClick={() => prevProject()}
               ></Button>
               <Button
+                className="link"
                 type="link"
                 icon={<RightCircleOutlined style={{ fontSize: "2em" }} />}
                 onClick={() => nextProject()}

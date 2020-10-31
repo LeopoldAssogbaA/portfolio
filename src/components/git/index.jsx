@@ -268,6 +268,7 @@ const GitComponent = () => {
         </Col>
         <Col span={2} className="arrowLeft">
           <Button
+            className="link"
             onClick={() => repoVisible && previousRepo()}
             icon={<LeftOutlined style={{ fontSize: "2.5em" }} />}
             type="link"
@@ -323,6 +324,7 @@ const GitComponent = () => {
         </Col>
         <Col span={4} className="arrowRight">
           <Button
+            className="link"
             onClick={() => repoVisible && nextRepo()}
             icon={<RightOutlined style={{ fontSize: "2.5em" }} />}
             type="link"
