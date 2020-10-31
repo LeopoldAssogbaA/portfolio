@@ -14,7 +14,7 @@ import GITAUTH from "../../token.json";
 import gsap from "gsap";
 import { Bounce } from "gsap/gsap-core";
 
-const GitComponent = () => {
+const GitComponent = ({ setCursorState }) => {
   const [repos, setRepos] = useState([]);
   const [reposLoaded, setReposLoaded] = useState(false);
   const [reposUpdated, setReposUpdated] = useState(false);
@@ -319,7 +319,11 @@ const GitComponent = () => {
                 />
               </span>
             </div>
-            <Repo showRepo={reposUpdated} repo={repos[repoIndex]} />
+            <Repo
+              showRepo={reposUpdated}
+              repo={repos[repoIndex]}
+              setCursorState={(cursorState) => setCursorState(cursorState)}
+            />
           </div>
         </Col>
         <Col span={4} className="arrowRight">

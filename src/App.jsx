@@ -35,9 +35,16 @@ function App() {
     }, 1000);
   };
 
+  const isMobile = () => {
+    const ua = navigator.userAgent;
+    return /Android|Mobi/i.test(ua);
+  };
+
+  console.log("isMobile", isMobile());
+
   return (
     <div className="App">
-      <Cursor cursorStateEvent={cursorState} />
+      {!isMobile() && <Cursor cursorStateEvent={cursorState} />}
       <Switch>
         <Route exact path={"/"}>
           <div className="homeContainer" ref={(el) => (particlesRef = el)}>
@@ -59,7 +66,9 @@ function App() {
         </Route>
         <Route exact path={"/git"}>
           <Header />
-          <GitComponent />
+          <GitComponent
+            setCursorState={(cursorState) => setCursorState(cursorState)}
+          />
         </Route>
         <Route exact path={"/dev"}>
           <Header />
