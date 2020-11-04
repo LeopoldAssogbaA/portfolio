@@ -154,10 +154,14 @@ const About = ({ setCursorState }) => {
                     type="link"
                     shape="round"
                     onClick={() => goToNextContent()}
-                  >
-                    More
-                    <RightCircleOutlined />
-                  </Button>
+                    icon={
+                      <RightCircleOutlined
+                        style={{
+                          fontSize: "2em",
+                        }}
+                      />
+                    }
+                  />
                 </p>
               </div>
             </Col>
@@ -213,17 +217,23 @@ const About = ({ setCursorState }) => {
                       sint occaecat cupidatat non proident, sunt in culpa qui
                       officia deserunt mollit anim id est laborum.
                     </p>
-                    <Button
-                      onMouseEnter={() => setCursorState("hover")}
-                      onMouseLeave={() => setCursorState("notHover")}
-                      className="link"
-                      type="link"
-                      shape="round"
-                      onClick={() => goToNextContent()}
-                    >
-                      More
-                      <RightCircleOutlined />
-                    </Button>
+                    <div className="btnContainer">
+                      <Button
+                        onMouseEnter={() => setCursorState("hover")}
+                        onMouseLeave={() => setCursorState("notHover")}
+                        className="link"
+                        type="link"
+                        shape="round"
+                        onClick={() => goToNextContent()}
+                        icon={
+                          <RightCircleOutlined
+                            style={{
+                              fontSize: "2em",
+                            }}
+                          />
+                        }
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

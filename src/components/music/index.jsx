@@ -626,7 +626,7 @@ export const Music = ({ setCursorState }) => {
                 {tracksLoaded &&
                   bands[bandIndex].tracks.map((track, i) => {
                     return (
-                      <Tooltip title={track.title} color="black">
+                      <Tooltip title={track.title} color="black" key={track.id}>
                         <a
                           href="javascript:void(0)"
                           role="button"
@@ -657,13 +657,9 @@ export const Music = ({ setCursorState }) => {
                               displayPlay === i
                                 ? {
                                     opacity: "0",
-                                    transition: "all 150ms ease",
-                                    transitionProperty: "opacity",
                                   }
                                 : {
                                     opacity: "1",
-                                    transition: "all 800ms ease",
-                                    transitionProperty: "opacity",
                                   }
                             }
                           />

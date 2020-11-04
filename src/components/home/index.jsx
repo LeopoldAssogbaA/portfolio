@@ -9,6 +9,7 @@ import "./index.less";
 
 const HomeContainer = ({ goToPortfolio }) => {
   const [paused, setPaused] = useState(true);
+  const [menuRevealed, setMenuRevealed] = useState(false);
   let menuRef = useRef(null);
   let c = useRef(null);
 
@@ -32,6 +33,18 @@ const HomeContainer = ({ goToPortfolio }) => {
       delay: 2,
     });
   }, []);
+
+  useEffect(() => {
+    const isMobile = () => {
+      const ua = navigator.userAgent;
+      return /Android|Mobi/i.test(ua);
+    };
+    setTimeout(() => {
+      if (isMobile() && paused) {
+        setPaused(false);
+      }
+    }, 3000);
+  }, [paused]);
 
   return (
     <>
