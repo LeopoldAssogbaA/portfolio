@@ -199,6 +199,7 @@ export const Contact = ({ setCursorState }) => {
 
     Events.on(mouseConstraint, "startdrag", function (event) {
       console.log("startdrag", event);
+      setCursorState("notHover");
 
       setAnimationDone(false);
       gsap.to(".illustration", {
@@ -208,7 +209,7 @@ export const Contact = ({ setCursorState }) => {
       });
       gsap.to(".linkButton", {
         duration: 0.5,
-        top: "120%",
+        left: "-120%",
         opacity: 0,
         ease: Back.easeIn,
         scale: 0.8,
@@ -216,7 +217,6 @@ export const Contact = ({ setCursorState }) => {
         onComplete: () =>
           gsap.to(".linkButton", {
             duration: 0,
-            top: "20%",
             left: "120%",
             opacity: 0,
             scale: 1,
@@ -414,84 +414,86 @@ export const Contact = ({ setCursorState }) => {
         id="canvas"
         style={animationDone ? { zIndex: 0 } : { zIndex: -1 }}
       />
-      <div className="linkButton phoneButton">
-        <a className="link" href="tel:06-72-58-45-63">
-          <Button
-            icon={<PhoneOutlined />}
-            shape="round"
-            size="large"
-            type="primary"
-            style={{ color: "black" }}
+      <div className="btnContainer">
+        <div className="linkButton phoneButton">
+          <a className="link" href="tel:06-72-58-45-63">
+            <Button
+              icon={<PhoneOutlined />}
+              shape="round"
+              size="large"
+              type="primary"
+              style={{ color: "black" }}
+            >
+              06-72-58-45-63
+            </Button>
+          </a>
+        </div>
+        <div className="linkButton emailButton">
+          <a className="link" href="mailto:leopoldassogba21@gmail.com">
+            <Button
+              icon={<MailOutlined />}
+              shape="round"
+              size="large"
+              type="primary"
+              style={{ color: "black" }}
+            >
+              leopoldassogba21@gmail.com
+            </Button>
+          </a>
+        </div>
+        <div className="linkButton linkedinButton">
+          <a
+            className="link"
+            href="https://www.linkedin.com/in/l%C3%A9opold-assogba/"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            06-72-58-45-63
-          </Button>
-        </a>
-      </div>
-      <div className="linkButton emailButton">
-        <a className="link" href="mailto:leopoldassogba21@gmail.com">
-          <Button
-            icon={<MailOutlined />}
-            shape="round"
-            size="large"
-            type="primary"
-            style={{ color: "black" }}
+            <Button
+              icon={<LinkedinOutlined />}
+              shape="round"
+              size="large"
+              type="primary"
+              style={{ color: "black" }}
+            >
+              Léopold Assogba
+            </Button>
+          </a>
+        </div>
+        <div className="linkButton gitButton">
+          <a
+            className="link"
+            href="https://github.com/LeopoldAssogbaA"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            leopoldassogba21@gmail.com
-          </Button>
-        </a>
-      </div>
-      <div className="linkButton linkedinButton">
-        <a
-          className="link"
-          href="https://www.linkedin.com/in/l%C3%A9opold-assogba/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Button
-            icon={<LinkedinOutlined />}
-            shape="round"
-            size="large"
-            type="primary"
-            style={{ color: "black" }}
+            <Button
+              icon={<GithubOutlined />}
+              shape="round"
+              size="large"
+              type="primary"
+              style={{ color: "black" }}
+            >
+              LeopoldAssogbaA
+            </Button>
+          </a>
+        </div>
+        <div className="linkButton resumeButton">
+          <a
+            href="assets/pdf/Leopold-Assogba-Resume.pdf"
+            download
+            className="link"
           >
-            Léopold Assogba
-          </Button>
-        </a>
-      </div>
-      <div className="linkButton gitButton">
-        <a
-          className="link"
-          href="https://github.com/LeopoldAssogbaA"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Button
-            icon={<GithubOutlined />}
-            shape="round"
-            size="large"
-            type="primary"
-            style={{ color: "black" }}
-          >
-            LeopoldAssogbaA
-          </Button>
-        </a>
-      </div>
-      <div className="linkButton resumeButton">
-        <a
-          href="assets/pdf/Leopold-Assogba-Resume.pdf"
-          download
-          className="link"
-        >
-          <Button
-            icon={<DownloadOutlined />}
-            shape="round"
-            size="large"
-            type="primary"
-            style={{ color: "black" }}
-          >
-            Download Resume
-          </Button>
-        </a>
+            <Button
+              icon={<DownloadOutlined />}
+              shape="round"
+              size="large"
+              type="primary"
+              style={{ color: "black" }}
+            >
+              Download Resume
+            </Button>
+          </a>
+        </div>
       </div>
     </div>
   );

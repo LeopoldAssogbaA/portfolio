@@ -151,7 +151,7 @@ const About = ({ setCursorState }) => {
   const musicLayout = {
     xs: { span: 24 },
     sm: { span: 24 },
-    md: { span: 20 },
+    md: { span: 16, offset: 4 },
     lg: { span: 16, offset: 4 },
   };
 
