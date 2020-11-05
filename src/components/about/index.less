@@ -3,6 +3,17 @@
   width: 100%;
   height: 100%;
 
+  @media all and (max-width: 480px) {
+    margin-top: 0;
+  }
+  @media all and (min-width: 480px) and (max-width: 576px) {
+    margin-top: 2em;
+  }
+
+  @media all and (min-width: 576px) and (max-width: 992px) {
+    margin-top: 3em;
+  }
+
   .link {
     cursor: none;
 
@@ -23,6 +34,17 @@
   .abstract {
     padding-bottom: 3em;
     font-size: 1.5em;
+
+    @media all and (max-width: 480px) {
+      font-size: 1.2em;
+    }
+    @media all and (min-width: 480px) and (max-width: 576px) {
+      font-size: 1.3em;
+    }
+
+    @media all and (min-width: 576px) and (max-width: 992px) {
+      font-size: 1.4em;
+    }
 
     p {
       margin: 0;
@@ -59,17 +81,39 @@
 
     .laptop2Container {
       width: 100%;
+      @media all and (max-width: 480px) {
+        height: 12em;
+      }
+      @media all and (min-width: 480px) and (max-width: 576px) {
+        height: 12em;
+      }
+
+      @media all and (min-width: 576px) and (max-width: 992px) {
+        height: 12em;
+      }
+
       img {
         position: absolute;
         opacity: 0;
         left: -10%;
-      }
-
-      img {
         width: 100%;
         -webkit-transform: scaleX(-1);
         transform: scaleX(-1);
         padding-top: 12em;
+
+        @media all and (max-width: 480px) {
+          top: -12em;
+          width: 70vw;
+        }
+        @media all and (min-width: 480px) and (max-width: 576px) {
+          top: -15em;
+          width: 60vw;
+        }
+
+        @media all and (min-width: 576px) and (max-width: 992px) {
+          top: -20em;
+          width: 60vw;
+        }
       }
     }
     .aboutDev {
@@ -86,6 +130,9 @@
           top: 0;
           right: 0;
           z-index: -1;
+          @media all and (max-width: 992px) {
+            width: 0;
+          }
         }
       }
 
@@ -98,9 +145,31 @@
 
         h2 {
           font-size: 2em;
+
+          @media all and (max-width: 480px) {
+            font-size: 1.5em;
+          }
+          @media all and (min-width: 480px) and (max-width: 576px) {
+            font-size: 1.7em;
+          }
+
+          @media all and (min-width: 576px) and (max-width: 992px) {
+            font-size: 1.85em;
+          }
         }
         p {
           font-size: 1.2em;
+
+          @media all and (max-width: 480px) {
+            font-size: 1em;
+          }
+          @media all and (min-width: 480px) and (max-width: 576px) {
+            font-size: 1.1em;
+          }
+
+          @media all and (min-width: 576px) and (max-width: 992px) {
+            font-size: 1.2em;
+          }
         }
       }
     }
@@ -109,20 +178,47 @@
       width: 100%;
       display: flex;
       justify-content: flex-end;
+
+      button {
+        span {
+          font-size: 2em;
+          @media all and (max-width: 480px) {
+            font-size: 1em;
+          }
+          @media all and (min-width: 480px) and (max-width: 576px) {
+            font-size: 1.5em;
+          }
+
+          @media all and (min-width: 576px) and (max-width: 992px) {
+            font-size: 2em;
+          }
+        }
+      }
     }
   }
 
   .aboutMusicContainer {
     height: 100%;
+    width: 100%;
     > img {
       padding-top: 2em;
       width: 15%;
       opacity: 0;
       transform: scale(0);
-      top: 10%;
-      left: -20%;
+      right: -20%;
       position: absolute;
       z-index: -1;
+
+      //   @media all and (max-width: 480px) {
+      //     width: 20%;
+      //   }
+      //   @media all and (min-width: 480px) and (max-width: 576px) {
+      //     width: 15%;
+      //   }
+
+      //   @media all and (min-width: 576px) and (max-width: 992px) {
+      //     width: 15%;
+      //   }
     }
 
     .ant-row {
@@ -137,9 +233,11 @@
         right: 0;
         z-index: -1;
         opacity: 0;
-        left: -20%;
+        left: 40%;
         position: absolute;
         z-index: -1;
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
       }
     }
 

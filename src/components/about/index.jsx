@@ -63,21 +63,23 @@ const About = ({ setCursorState }) => {
         duration: 1.3,
         scale: 1,
         opacity: 1,
-        top: 0,
-        left: 0,
+        margintop: "5em",
+        right: 0,
         ease: Linear.easeIn,
       });
       gsap.to(pianoRef, {
         duration: 1.3,
         opacity: 1,
+        width: "80%",
         left: 0,
+        delay: 0.8,
         ease: Linear.easeIn,
       });
       gsap.to(musicTextRef, {
         duration: 1.3,
         opacity: 1,
         ease: Linear.easeIn,
-        delay: 0.9,
+        delay: 1.3,
       });
     }
   }, [section]);
@@ -128,14 +130,37 @@ const About = ({ setCursorState }) => {
       }, 2000);
     }
   };
+  // xs | sm | md | lg | xl | xxl
+  const lightLayout = {
+    span: 23,
+    offset: 1,
+  };
 
-  console.log(sections[section]);
+  const laptopLayout = {
+    xs: { span: 24 },
+    sm: { span: 24 },
+    md: { span: 4 },
+    lg: { span: 8 },
+  };
+  const devTextLayout = {
+    xs: { span: 24 },
+    sm: { span: 24 },
+    md: { span: 20 },
+    lg: { span: 16 },
+  };
+  const musicLayout = {
+    xs: { span: 24 },
+    sm: { span: 24 },
+    md: { span: 20 },
+    lg: { span: 16, offset: 4 },
+  };
+
   return (
     <div className="aboutContainer">
       {sections[section] === "abstract" && (
         <div className="abstractContainer">
           <Row>
-            <Col span={24} offset={1}>
+            <Col {...lightLayout}>
               <div className="light"></div>
             </Col>
           </Row>
@@ -183,7 +208,7 @@ const About = ({ setCursorState }) => {
       {sections[section] === "dev" && (
         <div className="aboutDevContainer">
           <Row>
-            <Col span={8}>
+            <Col {...laptopLayout}>
               <div className="laptop2Container">
                 <img
                   src="assets/img/laptop2.jpg"
@@ -192,7 +217,7 @@ const About = ({ setCursorState }) => {
                 />
               </div>
             </Col>
-            <Col span={16}>
+            <Col {...devTextLayout}>
               <div className="aboutDev">
                 <div className="lightContainer">
                   <img
@@ -227,9 +252,9 @@ const About = ({ setCursorState }) => {
                         onClick={() => goToNextContent()}
                         icon={
                           <RightCircleOutlined
-                            style={{
-                              fontSize: "2em",
-                            }}
+                          // style={{
+                          //   fontSize: "2em",
+                          // }}
                           />
                         }
                       />
@@ -249,7 +274,7 @@ const About = ({ setCursorState }) => {
             ref={(el) => (moonRef = el)}
           />
           <Row>
-            <Col span={16} offset={4}>
+            <Col {...musicLayout}>
               <div className="pianoContainer">
                 <img
                   src="assets/img/piano.jpg"
@@ -269,9 +294,6 @@ const About = ({ setCursorState }) => {
                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                     ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
                   </p>
                 </div>
               </div>

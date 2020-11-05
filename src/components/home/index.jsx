@@ -4,12 +4,8 @@ import gsap from "gsap";
 
 import "./index.less";
 
-// TODO: fix for mobile usages
-// TODO: enhance styles hover
-
 const HomeContainer = ({ goToPortfolio }) => {
   const [paused, setPaused] = useState(true);
-  const [menuRevealed, setMenuRevealed] = useState(false);
   let menuRef = useRef(null);
   let c = useRef(null);
 

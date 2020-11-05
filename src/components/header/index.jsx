@@ -4,6 +4,9 @@ import gsap from "gsap";
 
 import history from "../../constants/history";
 import "./index.less";
+import { TimelineLite } from "gsap/gsap-core";
+import { Elastic } from "gsap/gsap-core";
+import { Linear } from "gsap/gsap-core";
 
 const Header = () => {
   let headerRef = useRef(null);
@@ -14,11 +17,16 @@ const Header = () => {
     gsap.from(headerRef, { visibility: "hidden", duration: 0 });
     gsap.from(fireRef, { opacity: 0, delay: 0.7, duration: 1.5 });
     gsap.from(menuRef, { opacity: 0, right: "-10%", delay: 0.1 });
-    gsap.from(".about", { transform: "rotateX(85deg)", delay: 0.2 });
-    gsap.from(".contact", { transform: "rotateX(85deg)", delay: 0.3 });
-    gsap.from(".git", { transform: "rotateX(85deg)", delay: 0.4 });
-    gsap.from(".dev", { transform: "rotateX(85deg)", delay: 0.5 });
-    gsap.from(".music", { transform: "rotateX(85deg)", delay: 0.6 });
+    const tl = new TimelineLite();
+    tl.staggerTo(
+      ".menuContainer a",
+      0.5,
+      {
+        marginLeft: 0,
+        ease: Linear.easeIn,
+      },
+      0.1
+    );
   }, []);
 
   const navigate = (page) => {
@@ -47,19 +55,23 @@ const Header = () => {
         </div>
       </div>
       <div className="menuContainer" ref={(el) => (menuRef = el)}>
-        <NavLink to="/about" activeClassName="active" className="link">
+        <NavLink to="/about" activeClassName="active" className="link about">
           About
         </NavLink>
-        <NavLink to="/contact" activeClassName="active" className="link">
+        <NavLink
+          to="/contact"
+          activeClassName="active"
+          className="link contact"
+        >
           Contact
         </NavLink>
-        <NavLink to="/git" activeClassName="active" className="link">
+        <NavLink to="/git" activeClassName="active" className="link git">
           Git
         </NavLink>
-        <NavLink to="/dev" activeClassName="active" className="link">
+        <NavLink to="/dev" activeClassName="active" className="link dev">
           Dev
         </NavLink>
-        <NavLink to="/music" activeClassName="active" className="link">
+        <NavLink to="/music" activeClassName="active" className="link music">
           Music
         </NavLink>
       </div>
