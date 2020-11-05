@@ -329,7 +329,7 @@ export const Contact = ({ setCursorState }) => {
               },
             },
           });
-          gsap.to(".git", {
+          gsap.to(".gitHub", {
             duration: 0.5,
             maskImage: "radial-gradient(closest-side,#000000,rgba(0, 0, 0, 0))",
             delay: 0.5,
@@ -392,7 +392,7 @@ export const Contact = ({ setCursorState }) => {
       <img
         src="assets/img/gitBackground2.jpg"
         alt="test"
-        className="illustration git"
+        className="illustration gitHub"
       />
       <img
         src="assets/img/linkedinBackground.jpg"

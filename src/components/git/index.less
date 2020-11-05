@@ -13,6 +13,17 @@
   > .ant-row {
     height: 100%;
 
+    .arrowD {
+      @media all and (max-width: 768px) {
+        visibility: hidden;
+      }
+    }
+    .arrowM {
+      @media all and (min-width: 992px) {
+        visibility: hidden;
+      }
+    }
+
     .arrowRight {
       display: flex;
       flex-direction: column;
@@ -23,6 +34,10 @@
     .arrowLeft {
       display: flex;
       justify-content: flex-end;
+
+      @media all and (max-width: 992px) {
+        visibility: "hidden";
+      }
     }
 
     .lightLetters {
@@ -30,6 +45,13 @@
       position: absolute;
       z-index: 0;
       width: 100%;
+
+      @media all and (max-width: 480px) {
+        width: 180%;
+      }
+      @media all and (min-width: 480px) and (max-width: 576px) {
+        width: 120%;
+      }
     }
   }
 
@@ -37,6 +59,17 @@
     height: 100%;
     width: 100%;
     margin: 4em 0 0 2em;
+
+    @media all and (max-width: 480px) {
+      margin: 3em 0;
+    }
+    @media all and (min-width: 480px) and (max-width: 576px) {
+      margin: 3em 0;
+    }
+
+    @media all and (min-width: 576px) and (max-width: 992px) {
+      margin: 3em 0;
+    }
 
     .repoRevealPrev {
       width: 100%;

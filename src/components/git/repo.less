@@ -3,6 +3,7 @@
 .repoContainer {
   overflow: auto;
   height: 100%;
+  width: 100%;
   font-family: "Source Code Pro", monospace;
 
   .link {
@@ -51,6 +52,14 @@
   .repoTitle {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+
+    @media all and (max-width: 480px) {
+      flex-direction: column;
+    }
+    @media all and (min-width: 480px) and (max-width: 576px) {
+      flex-direction: column;
+    }
 
     .arrows {
       display: flex;
@@ -71,14 +80,20 @@
     .repoLink {
       display: flex;
       flex-direction: column;
+      text-align: end;
+
+      button {
+        align-self: flex-end;
+      }
     }
   }
 
   section {
     overflow: auto;
     height: 50vh;
-    margin-top: 2em;
+    margin: 2em 0;
     padding-right: 0.3em;
+    padding-bottom: 20vh;
 
     a {
       img {

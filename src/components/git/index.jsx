@@ -7,14 +7,17 @@ import {
 } from "@ant-design/icons";
 
 import "./index.less";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Grid, Row } from "antd";
 import Repo from "./repo";
 
 import GITAUTH from "../../token.json";
 import gsap from "gsap";
 import { Bounce } from "gsap/gsap-core";
 
+const { useBreakpoint } = Grid;
+
 const GitComponent = ({ setCursorState }) => {
+  const screens = useBreakpoint();
   const [repos, setRepos] = useState([]);
   const [reposLoaded, setReposLoaded] = useState(false);
   const [reposUpdated, setReposUpdated] = useState(false);
@@ -22,6 +25,7 @@ const GitComponent = ({ setCursorState }) => {
   const [repoIndex, setRepoIndex] = useState(0);
   const [repoVisible, setRepoVisible] = useState(true);
   const [loadReavealed, setLoadReavealed] = useState(false);
+  const [showMBtn, setShowMBtn] = useState(false);
 
   let lightLettersRef = useRef(null);
   let repoRevealPrevRef = useRef(null);
@@ -255,10 +259,50 @@ const GitComponent = ({ setCursorState }) => {
       });
   }, [reposLoaded]);
 
+  const reposLayout = {
+    xs: { span: 24 },
+    sm: { span: 24 },
+    md: { span: 13 },
+    lg: { span: 13 },
+  };
+
+  const lightLayout = {
+    xs: { span: 4 },
+    sm: { span: 4 },
+    md: { span: 4 },
+    lg: { span: 4 },
+  };
+  const arrowDLayout = {
+    xs: { span: 0 },
+    sm: { span: 0 },
+    md: { span: 2 },
+    lg: { span: 2 },
+  };
+  const arrowMLayout = {
+    xs: { span: 4, offset: 4 },
+    sm: { span: 4, offset: 4 },
+    md: { span: 4, offset: 4 },
+    lg: { span: 0, offset: 0 },
+  };
+
+  useEffect(() => {
+    if (Object.keys(screens).length > 0 && screens.md) {
+      setShowMBtn(false);
+    } else if (Object.keys(screens).length > 0 && screens.lg) {
+      setShowMBtn(false);
+    } else if (Object.keys(screens).length > 0 && screens.xl) {
+      setShowMBtn(true);
+    } else if (Object.keys(screens).length > 0 && screens.sm) {
+      setShowMBtn(true);
+    } else if (Object.keys(screens).length > 0 && screens.xs) {
+      setShowMBtn(true);
+    }
+  }, [screens]);
+
   return (
     <div className="gitContainer">
       <Row>
-        <Col span={4}>
+        <Col {...lightLayout}>
           <img
             src="assets/img/lightletters1.jpeg"
             alt="light letters"
@@ -266,16 +310,38 @@ const GitComponent = ({ setCursorState }) => {
             ref={(el) => (lightLettersRef = el)}
           />
         </Col>
-        <Col span={2} className="arrowLeft">
+        <Col {...arrowDLayout} className="arrowLeft">
           <Button
-            className="link"
+            className="link arrowD"
             onClick={() => repoVisible && previousRepo()}
             icon={<LeftOutlined style={{ fontSize: "2.5em" }} />}
             type="link"
             size="large"
           />
         </Col>
-        <Col span={13}>
+        {showMBtn && (
+          <>
+            <Col {...arrowMLayout} className="arrowLeft">
+              <Button
+                className="link arrowM"
+                onClick={() => repoVisible && previousRepo()}
+                icon={<LeftOutlined style={{ fontSize: "1.5em" }} />}
+                type="link"
+                size="large"
+              />
+            </Col>
+            <Col {...arrowMLayout} className="arrowLeft">
+              <Button
+                className="link arrowM"
+                onClick={() => repoVisible && nextRepo()}
+                icon={<RightOutlined style={{ fontSize: "1.5em" }} />}
+                type="link"
+                size="large"
+              />
+            </Col>
+          </>
+        )}
+        <Col {...reposLayout}>
           <div className="reposContainer">
             {!loadReavealed && (
               <LoadingOutlined
@@ -326,9 +392,9 @@ const GitComponent = ({ setCursorState }) => {
             />
           </div>
         </Col>
-        <Col span={4} className="arrowRight">
+        <Col {...arrowDLayout} className="arrowRight">
           <Button
-            className="link"
+            className="link arrowD"
             onClick={() => repoVisible && nextRepo()}
             icon={<RightOutlined style={{ fontSize: "2.5em" }} />}
             type="link"
