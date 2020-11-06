@@ -45,7 +45,7 @@ const DevComponent = ({ history }) => {
           width: 200,
           height: 980,
           wireframes: false,
-          background: "black",
+          background: "transparent",
         },
       });
       engine.world.gravity.y = 0.05;
@@ -291,7 +291,7 @@ const DevComponent = ({ history }) => {
   const nextProject = () => {
     gsap.to(titleRevealRef, {
       duration: 0.5,
-      width: "100%",
+      width: "60%",
       ease: Power2.easeIn,
     });
     gsap.to(".title", {
@@ -364,11 +364,25 @@ const DevComponent = ({ history }) => {
     }
   };
 
+  const mockupLayout = {
+    xs: { span: 24, offset: 0, order: 2 },
+    sm: { span: 24, offset: 0, order: 2 },
+    md: { span: 8, offset: 1, order: 1 },
+    lg: { span: 8, offset: 2, order: 1 },
+  };
+
+  const texLayout = {
+    xs: { span: 24, offset: 0, order: 1 },
+    sm: { span: 24, offset: 0, order: 1 },
+    md: { span: 12, offset: 1, order: 2 },
+    lg: { span: 11, offset: 1, order: 2 },
+  };
+
   return (
     <div className="devContainer">
       <img src="assets/img/window.jpg" alt="window" className="window" />
       <Row>
-        <Col span={8} offset={2}>
+        <Col {...mockupLayout}>
           <div className="mockupContainer">
             <img
               src={devProjects[projectIndex].mockup}
@@ -394,7 +408,7 @@ const DevComponent = ({ history }) => {
             </div>
           </div>
         </Col>
-        <Col span={11} offset={1}>
+        <Col {...texLayout}>
           <div className="infosContainer">
             <div>
               <div>

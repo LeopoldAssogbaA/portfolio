@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import gsap, { Power2, TimelineLite } from "gsap/gsap-core";
 import classnames from "classnames";
-import { Button, Col, Row, Tooltip } from "antd";
+import { Button, Col, Row, Tooltip, Grid } from "antd";
 import {
   LeftCircleOutlined,
   PauseCircleOutlined,
@@ -17,7 +17,10 @@ import musicProjects from "../../constants/musicProjects";
 
 import "./index.less";
 
+const { useBreakpoint } = Grid;
+
 export const Music = ({ setCursorState }) => {
+  const screens = useBreakpoint();
   const [bands, setBands] = useState([]);
   const [bandsLoaded, setBandsLoaded] = useState(false);
   const [bandRequeted, setBandRequeted] = useState(false);
@@ -28,6 +31,7 @@ export const Music = ({ setCursorState }) => {
   const [player, setPlayer] = useState(null);
   const [displayPlay, setDisplayPlay] = useState(null);
   const [animationDone, setAnimationDone] = useState(false);
+  const [showBtn, setShowBtn] = useState(false);
   const [needleD, setNeedleD] = useState(
     new Audio(
       "https://s3-us-west-2.amazonaws.com/s.cdpn.io/35984/vinyl_needle_down_edit.mp3"
@@ -593,10 +597,37 @@ export const Music = ({ setCursorState }) => {
     }
   };
 
+  useEffect(() => {
+    if (Object.keys(screens).length > 0 && screens.md) {
+      setShowBtn(true);
+    } else if (Object.keys(screens).length > 0 && screens.lg) {
+      setShowBtn(true);
+    } else if (Object.keys(screens).length > 0 && screens.xl) {
+      setShowBtn(true);
+    } else if (Object.keys(screens).length > 0 && screens.sm) {
+      setShowBtn(false);
+    } else if (Object.keys(screens).length > 0 && screens.xs) {
+      setShowBtn(false);
+    }
+  }, [screens]);
+
+  const vinylLayout = {
+    xs: { span: 24, offset: 0, order: 2 },
+    sm: { span: 24, offset: 0, order: 2 },
+    md: { span: 10, offset: 1, order: 2 },
+    lg: { span: 10, offset: 1, order: 2 },
+  };
+
+  const infosLayout = {
+    xs: { span: 24, offset: 0, order: 1 },
+    sm: { span: 24, offset: 0, order: 1 },
+    md: { span: 10, offset: 1, order: 1 },
+    lg: { span: 10, offset: 1, order: 1 },
+  };
   return (
     <div className="musicContainer">
       <Row>
-        <Col span={10} offset={1}>
+        <Col {...infosLayout}>
           <div className="bandContainer">
             <div className="pictureContainer">
               <img
@@ -625,21 +656,91 @@ export const Music = ({ setCursorState }) => {
               <div id="image-container">
                 {tracksLoaded &&
                   bands[bandIndex].tracks.map((track, i) => {
-                    return (
-                      <Tooltip title={track.title} color="black" key={track.id}>
+                    if (showBtn) {
+                      return (
+                        <Tooltip
+                          title={track.title}
+                          color="black"
+                          key={track.id}
+                        >
+                          <a
+                            href="javascript:void(0)"
+                            role="button"
+                            className="imgLink link"
+                            onClick={() => stream(track.id)}
+                            onMouseEnter={() => {
+                              setDisplayPlay(i);
+                              setCursorState("hover");
+                            }}
+                            onMouseLeave={() => {
+                              setDisplayPlay(null);
+                              setCursorState("notHover");
+                            }}
+                            key={track.id}
+                          >
+                            <img
+                              className="thumb tracksImg"
+                              src={
+                                track.artwork_url
+                                  ? track.artwork_url
+                                  : track.user.avatar_url
+                              }
+                              title={track.title}
+                              alt={track.title}
+                              width={currentTrackIndex === i ? "100" : "70"}
+                              height={currentTrackIndex === i ? "100" : "70"}
+                              style={
+                                displayPlay === i
+                                  ? {
+                                      opacity: "0",
+                                    }
+                                  : {
+                                      opacity: "1",
+                                    }
+                              }
+                            />
+                            {currentTrackIndex === i && vinylPlaying ? (
+                              displayPlay === i ? null : (
+                                <Equalizer />
+                              )
+                            ) : null}
+                            {i === displayPlay ? (
+                              vinylPlaying && currentTrackIndex === i ? (
+                                <PauseCircleOutlined
+                                  style={{
+                                    fontSize: "2em",
+                                    position: "absolute",
+                                    top: 0,
+                                    left:
+                                      currentTrackIndex === i
+                                        ? "1.2em"
+                                        : "0.8em",
+                                  }}
+                                />
+                              ) : (
+                                <PlayCircleOutlined
+                                  style={{
+                                    fontSize: "2em",
+                                    position: "absolute",
+                                    top: 0,
+                                    left:
+                                      currentTrackIndex === i
+                                        ? "1.2em"
+                                        : "0.8em",
+                                  }}
+                                />
+                              )
+                            ) : null}
+                          </a>
+                        </Tooltip>
+                      );
+                    } else {
+                      return (
                         <a
                           href="javascript:void(0)"
                           role="button"
                           className="imgLink link"
                           onClick={() => stream(track.id)}
-                          onMouseEnter={() => {
-                            setDisplayPlay(i);
-                            setCursorState("hover");
-                          }}
-                          onMouseLeave={() => {
-                            setDisplayPlay(null);
-                            setCursorState("notHover");
-                          }}
                           key={track.id}
                         >
                           <img
@@ -668,32 +769,9 @@ export const Music = ({ setCursorState }) => {
                               <Equalizer />
                             )
                           ) : null}
-                          {i === displayPlay ? (
-                            vinylPlaying && currentTrackIndex === i ? (
-                              <PauseCircleOutlined
-                                style={{
-                                  fontSize: "2em",
-                                  position: "absolute",
-                                  top: 0,
-                                  left:
-                                    currentTrackIndex === i ? "1.2em" : "0.8em",
-                                }}
-                              />
-                            ) : (
-                              <PlayCircleOutlined
-                                style={{
-                                  fontSize: "2em",
-                                  position: "absolute",
-                                  top: 0,
-                                  left:
-                                    currentTrackIndex === i ? "1.2em" : "0.8em",
-                                }}
-                              />
-                            )
-                          ) : null}
                         </a>
-                      </Tooltip>
-                    );
+                      );
+                    }
                   })}
               </div>
             </div>
@@ -713,14 +791,22 @@ export const Music = ({ setCursorState }) => {
             </div>
           </div>
         </Col>
-        <Col span={10} offset={1}>
+        <Col {...vinylLayout}>
           <Row
             justify="center"
             direction="column"
-            style={{
-              height: "100%",
-              background: "radial-gradient(closest-side, #C67D30, black)",
-            }}
+            style={
+              showBtn
+                ? {
+                    height: "100%",
+                    background: "radial-gradient(closest-side, #C67D30, black)",
+                  }
+                : {
+                    marginTop: "1em",
+                    height: "60vh",
+                    background: "radial-gradient(closest-side, #C67D30, black)",
+                  }
+            }
           >
             <div
               className={classnames(

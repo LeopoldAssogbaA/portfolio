@@ -54,10 +54,7 @@
     justify-content: space-between;
     width: 100%;
 
-    @media all and (max-width: 480px) {
-      flex-direction: column;
-    }
-    @media all and (min-width: 480px) and (max-width: 576px) {
+    @media all and (max-width: 576px) {
       flex-direction: column;
     }
 
@@ -94,6 +91,10 @@
     margin: 2em 0;
     padding-right: 0.3em;
     padding-bottom: 20vh;
+    @media all and (max-width: 576px) {
+      overflow: hidden;
+      height: 100%;
+    }
 
     a {
       img {
