@@ -7,11 +7,11 @@ const devProjects = [
     date: "04/2020",
     stack: "FeatherJS, Sequelize, SocketIo, React, Redux, Open-Vidu",
     description: `
-      Le projet à débuté sous la forme d'une P.O.C. (Proof of concept) et à rapidement évolué.
-      Le projet devait permettre à des professionnels de la santé d'animer et d'assister à des webinaire.
-      A terme le projet permettait de discuter dans un chat en temps réel avec les différents participants du webinaire.
-      Ces derniers pouvait également recevoir le flux vidéo de l'intervenant, qu'il présente son contenu à la caméra ou qu'il diffuse un document.
-      L'intervenant pouvait également soumettre des questionnaires et suivre le taux de participation en temps réel.
+     The application allows you to participate in and animate webinars.
+     The speaker side allows to launch surveys (or questionnaires) while
+     taking advantage of the participation rate feedback. It can also manage
+     webinar content such as questions submitted and documents to be made available
+     to participants. Participants can answer questions, query the speaker and download documents. 
     `,
   },
   {
@@ -22,11 +22,11 @@ const devProjects = [
     date: "10/2019",
     stack: "Angular, SocketIo, NestJS, TypeORM",
     description: `
-    Réaliser un jeu multijoueur autour de tétris;
-    Tel était l'enjeu de ce projet d'application. Au sein d'une équipe de 4 développeurs . 
-    Nous avons réaliser un jeu collaboratif dans lequel 4 joueurs maximum, jouaient ensemble.
-    L'objectif: réaliser des lignes pour infliger des dégats à un monstre.
-    Chaque pouvait choisir son personnage dans la boutique moyennant quelques golds (obtenus en fin de partie).
+    Create a multiplayer game around Tetris;
+    Such was the stake of this application project within a team of 4 developers. 
+    We realized a collaborative game in which 4 players maximum, played together.
+    The objective: to make lines to inflict damage to a monster.
+    Each player could choose his character in the store with a few golds (obtained at the end of the game).
     `,
   },
   {
@@ -37,13 +37,9 @@ const devProjects = [
     date: "03/2019",
     stack: "Angular, Ionic, Flutter, KeystoneJS, Docker, GraphQL",
     description: `
-    Création d'une application Mobile.
-    Pour répondre à un besoin d’impartialité sur la notation des performances des joueurs, nous avons imaginé JustFoot. 
-    La notation des joueurs ne sera plus seulement réservée à certains journalistes professionnels, mais accessibles à tous.
-    Chaque supporter jugera les joueurs de son équipe et pourra consulter les notations de ses amis et des autres utilisateurs du service.
-    L'application étant avant tout communautaire, nous avons imaginé un flux d'actualité alimenté par les posts des utilisateurs avec des photos ou des images de leur galerie.
-    
-    L'application finale permettait de choisir son équipe, de noter ses joueurs et d'alimenter le flux d'actualité. Une connexion automatique et plusieurs autres foncitonnalités on également été implémentées.
+     To meet the need for impartiality in rating player performance, we created JustFoot. 
+    Each supporter will judge the players of his team and will be able to consult the ratings of his friends and other users of the service.
+    As the application is above all a community application, we imagined a news feed fed by users' posts with photos or images from their gallery.
     `,
   },
   {
@@ -54,11 +50,7 @@ const devProjects = [
     date: "03/2019",
     stack: "Angular, Ionic, Flutter, KeystoneJS, Docker, GraphQL",
     description: `
-    Abcell-bio est une société de biotechnologie située au sein du Genopole à Evry, spécialisée dans l’isolement des cellules souches humaines et de cellules primaires issues des tissus périnataux.
-    Ces produits sont créés dans le cadre de la recherche.
-    Pour le compte de cette société nous devions créer un site web d’après une interface utilisateur maquettée par un graphiste prestataire externe de l’entreprise.
-    Nous devions également mettre en place un serveur et une base de données pour stocker les informations des différents produits proposés par l’entreprise ainsi que d’autres informations présentes sur le site web telles que les actualités ou les différents membres de l’entreprise.
-    Nous avons mis a disposition une interface d’administration pour leur permettre de gérer le contenu du site web.
+   Abcell-bio is a biotechnology company specialized in research. I participated in the design and development of the website and back office for this company.
     `,
   },
   {
@@ -69,7 +61,7 @@ const devProjects = [
     date: "02/2020",
     stack: "Html/Css/Js",
     description: `
-    Créée pour répondre à une demande urgente au début de l'année 2020, la landing page de B4road présente l'entreprise et son activité.
+    Created to meet an urgent demand at the beginning of 2020, the landing page of B4road presents the company and its activity.
     `,
   },
 ];

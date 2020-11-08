@@ -168,10 +168,10 @@ const About = ({ setCursorState }) => {
             <Col span={16} offset={4}>
               <div className="abstract">
                 <h2>Léopold Assogba</h2>
-                <p>Hello, welcome to my portfolio..</p>
+                <p>Welcome to my portfolio</p>
                 <p>
-                  I would like to share with you two of my passions: web
-                  application development and music.
+                  I'm a web application developer and drummer. You will discover
+                  here a part of my projects.
                 </p>
                 <p>
                   <Button
@@ -181,9 +181,9 @@ const About = ({ setCursorState }) => {
                     onClick={() => goToNextContent()}
                     icon={
                       <RightCircleOutlined
-                        style={{
-                          fontSize: "2em",
-                        }}
+                      // style={{
+                      //   fontSize: "2em",
+                      // }}
                       />
                     }
                   />
@@ -233,14 +233,20 @@ const About = ({ setCursorState }) => {
                   <div>
                     <h2>About developpement</h2>
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate velit
-                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                      sint occaecat cupidatat non proident, sunt in culpa qui
-                      officia deserunt mollit anim id est laborum.
+                      After a professional reconversion at the end of 2017, I
+                      followed two training courses in order to enhance my
+                      skills with state-recognized diplomas. Based in Lyon, a
+                      digital city, I continue to train with the same passion
+                      for web technologies.
+                    </p>
+                    <p>
+                      <i>
+                        Any sufficiently advanced technology is
+                        indistinguishable from magic.
+                      </i>
+                    </p>
+                    <p>
+                      <b>Gregory Benford</b>
                     </p>
                     <div className="btnContainer">
                       <Button
@@ -289,11 +295,21 @@ const About = ({ setCursorState }) => {
                 <div>
                   <h2>About Music</h2>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
+                    Falling into music as a child, I started playing in bands in
+                    college, professionalizing the projects more and more. In
+                    Dijon I was able to participate in several projects before
+                    leaving them in 2019. Inspired by many influences, from
+                    bethoveen to miles davis through kendrick lamar, I try to
+                    bring my energy to the songs I help shape.
+                  </p>
+                  <p>
+                    <i>
+                      Je ferais de sorte pour demontrer. Que la musique nourrit
+                      le monde.
+                    </i>
+                  </p>
+                  <p>
+                    <b>Gnonnas Pedro</b>
                   </p>
                 </div>
               </div>

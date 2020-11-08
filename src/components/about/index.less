@@ -53,6 +53,22 @@
         text-align: end;
       }
     }
+
+    button {
+      span {
+        font-size: 2em;
+        @media all and (max-width: 480px) {
+          font-size: 1em;
+        }
+        @media all and (min-width: 480px) and (max-width: 576px) {
+          font-size: 1.5em;
+        }
+
+        @media all and (min-width: 576px) and (max-width: 992px) {
+          font-size: 1.8em;
+        }
+      }
+    }
   }
 
   .laptop {
@@ -178,6 +194,8 @@
       width: 100%;
       display: flex;
       justify-content: flex-end;
+      position: relative;
+      top: 0;
 
       button {
         span {
@@ -190,7 +208,7 @@
           }
 
           @media all and (min-width: 576px) and (max-width: 992px) {
-            font-size: 2em;
+            font-size: 1.8em;
           }
         }
       }
@@ -200,6 +218,7 @@
   .aboutMusicContainer {
     height: 100%;
     width: 100%;
+
     > img {
       padding-top: 2em;
       width: 15%;
@@ -253,9 +272,30 @@
 
       h2 {
         font-size: 2em;
+        @media all and (max-width: 480px) {
+          font-size: 1.5em;
+        }
+        @media all and (min-width: 480px) and (max-width: 576px) {
+          font-size: 1.7em;
+        }
+
+        @media all and (min-width: 576px) and (max-width: 992px) {
+          font-size: 1.85em;
+        }
       }
       p {
         font-size: 1.2em;
+
+        @media all and (max-width: 480px) {
+          font-size: 1em;
+        }
+        @media all and (min-width: 480px) and (max-width: 576px) {
+          font-size: 1.1em;
+        }
+
+        @media all and (min-width: 576px) and (max-width: 992px) {
+          font-size: 1.2em;
+        }
       }
     }
   }

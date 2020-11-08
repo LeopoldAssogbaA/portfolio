@@ -624,6 +624,7 @@ export const Music = ({ setCursorState }) => {
     md: { span: 10, offset: 1, order: 1 },
     lg: { span: 10, offset: 1, order: 1 },
   };
+
   return (
     <div className="musicContainer">
       <Row>

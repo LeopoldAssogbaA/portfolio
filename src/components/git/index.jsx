@@ -337,6 +337,7 @@ const GitComponent = ({ setCursorState }) => {
                 icon={<RightOutlined style={{ fontSize: "1.5em" }} />}
                 type="link"
                 size="large"
+                style={{ marginTop: "2em" }}
               />
             </Col>
           </>
