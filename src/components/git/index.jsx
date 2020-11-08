@@ -34,7 +34,7 @@ const GitComponent = ({ setCursorState }) => {
   let nextTitleRef = useRef(null);
 
   const octokit = new Octokit({
-    auth: GITAUTH.token,
+    auth: process.env.GITAUTH,
   });
 
   useEffect(() => {
