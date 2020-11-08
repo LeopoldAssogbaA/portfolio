@@ -16,10 +16,11 @@ import Equalizer from "./equalizer";
 import musicProjects from "../../constants/musicProjects";
 
 import "./index.less";
+import { useHistory, withRouter } from "react-router-dom";
 
 const { useBreakpoint } = Grid;
 
-export const Music = ({ setCursorState }) => {
+export const Music = ({ setCursorState, history }) => {
   const screens = useBreakpoint();
   const [bands, setBands] = useState([]);
   const [bandsLoaded, setBandsLoaded] = useState(false);
@@ -822,4 +823,4 @@ export const Music = ({ setCursorState }) => {
   );
 };
 
-export default Music;
+export default withRouter(Music);

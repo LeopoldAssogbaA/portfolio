@@ -3,11 +3,6 @@ import classNames from "classnames";
 import "./index.less";
 import { useLocation, withRouter } from "react-router-dom";
 
-const isMobile = () => {
-  const ua = navigator.userAgent;
-  return /Android|Mobi/i.test(ua);
-};
-
 const Cursor = ({ history, cursorStateEvent }) => {
   // if (typeof navigator !== "undefined" && isMobile()) return null;
 
