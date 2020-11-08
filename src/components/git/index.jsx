@@ -10,7 +10,7 @@ import "./index.less";
 import { Button, Col, Grid, Row } from "antd";
 import Repo from "./repo";
 
-import GITAUTH from "../../token.json";
+// import GITAUTH from "../../token.json";
 import gsap from "gsap";
 import { Bounce } from "gsap/gsap-core";
 
@@ -34,7 +34,7 @@ const GitComponent = ({ setCursorState }) => {
   let nextTitleRef = useRef(null);
 
   const octokit = new Octokit({
-    auth: GITAUTH.token,
+    auth: process.env.GITAUTH,
   });
 
   useEffect(() => {
