@@ -10,6 +10,7 @@ import devProjects from "../../constants/devProjects";
 
 import "./index.less";
 import { withRouter } from "react-router-dom";
+import { TimelineLite } from "gsap/gsap-core";
 
 // TODO: handle lifecycle bug on page
 
@@ -209,6 +210,19 @@ const DevComponent = ({ history }) => {
       duration: 1,
       opacity: 1,
     });
+    const tl = new TimelineLite();
+    tl.staggerTo(
+      ".arrowsContainer svg",
+      0.5,
+      {
+        opacity: 1,
+        scale: 1,
+        borderRadius: "50%",
+        transformOrigin: "50% 50%",
+        delay: 1.6,
+      },
+      0.1
+    );
   });
 
   const prevProject = () => {
