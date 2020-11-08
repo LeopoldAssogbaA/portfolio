@@ -2,7 +2,6 @@ import { CopyOutlined, GithubOutlined } from "@ant-design/icons";
 import { Button, message } from "antd";
 import React from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
-import TextTruncate from "react-text-truncate";
 
 import "./repo.less";
 

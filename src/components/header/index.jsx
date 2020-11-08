@@ -5,7 +5,6 @@ import gsap from "gsap";
 import history from "../../constants/history";
 import "./index.less";
 import { TimelineLite } from "gsap/gsap-core";
-import { Elastic } from "gsap/gsap-core";
 import { Linear } from "gsap/gsap-core";
 
 const Header = () => {

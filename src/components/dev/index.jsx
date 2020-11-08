@@ -227,6 +227,18 @@ const DevComponent = ({ history }) => {
 
   const prevProject = () => {
     // setProjectVisible(false);
+    const tl = new TimelineLite();
+    tl.staggerTo(
+      ".arrowsContainer svg",
+      0.5,
+      {
+        opacity: 0,
+        scale: 0,
+        borderRadius: "50%",
+        transformOrigin: "50% 50%",
+      },
+      0.1
+    );
     gsap.to(titleRevealRef, {
       duration: 0.5,
       width: "100%",
@@ -303,6 +315,18 @@ const DevComponent = ({ history }) => {
   };
 
   const nextProject = () => {
+    const tl = new TimelineLite();
+    tl.staggerTo(
+      ".arrowsContainer svg",
+      0.5,
+      {
+        opacity: 0,
+        scale: 0,
+        borderRadius: "50%",
+        transformOrigin: "50% 50%",
+      },
+      0.1
+    );
     gsap.to(titleRevealRef, {
       duration: 0.5,
       width: "60%",
