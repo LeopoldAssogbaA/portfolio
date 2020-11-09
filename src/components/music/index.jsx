@@ -615,15 +615,15 @@ export const Music = ({ setCursorState, history }) => {
   const vinylLayout = {
     xs: { span: 24, offset: 0, order: 2 },
     sm: { span: 24, offset: 0, order: 2 },
-    md: { span: 10, offset: 1, order: 2 },
-    lg: { span: 10, offset: 1, order: 2 },
+    md: { span: 8, offset: 1, order: 2 },
+    lg: { span: 8, offset: 1, order: 2 },
   };
 
   const infosLayout = {
     xs: { span: 24, offset: 0, order: 1 },
     sm: { span: 24, offset: 0, order: 1 },
-    md: { span: 10, offset: 1, order: 1 },
-    lg: { span: 10, offset: 1, order: 1 },
+    md: { span: 12, offset: 1, order: 1 },
+    lg: { span: 12, offset: 1, order: 1 },
   };
 
   return (
