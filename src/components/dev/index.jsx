@@ -454,7 +454,9 @@ const DevComponent = ({ history }) => {
                   className="titleReveal"
                   ref={(el) => (titleRevealRef = el)}
                 ></div>
-                <h2 className="title">{devProjects[projectIndex].name}</h2>
+                <h2 className="title">
+                  {`${projectIndex + 1}. ${devProjects[projectIndex].name}`}
+                </h2>
               </div>
               <div>
                 <div
