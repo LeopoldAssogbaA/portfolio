@@ -72,6 +72,9 @@
   }
 
   .laptop {
+    display: flex;
+    justify-content: center;
+
     div {
       position: absolute;
       width: 100%;
@@ -85,6 +88,14 @@
     img {
       width: 100%;
       position: absolute;
+
+      @media all and (min-width: 992px) and (max-width: 1200px) {
+        width: 80%;
+      }
+
+      @media all and (min-width: 576px) and (max-width: 1600px) {
+        width: 90%;
+      }
     }
   }
 
