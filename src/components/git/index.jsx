@@ -92,6 +92,7 @@ const GitComponent = ({ setCursorState }) => {
   }, [octokit, readmesLoaded, repos, reposLoaded]);
 
   const previousRepo = () => {
+    gsap.to(".repoLink", { zIndex: 0, duration: 0 });
     if (repoIndex === 0 || repoIndex % 3 === 0) {
       gsap.to(lightLettersRef, {
         opacity: 0,
@@ -131,6 +132,9 @@ const GitComponent = ({ setCursorState }) => {
         height: "0",
         duration: 0.8,
         delay: 2.6,
+        onComplete: () => {
+          gsap.to(".repoLink", { zIndex: 3, duration: 0 });
+        },
       });
     } else {
       gsap.to(repoRevealPrevRef, { duration: 0.8, height: "100%" });
@@ -154,11 +158,15 @@ const GitComponent = ({ setCursorState }) => {
         height: "0",
         duration: 0.8,
         delay: 2.6,
+        onComplete: () => {
+          gsap.to(".repoLink", { zIndex: 3, duration: 0 });
+        },
       });
     }
   };
 
   const nextRepo = () => {
+    gsap.to(".repoLink", { zIndex: 0, duration: 0 });
     if (repoIndex === 0 || repoIndex % 3 === 0) {
       gsap.to(lightLettersRef, {
         opacity: 0,
@@ -199,6 +207,9 @@ const GitComponent = ({ setCursorState }) => {
         height: "0",
         duration: 0.8,
         delay: 2.6,
+        onComplete: () => {
+          gsap.to(".repoLink", { zIndex: 3, duration: 0 });
+        },
       });
     } else {
       gsap.to(repoRevealNextRef, { duration: 0.8, height: "100%" });
@@ -222,6 +233,9 @@ const GitComponent = ({ setCursorState }) => {
         height: "0",
         duration: 0.8,
         delay: 2.6,
+        onComplete: () => {
+          gsap.to(".repoLink", { zIndex: 3, duration: 0 });
+        },
       });
     }
   };
@@ -253,6 +267,7 @@ const GitComponent = ({ setCursorState }) => {
             onComplete: () => {
               setLoadReavealed(true);
               setRepoVisible(true);
+              gsap.to(".repoLink", { zIndex: 3, duration: 0 });
             },
           });
         },
