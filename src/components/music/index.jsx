@@ -16,7 +16,7 @@ import Equalizer from "./equalizer";
 import musicProjects from "../../constants/musicProjects";
 
 import "./index.less";
-import { useHistory, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 const { useBreakpoint } = Grid;
 

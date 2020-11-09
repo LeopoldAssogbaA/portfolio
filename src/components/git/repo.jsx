@@ -62,7 +62,7 @@ const Repo = ({ showRepo, repo, setCursorState }) => {
             </div>
           </div>
           <p className="description">{repo.description}</p>
-          <span>{repo.size} Mo</span>
+          <span>{repo.size} Ko</span>
 
           <h2>Readme.MD</h2>
           <section dangerouslySetInnerHTML={{ __html: rmImgUpdated }} />
