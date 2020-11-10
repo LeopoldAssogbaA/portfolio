@@ -97,7 +97,7 @@ export const Music = ({
       });
 
       prevPlayer !== null &&
-        gsap.from(".anticon", { opacity: 0, delay: 1.8, duration: 0.5 });
+        gsap.from(".iconSong", { opacity: 0, delay: 1.8, duration: 0.5 });
 
       const tl = new TimelineLite({
         onComplete: () => {
@@ -743,6 +743,7 @@ export const Music = ({
                             {i === displayPlay ? (
                               vinylPlaying && currentTrackIndex === i ? (
                                 <PauseCircleOutlined
+                                  className="iconSong"
                                   style={{
                                     fontSize: "2em",
                                     position: "absolute",
@@ -755,6 +756,7 @@ export const Music = ({
                                 />
                               ) : (
                                 <PlayCircleOutlined
+                                  className="iconSong"
                                   style={{
                                     fontSize: "2em",
                                     position: "absolute",
