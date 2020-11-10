@@ -86,7 +86,7 @@ const Header = ({ pausePlayer, player }) => {
         <NavLink to="/music" activeClassName="active" className="link music">
           Music
         </NavLink>
-        {player !== null && player !== undefined && (
+        {player !== null && document.location.pathname !== "/music" && (
           <Button
             className="link"
             type="link"

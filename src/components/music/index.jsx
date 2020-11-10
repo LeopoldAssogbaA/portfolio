@@ -48,7 +48,7 @@ export const Music = ({
   const needle_up = new Audio("assets/sounds/needle-up.mp3");
 
   useEffect(() => {
-    if (prevPlayer !== null && track !== null) {
+    if (prevPlayer !== null && track !== null && !bandsLoaded) {
       // console.log("prevPlayer", prevPlayer);
       // console.log("track", track);
       setPlayer(prevPlayer);

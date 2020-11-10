@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import Matter from "matter-js";
 import gsap from "gsap";
 import { Button, Col, Row } from "antd";
-import { LeftCircleOutlined, RightCircleOutlined } from "@ant-design/icons";
+import {
+  LeftCircleOutlined,
+  RightCircleOutlined,
+  SelectOutlined,
+} from "@ant-design/icons";
 import { Power2 } from "gsap/gsap-core";
 
 import codeIcons from "../../constants/codeIcons";
@@ -14,7 +18,7 @@ import { TimelineLite } from "gsap/gsap-core";
 
 // TODO: handle lifecycle bug on page
 
-const DevComponent = ({ history }) => {
+const DevComponent = ({ history, setCursorState }) => {
   // MatterJS
   const canvasRef = useRef(null);
   const boxRef = useRef(null);
@@ -422,6 +426,23 @@ const DevComponent = ({ history }) => {
       <Row>
         <Col {...mockupLayout}>
           <div className="mockupContainer">
+            {devProjects[projectIndex].link !== undefined && (
+              <Button
+                onMouseEnter={() => setCursorState("hover")}
+                onMouseLeave={() => setCursorState("notHover")}
+                className="link"
+                type="link"
+                icon={<SelectOutlined />}
+                href={devProjects[projectIndex].link}
+                target="_blank"
+                style={{
+                  position: "absolute",
+                  top: "0",
+                  left: "0",
+                  paddingTop: "21vh",
+                }}
+              />
+            )}
             <img
               src={devProjects[projectIndex].mockup}
               alt="current mockup"

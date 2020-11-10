@@ -87,10 +87,12 @@ function App() {
         </Route>
         <Route exact path={"/dev"}>
           <Header player={player} pausePlayer={pausePlayer} />
-          <DevComponent />
+          <DevComponent
+            setCursorState={(cursorState) => setCursorState(cursorState)}
+          />
         </Route>
         <Route exact path={"/music"}>
-          <Header />
+          <Header player={player} pausePlayer={pausePlayer} />
           <Music
             track={track}
             prevPlayer={player}

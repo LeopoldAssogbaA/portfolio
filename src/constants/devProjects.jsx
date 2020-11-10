@@ -52,6 +52,7 @@ const devProjects = [
     description: `
    Abcell-bio is a biotechnology company specialized in research. I participated in the design and development of the website and back office for this company.
     `,
+    link: "https://www.abcell-bio.com/fr/",
   },
   {
     name: "Landing Page",
@@ -63,6 +64,7 @@ const devProjects = [
     description: `
     Created to meet an urgent demand at the beginning of 2020, the landing page of B4road presents the company and its activity.
     `,
+    link: "http://www.b4road.com/",
   },
 ];
 

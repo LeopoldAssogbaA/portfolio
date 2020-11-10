@@ -172,10 +172,10 @@ const About = ({ setCursorState }) => {
             <Col span={16} offset={4}>
               <div className="abstract">
                 <h2>Léopold Assogba</h2>
-                <p>Welcome to my portfolio</p>
+                <p>Welcome to my portfolio.</p>
                 <p>
-                  I'm a drummer and web application developer/designer. Take a
-                  look arround to find out more about my projects.
+                  I'm a drummer and web application developer/designer. Find out
+                  more about my projects.
                 </p>
                 <p>
                   <Button
