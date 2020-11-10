@@ -1,6 +1,6 @@
 .cursor {
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   border: 2px solid #fcba03;
   border-radius: 100%;
   position: fixed;
@@ -19,11 +19,15 @@
 .cursor--link-hovered {
   transform: translate(-50%, -50%) scale(1.25);
   background-color: #fcba03;
+  width: 40px;
+  height: 40px;
 }
 
 .cursor--clicked {
   transform: translate(-50%, -50%) scale(1.2);
   background-color: #fcba03;
+  width: 30px;
+  height: 30px;
   -webkit-mask-image: radial-gradient(
     closest-side,
     rgb(0, 0, 0),

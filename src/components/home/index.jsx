@@ -42,6 +42,17 @@ const HomeContainer = ({ goToPortfolio }) => {
     }, 3000);
   }, [paused]);
 
+  useEffect(() => {
+    const isMobile = () => {
+      const ua = navigator.userAgent;
+      return /Android|Mobi/i.test(ua);
+    };
+
+    if (!paused && isMobile() !== true) {
+      gsap.to(".link", { paddingRight: "1em", duration: 1, delay: 1 });
+    }
+  }, [paused]);
+
   return (
     <>
       <div className="titleContainer" ref={(el) => (c = el)}>

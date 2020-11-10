@@ -280,14 +280,14 @@ const About = ({ setCursorState }) => {
             ref={(el) => (moonRef = el)}
           />
           <Row>
+            <div className="pianoContainer">
+              <img
+                src="assets/img/piano.jpg"
+                alt="piano"
+                ref={(el) => (pianoRef = el)}
+              />
+            </div>
             <Col {...musicLayout}>
-              <div className="pianoContainer">
-                <img
-                  src="assets/img/piano.jpg"
-                  alt="piano"
-                  ref={(el) => (pianoRef = el)}
-                />
-              </div>
               <div
                 className="musicTextContainer"
                 ref={(el) => (musicTextRef = el)}

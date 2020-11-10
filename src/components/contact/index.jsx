@@ -190,6 +190,7 @@ export const Contact = ({ setCursorState }) => {
         [email, phone, git, linkedin, resume],
         event.mouse.position
       );
+      console.log("engine", engine.world);
       if (foundPhysics.length !== 0) {
         setCursorState("hover");
       } else {
@@ -381,7 +382,6 @@ export const Contact = ({ setCursorState }) => {
       }
     });
   }, []);
-  console.log("state render");
   return (
     <div ref={boxRef} className="contactContainer">
       <img
