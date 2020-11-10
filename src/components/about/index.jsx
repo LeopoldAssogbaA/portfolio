@@ -22,6 +22,10 @@ const About = ({ setCursorState }) => {
 
   useEffect(() => {
     if (section === 0) {
+      gsap.to(".aboutContainer", {
+        duration: 0,
+        visibility: "visible",
+      });
       gsap.from(".light", {
         duration: 1.6,
         opacity: 0,
@@ -63,7 +67,7 @@ const About = ({ setCursorState }) => {
         duration: 1.3,
         scale: 1,
         opacity: 1,
-        margintop: "5em",
+        marginTop: 0,
         right: 0,
         ease: Linear.easeIn,
       });

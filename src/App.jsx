@@ -24,11 +24,26 @@ import { useState } from "react";
 function App() {
   let particlesRef = useRef(null);
   const [cursorState, setCursorState] = useState(null);
+  const [player, setPlayer] = useState(null);
+  const [track, setTrack] = useState(null);
+
+  const registerPlayer = (p) => {
+    // console.log(p);
+    setPlayer(p);
+  };
+  const pausePlayer = () => {
+    player.pause();
+    setPlayer(null);
+  };
+
+  const registerTrack = (trackIndex, bandIndex) => {
+    setTrack({ trackIndex, bandIndex });
+  };
 
   const tl = gsap.timeline({ duration: 1.5, ease: "power3" });
 
   const redirectFromMenu = (page) => {
-    console.log("page", page);
+    // console.log("page", page);
     tl.to(particlesRef, { duration: 2, opacity: 0, y: "10%" });
     setTimeout(() => {
       history.push(page);
@@ -40,7 +55,7 @@ function App() {
     return /Android|Mobi/i.test(ua);
   };
 
-  console.log("isMobile", isMobile());
+  // console.log("isMobile", isMobile());
 
   return (
     <div className="App">
@@ -53,31 +68,35 @@ function App() {
           <HomeContainer goToPortfolio={(page) => redirectFromMenu(page)} />
         </Route>
         <Route exact path={"/about"}>
-          <Header />
+          <Header player={player} pausePlayer={pausePlayer} />
           <About
             setCursorState={(cursorState) => setCursorState(cursorState)}
           />
         </Route>
         <Route exact path={"/contact"}>
-          <Header />
+          <Header player={player} pausePlayer={pausePlayer} />
           <Contact
             setCursorState={(cursorState) => setCursorState(cursorState)}
           />
         </Route>
         <Route exact path={"/git"}>
-          <Header />
+          <Header player={player} pausePlayer={pausePlayer} />
           <GitComponent
             setCursorState={(cursorState) => setCursorState(cursorState)}
           />
         </Route>
         <Route exact path={"/dev"}>
-          <Header />
+          <Header player={player} pausePlayer={pausePlayer} />
           <DevComponent />
         </Route>
         <Route exact path={"/music"}>
           <Header />
           <Music
+            track={track}
+            prevPlayer={player}
             setCursorState={(cursorState) => setCursorState(cursorState)}
+            registerPlayer={(p) => registerPlayer(p)}
+            registerTrack={(tI, bI) => registerTrack(tI, bI)}
           />
         </Route>
       </Switch>

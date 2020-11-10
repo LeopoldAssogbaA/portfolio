@@ -13,7 +13,7 @@ const Cursor = ({ history, cursorStateEvent }) => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log("cursorStateEvent", cursorStateEvent);
+    // console.log("cursorStateEvent", cursorStateEvent);
 
     if (cursorStateEvent === "hover") {
       setLinkHovered(true);
@@ -40,9 +40,9 @@ const Cursor = ({ history, cursorStateEvent }) => {
     handleLinkHoverEvents();
     const prevLocation = location.pathname;
     history.listen((location, action) => {
-      console.log(action, location.pathname);
-      console.log("location", location);
-      console.log("prevLocation", prevLocation);
+      // console.log(action, location.pathname);
+      // console.log("location", location);
+      // console.log("prevLocation", prevLocation);
       if (location.pathname === "/") {
         setLinkHovered(false);
       }

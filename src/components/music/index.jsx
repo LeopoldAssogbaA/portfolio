@@ -20,7 +20,14 @@ import { withRouter } from "react-router-dom";
 
 const { useBreakpoint } = Grid;
 
-export const Music = ({ setCursorState, history }) => {
+export const Music = ({
+  setCursorState,
+  history,
+  registerPlayer,
+  registerTrack,
+  prevPlayer,
+  track,
+}) => {
   const screens = useBreakpoint();
   const [bands, setBands] = useState([]);
   const [bandsLoaded, setBandsLoaded] = useState(false);
@@ -40,11 +47,25 @@ export const Music = ({ setCursorState, history }) => {
   );
   const needle_up = new Audio("assets/sounds/needle-up.mp3");
 
+  useEffect(() => {
+    if (prevPlayer !== null && track !== null) {
+      // console.log("prevPlayer", prevPlayer);
+      // console.log("track", track);
+      setPlayer(prevPlayer);
+      setBandIndex(track.bandIndex);
+      setCurrentTrackIndex(track.trackIndex);
+      setTimeout(() => {
+        setVinylPlaying(true);
+        setDisplayPlay(track.trackIndex);
+      }, 1100);
+    }
+  }, [prevPlayer, track]);
+
   // ANIMATIONS --------------------------------------------
 
   useEffect(() => {
     if (tracksLoaded && !animationDone) {
-      console.log("animationStart");
+      // console.log("animationStart");
       gsap.to(".disco", {
         duration: 1,
         opacity: 1,
@@ -74,11 +95,12 @@ export const Music = ({ setCursorState, history }) => {
         delay: 1.6,
         ease: Power2.easeOut,
       });
+      gsap.from(".anticon", { opacity: 0, delay: 1.8, duration: 0.5 });
 
       const tl = new TimelineLite({
         onComplete: () => {
           setAnimationDone(true);
-          console.log("animationDone");
+          // console.log("animationDone");
         },
       });
 
@@ -122,7 +144,7 @@ export const Music = ({ setCursorState, history }) => {
       const bandsWithTracks = [];
       for (let i = 0; i < bandsIds.length; i++) {
         SC.get(`/users/${bandsIds[i]}`).then((band) => {
-          console.log("loadBand");
+          // console.log("loadBand");
           bandsUpdated.push(band);
           // if all bands loaded load tracks
           if (bandsUpdated.length === bandsIds.length) {
@@ -174,11 +196,13 @@ export const Music = ({ setCursorState, history }) => {
         needleD.pause();
         needle_up.play();
         player.pause();
+        registerPlayer(null);
         setVinylPlaying(false);
       } else {
         needle_up.play();
         needleD.pause();
         player.pause();
+        registerPlayer(null);
         setVinylPlaying(false);
         setTimeout(() => {
           gsap.to(".disco", { duration: 1, opacity: 0, top: 0 });
@@ -191,6 +215,8 @@ export const Music = ({ setCursorState, history }) => {
           setTimeout(() => {
             needleD.play();
             p.play();
+            registerPlayer(p);
+            registerTrack(currentTrackIndex, bandIndex);
             setPlayer(p);
             setVinylPlaying(true);
             setCurrentTrackIndex(trackIndex);
@@ -202,6 +228,8 @@ export const Music = ({ setCursorState, history }) => {
         SC.stream("/tracks/" + trackId).then((p) => {
           needleD.play();
           p.play();
+          registerPlayer(p);
+          registerTrack(currentTrackIndex, bandIndex);
           setPlayer(p);
           setVinylPlaying(true);
           setCurrentTrackIndex(trackIndex);
@@ -218,6 +246,8 @@ export const Music = ({ setCursorState, history }) => {
           setTimeout(() => {
             needleD.play();
             p.play();
+            registerPlayer(p);
+            registerTrack(currentTrackIndex, bandIndex);
             setPlayer(p);
             setVinylPlaying(true);
             setCurrentTrackIndex(trackIndex);
@@ -230,6 +260,7 @@ export const Music = ({ setCursorState, history }) => {
   const prevProject = async () => {
     if (vinylPlaying) {
       player.pause();
+      registerPlayer(null);
       needle_up.play();
       needleD.pause();
       await setVinylPlaying(false);
@@ -416,6 +447,7 @@ export const Music = ({ setCursorState, history }) => {
   const nextProject = async () => {
     if (vinylPlaying) {
       player.pause();
+      registerPlayer(null);
       needle_up.play();
       needleD.pause();
       await setVinylPlaying(false);

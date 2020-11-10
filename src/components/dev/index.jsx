@@ -122,7 +122,7 @@ const DevComponent = ({ history }) => {
       setLauchend(true);
       // clear matterJS if not on page
       history.listen((location, action) => {
-        console.log(action, location.pathname);
+        // console.log(action, location.pathname);
         if (location.pathname !== "/dev") {
           setLauchend(false);
           World.clear(world);

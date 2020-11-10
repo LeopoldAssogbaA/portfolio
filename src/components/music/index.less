@@ -74,6 +74,7 @@
         p {
           // padding: 2em 0;
           padding-top: 1em;
+          text-align: justify;
         }
       }
       .bandNameReveal {
@@ -110,6 +111,9 @@
       .tracksContainer {
         display: flex;
         justify-content: center;
+        @media all and (max-width: 576px) {
+          margin-bottom: 2em;
+        }
       }
     }
   }

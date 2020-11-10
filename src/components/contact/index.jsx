@@ -190,7 +190,7 @@ export const Contact = ({ setCursorState }) => {
         [email, phone, git, linkedin, resume],
         event.mouse.position
       );
-      console.log("engine", engine.world);
+      // console.log("engine", engine.world);
       if (foundPhysics.length !== 0) {
         setCursorState("hover");
       } else {
@@ -199,7 +199,7 @@ export const Contact = ({ setCursorState }) => {
     });
 
     Events.on(mouseConstraint, "startdrag", function (event) {
-      console.log("startdrag", event);
+      // console.log("startdrag", event);
       setCursorState("notHover");
 
       setAnimationDone(false);
