@@ -23,10 +23,10 @@ const devProjects = [
     stack: "Angular, SocketIo, NestJS, TypeORM",
     description: `
     Create a multiplayer game around Tetris;
-    Such was the stake of this application project within a team of 4 developers. 
-    We realized a collaborative game in which 4 players maximum, played together.
+    such was the stake of this application project within a team of 4 developers. 
+    We put together a collaborative game in which 4 players maximum, played together.
     The objective: to make lines to inflict damage to a monster.
-    Each player could choose his character in the store with a few golds (obtained at the end of the game).
+    Each player could choose his character in the store thanks to gold (obtained at the end of the game).
     `,
   },
   {
@@ -46,7 +46,7 @@ const devProjects = [
     name: "Abcell bio",
     type: "desktop",
     mockup: "assets/mockups/abcellbio.png",
-    company: "Wild Code School",
+    company: "MediaXtend",
     date: "03/2019",
     stack: "Angular, Ionic, Flutter, KeystoneJS, Docker, GraphQL",
     description: `

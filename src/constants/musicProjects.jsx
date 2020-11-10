@@ -19,7 +19,7 @@ const musicProjects = [
     description: `
     Quantum Project is a quintet whose compositions draw on the worlds of Jazz, Trip Hop, Progressive Rock and original soundtracks.
     It is the collective emulsion of five musicians with multiple trajectories and influences, in a current context conducive to mixing styles and sound experiments.
-    It's free music and imbued with improvisation that musicians want to share with you.
+    It is free music and imbued with improvisation that musicians want to share with you.
     `,
   },
 ];

@@ -174,8 +174,8 @@ const About = ({ setCursorState }) => {
                 <h2>Léopold Assogba</h2>
                 <p>Welcome to my portfolio</p>
                 <p>
-                  I'm a web application developer and drummer. You will discover
-                  here a part of my projects.
+                  I'm a drummer and web application developer/designer. Take a
+                  look arround to find out more about my projects.
                 </p>
                 <p>
                   <Button
@@ -300,11 +300,11 @@ const About = ({ setCursorState }) => {
                   <h2>About Music</h2>
                   <p>
                     Falling into music as a child, I started playing in bands in
-                    college, professionalizing the projects more and more. In
-                    Dijon I was able to participate in several projects before
-                    leaving them in 2019. Inspired by many influences, from
-                    bethoveen to miles davis through kendrick lamar, I try to
-                    bring my energy to the songs I help shape.
+                    middle school, professionalizing the projects more and more.
+                    In Dijon, I was able to participate in several projects
+                    before i having to leave them in 2019. Inspired by many
+                    influences, from Beethoveen to Miles Davis to Lendrick
+                    Lamar, I try to bring my energy to the songs I help shape.
                   </p>
                   <p>
                     <i>
