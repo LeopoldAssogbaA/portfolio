@@ -95,7 +95,9 @@ export const Music = ({
         delay: 1.6,
         ease: Power2.easeOut,
       });
-      gsap.from(".anticon", { opacity: 0, delay: 1.8, duration: 0.5 });
+
+      prevPlayer !== null &&
+        gsap.from(".anticon", { opacity: 0, delay: 1.8, duration: 0.5 });
 
       const tl = new TimelineLite({
         onComplete: () => {
