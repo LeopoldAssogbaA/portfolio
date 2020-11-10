@@ -66,6 +66,10 @@ export const Music = ({
   useEffect(() => {
     if (tracksLoaded && !animationDone) {
       // console.log("animationStart");
+      gsap.from(".musicContainer", {
+        duration: 0,
+        visibility: "hidden",
+      });
       gsap.to(".disco", {
         duration: 1,
         opacity: 1,
