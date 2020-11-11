@@ -1,6 +1,6 @@
 const devProjects = [
   {
-    name: "Application webinaire",
+    name: "Webinar Application",
     type: "desktop",
     mockup: "assets/mockups/webinar.png",
     company: "MediaXtend",
@@ -30,7 +30,7 @@ const devProjects = [
     `,
   },
   {
-    name: " JustFoot",
+    name: "JustFoot",
     type: "mobile",
     mockup: "assets/mockups/justfoot.png",
     company: "Wild Code School",
@@ -48,7 +48,7 @@ const devProjects = [
     mockup: "assets/mockups/abcellbio.png",
     company: "MediaXtend",
     date: "03/2019",
-    stack: "Angular, Ionic, Flutter, KeystoneJS, Docker, GraphQL",
+    stack: "Symfony, API Platform, React, SLDS, Dropzone",
     description: `
    Abcell-bio is a biotechnology company specialized in research. I participated in the design and development of the website and back office for this company.
     `,
@@ -60,7 +60,7 @@ const devProjects = [
     mockup: "assets/mockups/b4road.png",
     company: "B4road",
     date: "02/2020",
-    stack: "Html/Css/Js",
+    stack: "Html/Scss/Js",
     description: `
     Created to meet an urgent demand at the beginning of 2020, the landing page of B4road presents the company and its activity.
     `,
