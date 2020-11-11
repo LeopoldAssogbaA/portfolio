@@ -303,7 +303,7 @@ const About = ({ setCursorState }) => {
                     middle school, professionalizing the projects more and more.
                     In Dijon, I was able to participate in several projects
                     before i having to leave them in 2019. Inspired by many
-                    influences, from Beethoveen to Miles Davis to Lendrick
+                    influences, from Beethoveen to Miles Davis to Kendrick
                     Lamar, I try to bring my energy to the songs I help shape.
                   </p>
                   <p>
