@@ -28,11 +28,12 @@ const Header = ({ pausePlayer, player }) => {
     const tl = new TimelineLite();
     tl.staggerTo(
       ".menuContainer a",
-      1,
+      0.5,
       {
-        marginLeft: 0,
+        // marginLeft: 0,
+        transform: "rotateX(0deg)",
         ease: Power2.easeOut,
-        delay: 0.3,
+        delay: 0.1,
       },
       0.3
     );
