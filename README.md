@@ -1,6 +1,5 @@
 # Portfolio 
-Working on my portfolio with animations
-
+Old portfolio
 ## run
 
 <code> yarn start </code>
@@ -19,4 +18,4 @@ MatterJs
 <img src="public/assets/img/portfolio.gif" >
 
 
-Work in progress ...
+
